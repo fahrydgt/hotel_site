@@ -16,3 +16,9 @@ $hook['post_controller_constructor'][] = array(
 	'filename' => 'authority.php',
 	'filepath' => 'hooks'
 );
+
+$hook['post_controller_constructor'][] = array(
+	'function' => 'check_authority',
+	'filename' => 'authority.php',
+	'filepath' => 'hooks'
+);

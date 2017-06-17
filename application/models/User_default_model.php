@@ -107,27 +107,22 @@ class User_default_model extends CI_Model
         function get_user_menu_navigation($user_group)
 	{
 		$navigation = array();
-		//Get the main navigations		
-		$this->db->select('m.*,mur.display_order'); 
-		$this->db->from(MODULE_USER_ROLE_ACT.' mur');
-		$this->db->join(MODULES_ACTION.' ma','ma.id= mur.module_action_id','LEFT');
-		$this->db->join(MODULES.' m','m.id= ma.module_id','LEFT'); 
-		$this->db->where('mur.user_role_id',$user_group);
-		//$this->db->where('uro.ID',$user_group);
-		$this->db->where('m.hidden',0);
-		$this->db->where('m.is_parent',1);
-		$this->db->where('ma.status','1'); 
-		$this->db->where('mur.status','1'); 
-		$this->db->group_by('m.module_name');
-		$this->db->order_by('mur.display_order');
-		$nav = $this->db->get()->result(); 
+		
 		$i=0;
 		$j="";
+                $nav = $this->get_nav($user_group);
                 
-//		var_dump($nav); die;
 		foreach($nav as $n){
 			$subnav = $this->get_sub_navigation($user_group,$n->id); 
-	  		$n->subnav = $subnav;
+                        
+                        //get 3rd level
+                        $subnav_arr = array();
+                        foreach($subnav as $n3){
+                            $subnav3 = $this->get_sub_navigation($user_group,$n3->id); 
+                            $n3->subnav = $subnav3;
+                            $subnav_arr[] = $n3;
+                        }
+	  		$n->subnav = $subnav_arr;
 			$navigation[] = $n;	
 			if($n->id == 1)
 			{
@@ -138,9 +133,28 @@ class User_default_model extends CI_Model
 		}
 		array_unshift($navigation,$arr);
 		unset($navigation[$j+1]); 
+                
+//		 echo '<pre>'; print_r($navigation); die;
 		return $navigation;
 	}
 	
+        function get_nav($user_group,$parent_level=1){ 
+            //Get the main navigations		
+		$this->db->select('m.*,mur.display_order'); 
+		$this->db->from(MODULE_USER_ROLE_ACT.' mur');
+		$this->db->join(MODULES_ACTION.' ma','ma.id= mur.module_action_id','LEFT');
+		$this->db->join(MODULES.' m','m.id= ma.module_id','LEFT'); 
+		$this->db->where('mur.user_role_id',$user_group);
+		//$this->db->where('uro.ID',$user_group);
+		$this->db->where('m.hidden',0);
+		$this->db->where('m.is_parent',$parent_level);
+		$this->db->where('ma.status','1'); 
+		$this->db->where('mur.status','1'); 
+		$this->db->group_by('m.module_name');
+		$this->db->order_by('mur.display_order');
+		$nav = $this->db->get()->result(); 
+                return $nav;
+        }
 
 	function get_sub_navigation($user_group,$parent)
 	{

@@ -1,3 +1,11 @@
+ <footer class="main-footer">
+    <div class="pull-right hidden-xs">
+      <b>Version</b> 1.0
+    </div>
+    <strong>Copyright &copy; 2017 <a href=""> <?php echo SYSTEM_POWERED_BY;?></a>.</strong> All rights
+    reserved.
+  </footer>
+</div>
 
 <!-- jQuery 3.1.1 -->
 <script src="<?php echo base_url('templates/plugins/jQuery/jquery-3.1.1.min.js');?>"></script>
