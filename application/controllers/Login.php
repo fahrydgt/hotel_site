@@ -19,13 +19,26 @@ class Login extends CI_Controller {
 	 */
 	public function index()
 	{ 
-            $data['main_content']='login/index'; 
-            $this->load->view('includes/template',$data);
+//            $data['main_content']='login/index'; 
+            $this->load->view('login');
 //            $this->load->view('login/index.php');
 //            echo 'login page';
 	}
-	public function test()
-	{
-            echo 'This is test';
+	function authenticate(){
+		$this->load->model('user_default_model');
+		$data = $this->input->post();
+//         print 'Data is <pre>';print_r($data);'</pre>'; die();
+		if($this->user_default_model->login($data)){
+		  redirect('dashboard');
+       	}else{
+                  redirect('login');
+           }
+	} 
+	
+	function test(){ 
+            print_r($pw = $this->encrypt->encode('1_evolve23'));
+            echo '<br><br>';
+            print_r($this->encrypt->decode('+G9gHOJAaB+2rdK8S9CaBlC2ZeUqRqJACEgQA0N6WhVXr3FSzjY0bbn08sVkoykUpU40xkixFck2fFtBTCkxdA=='));
+//          var_dump($this->session->all_userdata());
 	}
 }

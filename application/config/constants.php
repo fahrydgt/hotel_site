@@ -24,7 +24,43 @@ defined('SHOW_DEBUG_BACKTRACE') OR define('SHOW_DEBUG_BACKTRACE', TRUE);
 |
 */
 define('SYSTEM_NAME', 'Hotel Web');
+define('SYSTEM_SHOTR_NAME', 'H Web');
+define('SYSTEM_POWERED_BY', 'Zone Venture');
 
+
+/*
+|--------------------------------------------------------------------------
+| DB Tables
+|--------------------------------------------------------------------------
+|
+| These are used to database table  name
+|
+*/
+//FL TABLE PREFIX
+define('TB_PREFIX',      		'');
+
+define('USER_TBL',      		TB_PREFIX.'user_auth');
+define('USER_ROLE',      		TB_PREFIX.'user_role');
+define('USER',                          TB_PREFIX.'user_details');
+define('MODULES',                       TB_PREFIX.'modules');
+define('MODULES_ACTION',                TB_PREFIX.'module_actions');
+define('MODULE_USER_ROLE_ACT',          TB_PREFIX.'module_user_role');
+//define('HOTELS',                        TB_PREFIX.'hotels');
+define('COMPANIES',                     TB_PREFIX.'company');
+define('COUNTRY_LIST',                  TB_PREFIX.'countries');
+
+
+/*
+|--------------------------------------------------------------------------
+| STORAGE PLACES 
+|--------------------------------------------------------------------------
+|
+| These are containing all the file storage places
+|
+*/
+
+//define('HOTEL_LOGO',	'./storage/images/company/');
+define('SAMPLE_PIC',	'./storage/images/');
 /*
 |--------------------------------------------------------------------------
 | File and Directory Modes
