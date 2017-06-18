@@ -197,6 +197,9 @@ class User_default_model extends CI_Model
     }
     
     function get_broadcrum($page_id){
+        if($page_id == 'unauthorized'){
+            return FALSE;
+        }
         $brodcrum = array();
         $this->db->select('*');
         $this->db->from(MODULES);

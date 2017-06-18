@@ -103,20 +103,24 @@
     <section class="content-header">
       <h1>
        <?php 
+       if($brodcrums != FALSE){
               foreach ($brodcrums as $brodcrum){
                   echo '<small>'.$brodcrum->module_name.'</small>';              
                   break;
               }
+        }
        ?>
         
       </h1>
       <ol class="breadcrumb">
           
        <?php 
+       if($brodcrums != FALSE){
              sort($brodcrums); 
               foreach ($brodcrums as $brodcrum1){
                   echo '<li><a href="'. base_url($brodcrum1->page_id).'"><i class="'.$brodcrum1->img_class.'"></i> '.$brodcrum1->module_name.'</a></li>';   
               }
+       }
        ?>
          
       </ol>
