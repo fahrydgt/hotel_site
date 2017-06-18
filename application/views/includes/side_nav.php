@@ -1,8 +1,9 @@
 <?php 
      	$CI =& get_instance(); 				
 	$user_group =  $this->session->userdata('user_role_ID'); //'ADMIN';
-        $navigation = $this->user_default_model->get_user_menu_navigation($user_group); 
-//        echo '<pre>'; print_r($CI->router->class); die;
+        $navigation = $this->user_default_model->get_user_menu_navigation($user_group);  
+        $brodcrums = $this->user_default_model->get_broadcrum($CI->router->class); 
+//        echo '<pre>'; print_r($brodcrum); die;
       
         ?>
   <!-- Left side column. contains the logo and sidebar -->
@@ -101,11 +102,22 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Dashboard
-        <small>Control panel</small>
+       <?php 
+              foreach ($brodcrums as $brodcrum){
+                  echo '<small>'.$brodcrum->module_name.'</small>';              
+                  break;
+              }
+       ?>
+        
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Dashboard</li>
+          
+       <?php 
+             sort($brodcrums); 
+              foreach ($brodcrums as $brodcrum1){
+                  echo '<li><a href="'. base_url($brodcrum1->page_id).'"><i class="'.$brodcrum1->img_class.'"></i> '.$brodcrum1->module_name.'</a></li>';   
+              }
+       ?>
+         
       </ol>
     </section>
