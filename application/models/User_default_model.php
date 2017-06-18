@@ -195,6 +195,39 @@ class User_default_model extends CI_Model
 //        echo '<br>DEBUG sql in '.__FUNCTION__.'<br><pre>'.$this->db->last_query().'</pre>'; //die();
         return $nav;
     }
+    
+    function get_broadcrum($page_id){
+        $brodcrum = array();
+        $this->db->select('*');
+        $this->db->from(MODULES);
+        $this->db->where('page_id', $page_id);
+        $res = $this->db->get()->result();
+        $res[0]->bc_level = 1;
+        //first level
+        $brodcrum[] = $res[0];
+        
+        //level 2
+        if($res[0]->show_below !=0){
+            $res2 = $this->get_broadcrum_parent($res[0]->show_below);
+            $res2->bc_level = 2;
+            $brodcrum[] = $res2;
+            
+             //level 3
+            if($res2->show_below !=0){
+                $res3 = $this->get_broadcrum_parent($res2->show_below);
+                $res3->bc_level = 3;
+                $brodcrum[] = $res3;
+            }
+        } 
+        return $brodcrum;
+    }
+    function get_broadcrum_parent($parent_id){
+        $this->db->select('*');
+        $this->db->from(MODULES);
+        $this->db->where('id', $parent_id);
+        $res = $this->db->get()->result();
+        return $res[0];
+    }
 	
 	
 }
