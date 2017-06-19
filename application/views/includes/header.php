@@ -31,7 +31,10 @@
   <link rel="stylesheet" href="<?php echo base_url('templates/plugins/daterangepicker/daterangepicker.css');?>">
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="<?php echo base_url('templates/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css');?>">
-
+  <!-- bootstrap Select 2 - text editor -->
+  <link rel="stylesheet" type="text/css" id="theme" href="<?php echo base_url('templates/plugins/select2/select2.min.css'); ?>"/>
+  <!--Data Table-->
+  <link rel="stylesheet" type="text/css" id="theme" href="<?php echo base_url('templates/plugins/datatables/dataTables.bootstrap.css'); ?>"/>
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -41,10 +44,14 @@
 
   <!-- Google Font -->
   <link rel="stylesheet" href="<?php echo base_url('templates/plugins/online/css/font_1.css');?>">
+  
+<!-- jQuery 3.1.1 -->
+<!--<script src="<?php // echo base_url('templates/plugins/jQuery/jquery-3.1.1.min.js');?>"></script>-->
+<script src="<?php echo base_url('templates/plugins/jQuery/jquery-2.2.3.min.js');?>"></script>
 </head>
  
 
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition fixed skin-blue sidebar-mini">
 <div class="wrapper">
 
   <header class="main-header">
@@ -56,7 +63,7 @@
       <span class="logo-lg"><?php echo SYSTEM_NAME;?></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
-    <nav class="navbar navbar-static-top">
+    <nav class="navbar navbar-static-top ">
       <!-- Sidebar toggle button-->
       <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
         <span class="sr-only">Toggle navigation</span>
@@ -264,13 +271,13 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="<?php echo SAMPLE_PIC.'download.jpg'?>" class="user-image" alt="User Image">
+              <img src="<?php echo base_url(SAMPLE_PIC.'download.jpg')?>" class="user-image" alt="User Image">
               <span class="hidden-xs">Fahry Lafir</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="<?php echo SAMPLE_PIC.'download.jpg'?>" class="img-circle" alt="User Image">
+                  <img src="<?php echo base_url(SAMPLE_PIC.'download.jpg')?>" class="img-circle" alt="User Image">
 
                 <p>
                   Fahry Lafir - Web Developer

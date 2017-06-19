@@ -502,8 +502,7 @@
       <!-- /.row (main row) -->
 
     </section>
-    <!-- /.content -->
-  </div>
+    <!-- /.content --> 
   <!-- /.content-wrapper -->
   
 

@@ -16,6 +16,7 @@ function is_loged_in(){
 function check_authority(){
  
 	$CI =& get_instance();
+        $CI->load->helper('url');
 	$CI->load->library('session');
 	$page = $CI->router->class;
 	
@@ -29,7 +30,7 @@ function check_authority(){
 	$CI->load->model('user_default_model');
 	
 	if(!$CI->user_default_model->check_authority($user_group, $page, $method)){
-		redirect('unauthorized');
+		redirect(base_url('unauthorized'));
 	}
 }
 

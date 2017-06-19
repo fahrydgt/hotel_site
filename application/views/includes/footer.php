@@ -1,4 +1,5 @@
- <footer class="main-footer">
+</div> 
+<footer class="main-footer">
     <div class="pull-right hidden-xs">
       <b>Version</b> 1.0
     </div>
@@ -7,8 +8,6 @@
   </footer>
 </div>
 
-<!-- jQuery 3.1.1 -->
-<script src="<?php echo base_url('templates/plugins/jQuery/jquery-3.1.1.min.js');?>"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="<?php echo base_url('templates/plugins/online/jquery-ui.min.js');?>"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -39,6 +38,11 @@
 <script src="<?php echo base_url('templates/plugins/slimScroll/jquery.slimscroll.min.js');?>"></script>
 <!-- FastClick -->
 <script src="<?php echo base_url('templates/plugins/fastclick/fastclick.js');?>"></script>
+
+<script type="text/javascript" src="<?php echo base_url('templates/plugins/select2/select2.full.min.js')?>"></script>
+<!--Data Table-->
+<script type="text/javascript" src="<?php echo base_url('templates/plugins/datatables/jquery.dataTables.min.js')?>"></script>
+<script type="text/javascript" src="<?php echo base_url('templates/plugins/datatables/dataTables.bootstrap.min.js')?>"></script>
 <!-- AdminLTE App -->
 <script src="<?php echo base_url('templates/dist/js/adminlte.min.js');?>"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->

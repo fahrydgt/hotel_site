@@ -61,6 +61,7 @@ define('COUNTRY_LIST',                  TB_PREFIX.'countries');
 
 //define('HOTEL_LOGO',	'./storage/images/company/');
 define('SAMPLE_PIC',	'./storage/images/');
+define('COMPANY_LOGO',	'./storage/images/company/');
 /*
 |--------------------------------------------------------------------------
 | File and Directory Modes
