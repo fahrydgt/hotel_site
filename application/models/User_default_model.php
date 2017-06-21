@@ -32,9 +32,10 @@ class User_default_model extends CI_Model
 		$this->load->library('encrypt'); 
 		/*$user_obj = $this->db->get_where(USER_TBL,array('user_name'=>$data['username']))->result();*/
 //		var_dump($data); die;
-		$this->db->select('usr.*,mst.first_name,mst.last_name,mst.pic');
+		$this->db->select('usr.*,mst.first_name,mst.last_name,mst.pic, ur.user_role');
 		$this->db->from(USER_TBL.' usr');
                 $this->db->join(USER.' mst','mst.auth_id = usr.id',"LEFT");
+                $this->db->join(USER_ROLE.' ur','ur.id = usr.user_role_id',"LEFT");
 		$this->db->where('usr.user_name', $data['uname']);
 		$this->db->where('usr.status', 1);
 		$this->db->where('mst.deleted', 0);
@@ -69,6 +70,7 @@ class User_default_model extends CI_Model
         $session_data = array(
                               'ID'              => $user_obj['0']->id,
                               'user_role_ID'    => $user_obj['0']->user_role_id,
+                              'user_role'    => $user_obj['0']->user_role,
                               'user_first_name'	=> $user_obj['0']->first_name,
                               'user_last_name'	=> $user_obj['0']->last_name, 
                               'user_name'       => $user_obj['0']->user_name,

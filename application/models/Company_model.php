@@ -34,6 +34,8 @@ class Company_model extends CI_Model
 	}
         
         public function edit_db($id,$data){
+                $existing_data = $this->get_single_row($id);
+                
 		$this->db->trans_start();
                 
 		$this->db->where('id', $id);
@@ -41,6 +43,10 @@ class Company_model extends CI_Model
 		$this->db->update(COMPANIES, $data);
                         
 		$status=$this->db->trans_complete();
+                
+                $new_data = $this->get_single_row($id);
+                
+                
 		return $status;
 	}
         
@@ -60,6 +66,7 @@ class Company_model extends CI_Model
                 $status = $this->db->trans_complete();
                 return $status;	
 	} 
+        
  
 }
 ?>

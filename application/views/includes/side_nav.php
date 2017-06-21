@@ -13,7 +13,7 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="<?php echo base_url(SAMPLE_PIC.'download.jpg')?>" class="img-circle" alt="User Image">
+          <img src="<?php echo base_url(USER_PROFILE_PIC.$_SESSION['user_name'].'/'.$_SESSION['profile_pix'])?>" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p>Fahry Lafir</p>

@@ -48,6 +48,8 @@ define('MODULE_USER_ROLE_ACT',          TB_PREFIX.'module_user_role');
 //define('HOTELS',                        TB_PREFIX.'hotels');
 define('COMPANIES',                     TB_PREFIX.'company');
 define('COUNTRY_LIST',                  TB_PREFIX.'countries');
+define('SYSTEM_LOG',                  TB_PREFIX.'system_log');
+define('SYSTEM_LOG_DETAIL',                  TB_PREFIX.'system_log_detail');
 
 
 /*
@@ -62,6 +64,7 @@ define('COUNTRY_LIST',                  TB_PREFIX.'countries');
 //define('HOTEL_LOGO',	'./storage/images/company/');
 define('SAMPLE_PIC',	'./storage/images/');
 define('COMPANY_LOGO',	'./storage/images/company/');
+define('USER_PROFILE_PIC',	'./storage/images/users/profile/');
 /*
 |--------------------------------------------------------------------------
 | File and Directory Modes

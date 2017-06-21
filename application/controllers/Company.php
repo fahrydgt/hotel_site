@@ -127,6 +127,9 @@ class Company extends CI_Controller {
 		$add_stat = $this->Company_model->add_db($data);
                 
 		if($add_stat){
+                    //update log data
+                    $new_data = $this->Company_model->get_single_row($inputs['id']);
+                    add_system_log(COMPANIES, $this->router->fetch_class(), __FUNCTION__, '', $new_data);
                     $this->session->set_flashdata('warn',RECORD_ADD);
                     redirect(base_url('company')); 
                 }else{
@@ -163,18 +166,24 @@ class Company extends CI_Controller {
                             'updated_on' => date('Y-m-d'),
                             'updated_by' => $this->session->userdata('ID'),
                         ); 
-            
+                    
                     $fupload = $this->do_upload('logo','logo_'.$inputs['id']); 
                     if($fupload!=''){
                         $data['logo'] = $fupload;
                     } 
-//                    echo $fupload;die;
+                    
+            //old data for log update
+            $existing_data = $this->Company_model->get_single_row($inputs['id']);
+            
             $edit_stat = $this->Company_model->edit_db($inputs['id'],$data);
-
+            
             if($edit_stat){
+                //update log data
+                $new_data = $this->Company_model->get_single_row($inputs['id']);
+                add_system_log(COMPANIES, $this->router->fetch_class(), __FUNCTION__, $new_data, $existing_data);
                 $this->session->set_flashdata('warn',RECORD_UPDATE);
                     
-                redirect('company/edit/'.$inputs['id']);
+                redirect(base_url('company/edit/'.$inputs['id']));
             }else{
                 $this->session->set_flashdata('warn',ERROR);
                 redirect(base_url('company'));
@@ -198,6 +207,8 @@ class Company extends CI_Controller {
             $delete_stat = $this->Company_model->delete_db($inputs['id'],$data);
                     
             if($delete_stat){
+                //update log data
+                add_system_log(COMPANIES, $this->router->fetch_class(), __FUNCTION__, '', '');
                 $this->session->set_flashdata('warn',RECORD_DELETE);
                 redirect(base_url('company'));
             }else{
@@ -209,7 +220,12 @@ class Company extends CI_Controller {
 	
 	function remove2(){
             $id  = $this->input->post('id'); 
+            
+            $existing_data = $this->Company_model->get_single_row($inputs['id']);
             if($this->Company_model->delete2_db($id)){
+                //update log data
+                add_system_log(COMPANIES, $this->router->fetch_class(), __FUNCTION__, '', $existing_data);
+                
                 $this->session->set_flashdata('warn',RECORD_DELETE);
                 redirect(base_url('company'));
 
@@ -234,13 +250,16 @@ class Company extends CI_Controller {
 	}
                                         
         function test(){
-            echo 'okoo';
+            
+//            $this->load->model('Company_model');
+//            $data = $this->Company_model->add_system_log();
+            echo '<pre>' ; print_r($this);die;
 //            log_message('error', 'Some variable did not contain a value.');
         }
         
         function do_upload($file_nm, $pic_name='logo_default')
 	{
-		$config['upload_path'] = HOTEL_LOGO;
+		$config['upload_path'] = COMPANY_LOGO;
 		$config['file_name'] = $pic_name;
 		$config['overwrite'] = true;
 		
