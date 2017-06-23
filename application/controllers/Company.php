@@ -126,9 +126,9 @@ class Company extends CI_Controller {
                     
 		$add_stat = $this->Company_model->add_db($data);
                 
-		if($add_stat){
+		if($add_stat[0]){
                     //update log data
-                    $new_data = $this->Company_model->get_single_row($inputs['id']);
+                    $new_data = $this->Company_model->get_single_row($add_stat[1]);
                     add_system_log(COMPANIES, $this->router->fetch_class(), __FUNCTION__, '', $new_data);
                     $this->session->set_flashdata('warn',RECORD_ADD);
                     redirect(base_url('company')); 
@@ -204,11 +204,13 @@ class Company extends CI_Controller {
                     $this->session->set_flashdata('error','You Dont have permission delete this company..!');
                     redirect(base_url('company'));
                 }
+                
+            $existing_data = $this->Company_model->get_single_row($inputs['id']);
             $delete_stat = $this->Company_model->delete_db($inputs['id'],$data);
                     
             if($delete_stat){
                 //update log data
-                add_system_log(COMPANIES, $this->router->fetch_class(), __FUNCTION__, '', '');
+                add_system_log(COMPANIES, $this->router->fetch_class(), __FUNCTION__,$existing_data, '');
                 $this->session->set_flashdata('warn',RECORD_DELETE);
                 redirect(base_url('company'));
             }else{

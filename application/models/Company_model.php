@@ -29,13 +29,13 @@ class Company_model extends CI_Model
         public function add_db($data){       
                 $this->db->trans_start();
 		$this->db->insert(COMPANIES, $data); 
-		$status=$this->db->trans_complete();
+                $insert_id =  $this->db->insert_id();
+		$status[0]=$this->db->trans_complete();
+		$status[1]=$insert_id; 
 		return $status;
 	}
         
         public function edit_db($id,$data){
-                $existing_data = $this->get_single_row($id);
-                
 		$this->db->trans_start();
                 
 		$this->db->where('id', $id);
@@ -43,10 +43,6 @@ class Company_model extends CI_Model
 		$this->db->update(COMPANIES, $data);
                         
 		$status=$this->db->trans_complete();
-                
-                $new_data = $this->get_single_row($id);
-                
-                
 		return $status;
 	}
         

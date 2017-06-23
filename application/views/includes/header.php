@@ -195,7 +195,7 @@
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="<?php echo base_url(USER_PROFILE_PIC.$_SESSION['user_name'].'/'.$_SESSION['profile_pix'])?>" class="user-image" alt="User Image">
-              <span class="hidden-xs">Fahry Lafir</span>
+              <span class="hidden-xs"><?php echo $_SESSION['user_first_name'].' '.$_SESSION['user_last_name'];?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->

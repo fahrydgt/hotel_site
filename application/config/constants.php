@@ -30,6 +30,17 @@ define('SYSTEM_POWERED_BY', 'Zone Venture');
 
 /*
 |--------------------------------------------------------------------------
+| FL INITIAL SETUPS
+|--------------------------------------------------------------------------
+|
+| Controlling the process
+|
+ */
+//  1--> enabed; 0-->disabled
+define('SYSTEM_LOG_ENABLE', 1);
+
+ /*
+|--------------------------------------------------------------------------
 | DB Tables
 |--------------------------------------------------------------------------
 |
@@ -65,6 +76,8 @@ define('SYSTEM_LOG_DETAIL',                  TB_PREFIX.'system_log_detail');
 define('SAMPLE_PIC',	'./storage/images/');
 define('COMPANY_LOGO',	'./storage/images/company/');
 define('USER_PROFILE_PIC',	'./storage/images/users/profile/');
+define('DB_BACKUPS',	'./storage/backups/database_backup/');
+define('FILE_BACKUPS',	'./storage/backups/file_backups/');
 /*
 |--------------------------------------------------------------------------
 | File and Directory Modes

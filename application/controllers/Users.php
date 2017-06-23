@@ -142,7 +142,9 @@ class Users extends CI_Controller {
                                         
 		$add_stat = $this->User_model->add_user($data);
                 
-		if($add_stat[0]){
+		if($add_stat[0]){//update log data
+                                $new_data = $this->User_model->get_single_user($add_stat[1]);
+                                add_system_log(USER_TBL.'-'.USER, $this->router->fetch_class(), __FUNCTION__, '', $new_data);
 				$this->session->set_flashdata('warn',RECORD_ADD);
 				redirect('users/edit/'.$add_stat[1]);
 			}else{
@@ -195,10 +197,14 @@ class Users extends CI_Controller {
             
             $data = array('user_aut_tbl'=>$user_aut_tbl,
                           'user_det_tbl' => $user_det_tbl );
-                                        
+                                
+                $existing_data = $this->User_model->get_single_user($inputs['user_id']);        
 		$edit_stat = $this->User_model->edit_user($inputs['user_id'],$data);
                 
 		if($edit_stat){
+                                $new_data = $this->User_model->get_single_user($inputs['user_id']);
+                                add_system_log(USER_TBL.'-'.USER, $this->router->fetch_class(), __FUNCTION__, $existing_data, $new_data);
+				
 				$this->session->set_flashdata('warn',RECORD_UPDATE);
 				redirect(base_url('users'));;
 			}else{
@@ -215,7 +221,10 @@ class Users extends CI_Controller {
                     $this->session->set_flashdata('error','You Dont have permission delete this user!');
                     redirect(base_url('users'));;
                 }
+                $existing_data = $this->User_model->get_single_user($user_id);
 		if($this->User_model->delete_user($user_id)){
+                                //update log data
+                                add_system_log(USER_TBL.'-'.USER, $this->router->fetch_class(), __FUNCTION__,$existing_data, '');
 				$this->session->set_flashdata('warn',RECORD_DELETE);
 				redirect(base_url('users'));;
 			}else{

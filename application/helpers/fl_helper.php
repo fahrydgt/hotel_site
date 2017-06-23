@@ -106,6 +106,9 @@ function mc_decrypt($decrypt, $key){
 
         function add_system_log($table,$module,$action,$old_data='',$new_data=''){
 //            echo '<pre>';            print_r($log_arr); die;
+            if(SYSTEM_LOG_ENABLE==0){
+                return FALSE;
+            }
             $CI =& get_instance();
             $log_id = generate_serial(SYSTEM_LOG, 'id');
             $log_arr = array(

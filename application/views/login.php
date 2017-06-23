@@ -62,7 +62,14 @@
     <!-- /.social-auth-links -->
 
     <a href="#">I forgot my password</a><br> 
-
+    <!--error mdg-->
+        <?php  if($this->session->flashdata('error') != ''){ ?>
+                <div class='alert alert-danger ' id="msg2">
+                <a class="close" data-dismiss="alert" href="#">&times;</a>
+                <i ></i>&nbsp;<?php echo $this->session->flashdata('error'); ?>
+                <script>jQuery(document).ready(function(){jQuery('#msg2').delay(3000).slideUp(2000);});</script>
+                </div>
+        <?php } ?> 
   </div>
   <!-- /.login-box-body -->
 </div>
