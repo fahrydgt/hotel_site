@@ -1,7 +1,13 @@
 <?php 
 $log_data = $log_data[0];
 //echo '<pre>'; print_r(unserialize($log_data['data_new'])); die; ?>
+
 <section class="invoice">
+  <div class="">
+            <!--<a  href="<?php // echo base_url($this->router->fetch_class()."/add");?>" class="btn btn-app "><i class="fa fa-plus"></i>Create New</a>-->
+            <a href="<?php echo base_url($this->router->fetch_class());?>" class="btn btn-app "><i class="fa fa-search"></i>Search</a>
+
+        </div>
       <!-- title row -->
       <div class="row">
         <div class="col-xs-12">
@@ -33,7 +39,7 @@ $log_data = $log_data[0];
       <div class="row">
         <div class="col-xs-12 col-md-12 table-responsive">
             <div class="col-xs-12 col-md-6">
-                <h4>Data before Changes</h4>
+                <h4>Data After Changes</h4>
                 <table class="table table-striped">
                   <thead>
                   <tr>
@@ -62,7 +68,7 @@ $log_data = $log_data[0];
                 </table>
             </div>
             <div class="col-xs-12 col-md-6">
-                <h4>Data After Changes</h4>
+                <h4>Data Before Changes</h4>
                 <table class="table table-striped">
                   <thead>
                   <tr>

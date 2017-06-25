@@ -16,7 +16,7 @@ class AuditTrials extends CI_Controller {
 	}
         
         function view_search_logs($datas=''){
-            
+            $data = $this->load_data();
             $data['log_list'] = $this->Audit_trial_model->search_result();
             $data['main_content']='audit_trials/search_audit_trials'; 
             $this->load->view('includes/template',$data);
@@ -31,18 +31,29 @@ class AuditTrials extends CI_Controller {
 		$this->load->view('includes/template',$data);
 	}
 	 
-        function load_data($id){
+        function load_data(){
             
 //            $data['log_data'] = $this->Audit_trial_model->get_single_log($id); 
-//            $data['user_role_list'] = get_dropdown_data(USER_ROLE,'user_role','id');
+            $data['module_list'] = get_dropdown_data(MODULES,'module_name','page_id', 'Object',array('col'=>'user_permission_apply','val'=>'1'),1);
+            $data['action_list'] = array(
+                                            'create' => 'Create', 
+                                            'update' => 'Update', 
+                                            'Remove' => 'Remove', 
+                                        );
             return $data;	
 	}	
         
         function search_audit_trials(){
-		$search_data=array( 'user_name' => $this->input->post('user_name'), 'email' => $this->input->post('email')); 
+		$search_data=array( 
+                                    'name' => $this->input->post('user_name'), 
+                                    'object' => $this->input->post('object'),
+                                    'action' => $this->input->post('action'),
+                                    'date_from' => $this->input->post('date_from'),
+                                    'date_to' => $this->input->post('date_to'),
+                                    ); 
 		$data_view['log_list'] = $this->Audit_trial_model->search_result($search_data);
 		
-//                var_dump($this->input->post()); die;
+//                echo '<pre>';print_r($this->input->post()); die;
 		$this->load->view('audit_trials/search_audit_trials_result',$data_view);
 	}
                   

@@ -1,4 +1,19 @@
-    
+    <table id="example1" class="table dataTable table-bordered table-striped">
+               <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>User</th> 
+                            <th>Module Object</th>
+                            <th>Action Made</th>
+                            <th>Destination</th>
+                            <th>time</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody >
+                       
+
+                      
 <?php
         $i = 0;
        foreach ($log_list as $log){ 
@@ -16,4 +31,17 @@
                     </td>  ';
             $i++;
         }
-       ?> 
+       ?>
+</tbody>
+                <tfoot>
+                <tr>
+                    <th>#</th>
+                    <th>User</th> 
+                    <th>Module Object</th>
+                    <th>Action Made</th>
+                    <th>Destination</th>
+                    <th>time</th>
+                    <th>Action</th>
+                </tr>
+                </tfoot>
+              </table> 

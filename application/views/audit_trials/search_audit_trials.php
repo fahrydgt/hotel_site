@@ -2,21 +2,27 @@
 <script>
     
 $(document).ready(function(){  
-//	get_results();
+	get_results();
     $("#user_name").keyup(function(){ 
 		event.preventDefault();
 		get_results();
     });
 	
-    $("#email").keyup(function(){ 
+    $("#object").change(function(){ 
 		event.preventDefault();
 		 get_results();
     });
     
 	
+    $("#action").change(function(){
+		event.preventDefault();
+		get_results();
+    });
+    
     $("#search_btn").click(function(){
 		event.preventDefault();
 		get_results();
+                  $(".dataTable").DataTable();
     });
 	
 	
@@ -25,8 +31,9 @@ $(document).ready(function(){
 			url: "<?php echo site_url('AuditTrials/search_audit_trials');?>",
 			type: 'post',
 			data : jQuery('#form_search').serializeArray(),
-			success: function(result){
-                             $("#result_test").html(result);
+			success: function(result){ 
+                             $("#result_test").html(result); 
+                             $(".dataTable").DataTable();
         }
 		});
 	}
@@ -57,8 +64,8 @@ $(document).ready(function(){
         <?php } ?>  
     
         <div class="">
-            <a href="<?php echo base_url('users/add');?>" class="btn btn-app "><i class="fa fa-plus"></i>Create New</a>
-            <a href="<?php echo base_url('users');?>" class="btn btn-app "><i class="fa fa-search"></i>Search</a>
+            <!--<a  href="<?php // echo base_url($this->router->fetch_class()."/add");?>" class="btn btn-app "><i class="fa fa-plus"></i>Create New</a>-->
+            <a href="<?php echo base_url($this->router->fetch_class());?>" class="btn btn-app "><i class="fa fa-search"></i>Search</a>
 
         </div>
     </div>
@@ -80,31 +87,57 @@ $(document).ready(function(){
                               
                         <div class="row"> 
                             <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label class="col-md-3 control-label">Name</label>
-                                                <div class="col-md-9">                                            
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon"><span class="fa fa-search"></span></span>
-                                                      <?php echo form_input(array('name'=>'user_name', 'id' => 'user_name', 'class'=>'form-control','placeholder'=>'First name or last name')); ?>
-                                                    </div>                                            
-                                                    <!--<span class="help-block">This is sample of text field</span>-->
-                                                </div>
-                                            </div> 
-                                        </div>
-                                        
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label class="col-md-3 control-label">Email</label>
-                                                <div class="col-md-9">                                            
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon"><span class="fa fa-search"></span></span>
-                                                        
-                                                      <?php echo form_input(array('name'=>'email', 'id' => 'email', 'class'=>'form-control','placeholder'=>'Email Address')); ?>
-                                                    </div>                                            
-                                                    <!--<span class="help-block">This is sample of text field</span>-->
-                                                </div>
-                                            </div> 
-                                        </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Name</label>
+                                    <div class="col-md-9">                                            
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><span class="fa fa-search"></span></span>
+                                          <?php echo form_input(array('name'=>'user_name', 'id' => 'user_name', 'class'=>'form-control','placeholder'=>'First name or last name')); ?>
+                                        </div>                                            
+                                        <!--<span class="help-block">This is sample of text field</span>-->
+                                    </div>
+                                </div>  
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Object</label>
+                                    <div class="col-md-9">                                            
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><span class="fa fa-search"></span></span>
+                                             <?php  echo form_dropdown('object',$module_list,set_value('object'),' class="form-control select2" id="object"');?>
+                                        </div>                                             
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Actions</label>
+                                    <div class="col-md-9">                                            
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><span class="fa fa-search"></span></span>
+                                            <?php  echo form_dropdown('action[]',$action_list,set_value('action'),' class="form-control select2" multiple="multiple"  data-placeholder="Select a Action" id="action"');?>
+                                        </div>                                             
+                                    </div>
+                                </div> 
+                                
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Date From</label>
+                                    <div class="col-md-9">                                            
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+                                          <?php echo form_input(array('name'=>'date_from', 'readonly' => 'readonly', 'id' => 'date_from', 'class'=>'datepicker form-control','placeholder'=>'Select Start Date')); ?>
+                                        </div>                                             
+                                    </div>
+                                </div>  
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Date to</label>
+                                    <div class="col-md-9">                                            
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+
+                                          <?php echo form_input(array('name'=>'date_to', 'id' => 'date_to', 'readonly' => 'readonly', 'class'=>'datepicker form-control','placeholder'=>'Select End Date ')); ?>
+                                        </div>                                            
+                                        <!--<span class="help-block">This is sample of text field</span>-->
+                                    </div>
+                                </div>  
                         </div>
                     </div>
                 <div class="panel-footer">
@@ -121,52 +154,8 @@ $(document).ready(function(){
               <h3 class="box-title">Search Result</h3>
             </div>
             <!-- /.box-header -->
-            <div class="box-body">
-              <table id="example1" class="table dataTable table-bordered table-striped">
-               <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>User</th> 
-                            <th>Module Object</th>
-                            <th>Action Made</th>
-                            <th>Destination</th>
-                            <th>time</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="result_test">
-                        <?php
-                         $i = 0;
-                          foreach ($log_list as $log){ 
-                              echo '
-                                  <tr>
-                                      <td>'.($i+1).'</td>
-                                      <td>'.$log['first_name'].' '.$log['last_name'].'</td>
-                                      <td>'.$log['module_id'].'</td>
-                                      <td>'.$log['action_id'].'</td>
-                                      <td>'.$log['ip'].'</td>
-                                      <td>'.date('Y-m-d',$log['date']).'</td>
-                                      <td>
-                                          <a href="'.  base_url('AuditTrials/view/'.$log['id']).'"><span class="fa fa-eye"></span></a> 
-                                           
-                                      </td>  ';
-                              $i++;
-                          }
-                         ?>  
-
-                      </tbody>
-                <tfoot>
-                <tr>
-                    <th>#</th>
-                    <th>User</th> 
-                    <th>Module Object</th>
-                    <th>Action Made</th>
-                    <th>Destination</th>
-                    <th>time</th>
-                    <th>Action</th>
-                </tr>
-                </tfoot>
-              </table>
+            <div class="box-body" id="result_test">
+              
             </div>
             <!-- /.box-body -->
           </div>

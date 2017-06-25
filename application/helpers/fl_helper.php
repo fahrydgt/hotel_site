@@ -4,11 +4,14 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 if ( ! function_exists('get_dropdown_data'))
 {
       // generate serial
-	function get_dropdown_data($table='', $name='', $id='',$first_null_option='User', $where=''){
+	function get_dropdown_data($table='', $name='', $id='',$first_null_option='User', $where='',$where_del = 0){
 		$CI =& get_instance();
 		$CI->db->select("".$name.",".$id."");	
 		$CI->db->from($table);	 
-                $CI->db->where('deleted',0);
+                if($where_del == 0){
+                    $CI->db->where('deleted',0);
+                }
+                
                 
                 if($where != ''){
                     if(isset($where['col']) && isset($where['val'])){
