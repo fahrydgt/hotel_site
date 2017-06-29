@@ -131,7 +131,7 @@ class Users extends CI_Controller {
                                     'last_name' => $inputs['last_name'],
                                     'email' => $inputs['email'],
                                     'tel' => $inputs['contact'],
-                                    'pic' => $pic_upload_1,
+                                    'pic' => $pic_upload_1[0],
                                     'added_on' => date('Y-m-d'),
                                     'added_by' => $this->session->userdata('ID'),
                                 );
@@ -191,7 +191,7 @@ class Users extends CI_Controller {
             //Upload picture
             $pic_upload_1 = $this->do_upload('pic1','default',$inputs['username']);
             if($pic_upload_1!=''){
-                $user_det_tbl['pic'] = $pic_upload_1;
+                $user_det_tbl['pic'] = $pic_upload_1[0];
             } 
             
             
@@ -247,23 +247,38 @@ class Users extends CI_Controller {
 		$this->load->view('Users/search_user_result',$data_view);
 	}
                    
-         function do_upload($file_nm, $pic_name='default', $upload_dir=''){
+         function do_upload($file_nm, $pic_name='default', $upload_dir='',$overwrite=true){
+             
+//            echo '<pre>';                print_r(($_FILES[$file_nm])); die; 
             $config['upload_path'] = USER_PROFILE_PIC.$upload_dir.'/';
             $config['file_name'] = $pic_name;
-            $config['overwrite'] = true;
-
+            $config['overwrite'] = $overwrite;
             $config['allowed_types'] = 'gif|jpg|png'; 
 
             $this->load->library('upload', $config);
             $this->upload->initialize($config);
-
-            if ( ! $this->upload->do_upload($file_nm)){
+            
+            $files = $_FILES;
+            $cpt = count($_FILES[$file_nm]['name']);
+            $uploaded_data=array();
+            for($i=0; $i<$cpt; $i++){     
+                if(is_array($files[$file_nm]['name'])){
+                    $_FILES[$file_nm]['name']= $files[$file_nm]['name'][$i];
+                    $_FILES[$file_nm]['type']= $files[$file_nm]['type'][$i];
+                    $_FILES[$file_nm]['tmp_name']= $files[$file_nm]['tmp_name'][$i];
+                    $_FILES[$file_nm]['error']= $files[$file_nm]['error'][$i];
+                    $_FILES[$file_nm]['size']= $files[$file_nm]['size'][$i];   
+                }
+                
+                if ( ! $this->upload->do_upload($file_nm)){
                     return "";
+                }
+                else{
+                    $data = $this->upload->data();
+                    $uploaded_data[] = $data['file_name'];
+                }
             }
-            else{
-                $data = array('upload_data' => $this->upload->data());  
-                return $data['upload_data']['file_name'];
-            }
+            return $uploaded_data; 
 	}
         
         function test(){

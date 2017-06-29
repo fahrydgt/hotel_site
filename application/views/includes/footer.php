@@ -32,6 +32,8 @@
 <script src="<?php echo base_url('templates/plugins/daterangepicker/daterangepicker.js');?>"></script>
 <!-- datepicker -->
 <script src="<?php echo base_url('templates/plugins/datepicker/bootstrap-datepicker.js');?>"></script>
+<!-- datepicker -->
+<script src="<?php echo base_url('templates/plugins/file-upload/fileinput.js');?>"></script>
 <!-- Bootstrap WYSIHTML5 -->
 <script src="<?php echo base_url('templates/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js');?>"></script>
 <!-- Slimscroll -->

@@ -35,6 +35,8 @@
   <link rel="stylesheet" type="text/css" id="theme" href="<?php echo base_url('templates/plugins/select2/select2.min.css'); ?>"/>
   <!--Data Table-->
   <link rel="stylesheet" type="text/css" id="theme" href="<?php echo base_url('templates/plugins/datatables/dataTables.bootstrap.css'); ?>"/>
+  <!--File  upload-->
+  <link rel="stylesheet" type="text/css" id="theme" href="<?php echo base_url('templates/plugins/file-upload/fileinput.css'); ?>"/>
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>

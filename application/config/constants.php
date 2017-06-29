@@ -78,6 +78,7 @@ define('COMPANY_LOGO',	'./storage/images/company/');
 define('USER_PROFILE_PIC',	'./storage/images/users/profile/');
 define('DB_BACKUPS',	'./storage/backups/database_backup/');
 define('FILE_BACKUPS',	'./storage/backups/file_backups/');
+define('DEFAULT_PIC',	'./storage/images/default/default.jpg');
 /*
 |--------------------------------------------------------------------------
 | File and Directory Modes

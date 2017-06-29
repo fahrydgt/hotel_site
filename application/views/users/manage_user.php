@@ -1,7 +1,7 @@
 <?php 
 //$this->load->view('includes/pg_hdr');
 	  	
-	$result = array('auth_id'=>"",'first_name'=>"", 'last_name' => "", 'email' => "", 'tel' => "", 'user_name' => "", 'password' => "",  'confirm_password' => "", 'user_role_id' => "", 'status' => ""); 
+	$result = array('auth_id'=>"",'first_name'=>"", 'last_name' => "", 'email' => "", 'tel' => "", 'user_name' => "", 'password' => "",  'confirm_password' => "", 'user_role_id' => "", 'status' => "", "pic"=> 'default.jpg'); 
 	 
 	switch($action):
 	case 'Add':
@@ -10,7 +10,7 @@
 		$view		= '';
 		$o_dis		= ''; 
 	break;
-	
+            
 	case 'Edit':
 		if(!empty($user_data[0])){$result= $user_data[0];} 
 		$heading	= 'Edit';
@@ -207,14 +207,16 @@ endswitch;
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="col-md-3 control-label">Profile Picture</label>
-                                                <div class="col-md-9">                                            
+                                                <div class="col-md-6">                                            
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
-                                                         <?php echo form_input(array('name'=>'pic1', 'id'=>'pic1', 'class'=>'form-control fl_file', 'type'=>'file'));?>
-                                                        <img src="">
+                                                         <?php // echo form_input(array('name'=>'pic1[]', 'multiple'=>'multiple','id'=>'pic1', 'class'=>'form-control fl_file', 'type'=>'file'));?>
+                                                        <?php echo form_input(array('name'=>'pic1','id'=>'pic1', 'class'=>'form-control fl_file', 'type'=>'file'));?>
                                                     </div>    
-
                                                     <span class="help-block"><?php echo form_error('pic1');?></span>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <img class="profile-user-img img-responsive img-circle" src="<?php echo base_url(USER_PROFILE_PIC.$result['user_name'].'/'.$result['pic']); ?>" alt="User profile picture">
                                                 </div>
                                             </div>
                                         </div>
