@@ -8,7 +8,14 @@
 $(function () {
 
   'use strict';
-
+  
+  $(".dataTable").DataTable();
+  $(".select2").select2(); 
+  //Date picker
+    $('.datepicker').datepicker({
+      autoclose: true
+    });
+    
   // Make the dashboard widgets sortable Using jquery UI
   $('.connectedSortable').sortable({
     placeholder         : 'sort-highlight',

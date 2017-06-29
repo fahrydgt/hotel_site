@@ -103,7 +103,7 @@
             <div class="box-body chat" id="chat-box">
               <!-- chat item -->
               <div class="item">
-                <img src="dist/img/user4-128x128.jpg" alt="user image" class="online">
+                <img src="<?php echo base_url(USER_PROFILE_PIC.$_SESSION['user_name'].'/'.$_SESSION['profile_pix'])?>" alt="user image" class="online">
 
                 <p class="message">
                   <a href="#" class="name">
@@ -130,7 +130,7 @@
               <!-- /.item -->
               <!-- chat item -->
               <div class="item">
-                <img src="dist/img/user3-128x128.jpg" alt="user image" class="offline">
+                <img src="<?php echo base_url(USER_PROFILE_PIC.$_SESSION['user_name'].'/'.$_SESSION['profile_pix'])?>" alt="user image" class="offline">
 
                 <p class="message">
                   <a href="#" class="name">
@@ -145,7 +145,7 @@
               <!-- /.item -->
               <!-- chat item -->
               <div class="item">
-                <img src="dist/img/user2-160x160.jpg" alt="user image" class="offline">
+                <img src="<?php echo base_url(USER_PROFILE_PIC.$_SESSION['user_name'].'/'.$_SESSION['profile_pix'])?>" alt="user image" class="offline">
 
                 <p class="message">
                   <a href="#" class="name">
@@ -502,8 +502,7 @@
       <!-- /.row (main row) -->
 
     </section>
-    <!-- /.content -->
-  </div>
+    <!-- /.content --> 
   <!-- /.content-wrapper -->
   
 

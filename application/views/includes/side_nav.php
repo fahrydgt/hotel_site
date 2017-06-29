@@ -3,8 +3,9 @@
 	$user_group =  $this->session->userdata('user_role_ID'); //'ADMIN';
         $navigation = $this->user_default_model->get_user_menu_navigation($user_group);  
         $brodcrums = $this->user_default_model->get_broadcrum($CI->router->class); 
-//        echo '<pre>'; print_r($brodcrum); die;
-      
+//        echo '<pre>'; print_r($brodcrums); die;
+//        echo '<pre>'; print_r($navigation); die;
+        
         ?>
   <!-- Left side column. contains the logo and sidebar -->
   <aside class="main-sidebar">
@@ -13,10 +14,10 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="<?php echo SAMPLE_PIC.'download.jpg'?>" class="img-circle" alt="User Image">
+          <img src="<?php echo base_url(USER_PROFILE_PIC.$_SESSION['user_name'].'/'.$_SESSION['profile_pix'])?>" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Fahry Lafir</p>
+          <p><?php echo $_SESSION['user_first_name'].' '.$_SESSION['user_last_name'];?></p>
           <a href="#"><i class="fa fa-circle text-success"></i> SE</a>
         </div>
       </div>
@@ -44,12 +45,15 @@
           </a>
         </li>-->
        <?php
-//               echo '<pre>';               print_r($navigation); die;
+//               echo '<pre>';               print_r($brodcrums); die;
             foreach ($navigation as $nav1){
                 
                 $has_nav2 = (empty($nav1->subnav))?'hidden':'';
                 $treeview2 = (!empty($nav1->subnav))?'treeview':'';
-                $nav_actv = ($CI->router->class == $nav1->page_id)?'active':'';
+                $nav_actv='';
+                if(!empty($brodcrums)){
+                    $nav_actv = (end($brodcrums)->id == $nav1->id)?'active':'';
+                }
                 echo '<li class="'.$treeview2.' '.$nav_actv.' ">
                         <a href="'.base_url($nav1->page_id).'">
                           <i class="'.$nav1->img_class.'"></i> <span>'.$nav1->module_name.'</span>
@@ -103,20 +107,24 @@
     <section class="content-header">
       <h1>
        <?php 
+       if($brodcrums != FALSE){
               foreach ($brodcrums as $brodcrum){
                   echo '<small>'.$brodcrum->module_name.'</small>';              
                   break;
               }
+        }
        ?>
         
       </h1>
       <ol class="breadcrumb">
           
        <?php 
+       if($brodcrums != FALSE){
              sort($brodcrums); 
               foreach ($brodcrums as $brodcrum1){
                   echo '<li><a href="'. base_url($brodcrum1->page_id).'"><i class="'.$brodcrum1->img_class.'"></i> '.$brodcrum1->module_name.'</a></li>';   
               }
+       }
        ?>
          
       </ol>

@@ -29,9 +29,9 @@ class Login extends CI_Controller {
 		$data = $this->input->post();
 //         print 'Data is <pre>';print_r($data);'</pre>'; die();
 		if($this->user_default_model->login($data)){
-		  redirect('dashboard');
+		  redirect(base_url('dashboard'));
        	}else{
-                  redirect('login');
+                  redirect(base_url('login'));
            }
 	} 
 	

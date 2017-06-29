@@ -4,11 +4,14 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 if ( ! function_exists('get_dropdown_data'))
 {
       // generate serial
-	function get_dropdown_data($table='', $name='', $id='',$first_null_option='User', $where=''){
+	function get_dropdown_data($table='', $name='', $id='',$first_null_option='User', $where='',$where_del = 0){
 		$CI =& get_instance();
 		$CI->db->select("".$name.",".$id."");	
 		$CI->db->from($table);	 
-                $CI->db->where('deleted',0);
+                if($where_del == 0){
+                    $CI->db->where('deleted',0);
+                }
+                
                 
                 if($where != ''){
                     if(isset($where['col']) && isset($where['val'])){
@@ -101,4 +104,39 @@ function mc_decrypt($decrypt, $key){
     $decrypted = unserialize($decrypted);
     return $decrypted;
 }
+
+//Systeg Log adding
+
+        function add_system_log($table,$module,$action,$old_data='',$new_data=''){
+//            echo '<pre>';            print_r($log_arr); die;
+            if(SYSTEM_LOG_ENABLE==0){
+                return FALSE;
+            }
+            $CI =& get_instance();
+            $log_id = generate_serial(SYSTEM_LOG, 'id');
+            $log_arr = array(
+                                'id' => $log_id,
+                                'user_id' => $_SESSION['ID'],
+                                'module_id' => $module,
+                                'action_id' => $action,
+                                'ip' => $_SERVER['REMOTE_ADDR'],
+                                'date' => time(),
+                            );
+            
+//            echo '<pre>';            print_r($log_arr); die;
+            $log_det_arr = array(
+                                    'system_log_id' => $log_id,
+                                    'table_name' => $table,
+                                    'data_new' => serialize($new_data),
+                                    'data_old' => serialize($old_data),
+                                );
+            
+            $CI->db->trans_start();
+                
+            $CI->db->insert(SYSTEM_LOG, $log_arr);
+            $CI->db->insert(SYSTEM_LOG_DETAIL, $log_det_arr);
+
+            $status=$CI->db->trans_complete();
+            return $status; 
+        }
 
