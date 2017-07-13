@@ -64,8 +64,10 @@ define('SYSTEM_LOG_DETAIL',             TB_PREFIX.'system_log_detail');
 define('BANNERS',                       TB_PREFIX.'cms_banner');
 define('DROPDOWN_LIST',                 TB_PREFIX.'dropdown_list');
 define('DROPDOWN_LIST_NAMES',           TB_PREFIX.'dropdown_list_names');
-define('FACILITIES',           TB_PREFIX.'facilities');
-define('FACILITIES_CAT',           TB_PREFIX.'facilities_category');
+define('FACILITIES',                    TB_PREFIX.'facilities');
+define('FACILITIES_CAT',                TB_PREFIX.'facilities_category');
+define('PROPERTY_SURROUND',             TB_PREFIX.'property_surrounding');
+define('PROPERTY_SURROUND_CAT',         TB_PREFIX.'property_surrounding_category');
 
 
 /*

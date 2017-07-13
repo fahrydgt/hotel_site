@@ -1,12 +1,12 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Facilities extends CI_Controller {
+class Property_surroundings extends CI_Controller {
 
 	
         function __construct() {
             parent::__construct();
-            $this->load->model('Facilities_model'); 
+            $this->load->model('Property_surroundings_model'); 
         }
 
         public function index(){
@@ -14,37 +14,37 @@ class Facilities extends CI_Controller {
 	}
         
         function view_search($datas=''){
-            $data['facility_list'] = $this->Facilities_model->search_result();
-            $data['main_content']='facilities/search_facilities'; 
-            $data['category_list'] = get_dropdown_data(FACILITIES_CAT,'name','id','Facility Type');
+            $data['Property_surroundings_list'] = $this->Property_surroundings_model->search_result();
+            $data['main_content']='property_surroundings/search_property_surroundings'; 
+            $data['category_list'] = get_dropdown_data(PROPERTY_SURROUND_CAT,'name','id','Property Type');
             $this->load->view('includes/template',$data);
 	}
         
 	function add(){ 
             $data['action']		= 'Add';
-            $data['main_content']='facilities/manage_facilities'; 
-            $data['category_list'] = get_dropdown_data(FACILITIES_CAT,'name','id','Facility Type');
+            $data['main_content']='property_surroundings/manage_property_surroundings'; 
+            $data['category_list'] = get_dropdown_data(PROPERTY_SURROUND_CAT,'name','id','Property Type');
             $this->load->view('includes/template',$data);
 	}
 	
 	function edit($id){ 
             $data  			= $this->load_data($id); 
             $data['action']		= 'Edit';
-            $data['main_content']='facilities/manage_facilities'; 
+            $data['main_content']='property_surroundings/manage_property_surroundings'; 
             $this->load->view('includes/template',$data);
 	}
 	
 	function delete($id){ 
             $data  			= $this->load_data($id);
             $data['action']		= 'Delete';
-            $data['main_content']='facilities/manage_facilities'; 
+            $data['main_content']='property_surroundings/manage_property_surroundings'; 
             $this->load->view('includes/template',$data);
 	}
 	
 	function view($id){ 
             $data  			= $this->load_data($id);
             $data['action']		= 'View';
-            $data['main_content']='facilities/manage_facilities'; 
+            $data['main_content']='property_surroundings/manage_property_surroundings'; 
             $data['user_role_list'] = get_dropdown_data(USER_ROLE,'user_role','id');
             $this->load->view('includes/template',$data);
 	}
@@ -86,10 +86,10 @@ class Facilities extends CI_Controller {
 	function form_val_setrules(){
             $this->form_validation->set_error_delimiters('<p style="color:rgb(255, 115, 115);" class="help-block"><i class="glyphicon glyphicon-exclamation-sign"></i> ','</p>');
 
-            $this->form_validation->set_rules('name','Facility Name','required|min_length[2]');
-            $this->form_validation->set_rules('category_id','Category','required');
-            $this->form_validation->set_rules('label','Label','min_length[6]');
-            $this->form_validation->set_rules('description','Description','min_length[15]');
+            $this->form_validation->set_rules('property_name','Property Name','required|min_length[2]');
+            $this->form_validation->set_rules('category_id','Category / Type','required');
+            $this->form_validation->set_rules('link','Link','valid_url');
+            $this->form_validation->set_rules('address','Address','min_length[10]');
       }	
         
 	function create(){ 
@@ -99,22 +99,23 @@ class Facilities extends CI_Controller {
                 $inputs['status'] = 1;
             } 
             $data = array(
-                            'name' => $inputs['name'],
+                            'property_name' => $inputs['property_name'],
                             'category_id' => $inputs['category_id'],
-                            'label_text' => $inputs['label_text'],
-                            'description' => $inputs['description'],
+                            'link' => $inputs['link'],
+                            'address' => $inputs['address'],
                             'icon' => $inputs['icon'],
                             'status' => $inputs['status'],
                             'added_on' => date('Y-m-d'),
                             'added_by' => $this->session->userdata('ID'),
                         );
                     
-		$add_stat = $this->Facilities_model->add_db($data);
+//            echo '<pre>'; print_r($data); die;
+		$add_stat = $this->Property_surroundings_model->add_db($data);
                 
 		if($add_stat[0]){
                     //update log data
-                    $new_data = $this->Facilities_model->get_single_row($add_stat[1]);
-                    add_system_log(FACILITIES, $this->router->fetch_class(), __FUNCTION__, '', $new_data);
+                    $new_data = $this->Property_surroundings_model->get_single_row($add_stat[1]);
+                    add_system_log(PROPERTY_SURROUND, $this->router->fetch_class(), __FUNCTION__, '', $new_data);
                     $this->session->set_flashdata('warn',RECORD_ADD);
                     redirect(base_url($this->router->fetch_class())); 
                 }else{
@@ -126,17 +127,16 @@ class Facilities extends CI_Controller {
 	function update(){
             $inputs = $this->input->post();
             
-//            echo '<pre>'; print_r($this->input->post()); die;
             if(isset($inputs['status'])){
                 $inputs['status'] = 1;
             } else{
                 $inputs['status'] = 0;
             }
             $data = array(
-                            'name' => $inputs['name'],
+                            'property_name' => $inputs['property_name'],
                             'category_id' => $inputs['category_id'],
-                            'label_text' => $inputs['label_text'],
-                            'description' => $inputs['description'],
+                            'link' => $inputs['link'],
+                            'address' => $inputs['address'],
                             'icon' => $inputs['icon'],
                             'status' => $inputs['status'],
                             'updated_on' => date('Y-m-d'),
@@ -144,14 +144,14 @@ class Facilities extends CI_Controller {
                         );  
                     
             //old data for log update
-            $existing_data = $this->Facilities_model->get_single_row($inputs['id']);
+            $existing_data = $this->Property_surroundings_model->get_single_row($inputs['id']);
             
-            $edit_stat = $this->Facilities_model->edit_db($inputs['id'],$data);
+            $edit_stat = $this->Property_surroundings_model->edit_db($inputs['id'],$data);
             
             if($edit_stat){
                 //update log data
-                $new_data = $this->Facilities_model->get_single_row($inputs['id']);
-                add_system_log(FACILITIES, $this->router->fetch_class(), __FUNCTION__, $new_data, $existing_data);
+                $new_data = $this->Property_surroundings_model->get_single_row($inputs['id']);
+                add_system_log(PROPERTY_SURROUND, $this->router->fetch_class(), __FUNCTION__, $new_data, $existing_data);
                 $this->session->set_flashdata('warn',RECORD_UPDATE);
                     
                 redirect(base_url($this->router->fetch_class().'/edit/'.$inputs['id']));
@@ -170,12 +170,12 @@ class Facilities extends CI_Controller {
                             'deleted_by' => $this->session->userdata('ID')
                          ); 
                 
-            $existing_data = $this->Facilities_model->get_single_row($inputs['id']);
-            $delete_stat = $this->Facilities_model->delete_db($inputs['id'],$data);
+            $existing_data = $this->Property_surroundings_model->get_single_row($inputs['id']);
+            $delete_stat = $this->Property_surroundings_model->delete_db($inputs['id'],$data);
                     
             if($delete_stat){
                 //update log data
-                add_system_log(FACILITIES, $this->router->fetch_class(), __FUNCTION__,$existing_data, '');
+                add_system_log(PROPERTY_SURROUND, $this->router->fetch_class(), __FUNCTION__,$existing_data, '');
                 $this->session->set_flashdata('warn',RECORD_DELETE);
                 redirect(base_url($this->router->fetch_class()));
             }else{
@@ -188,10 +188,10 @@ class Facilities extends CI_Controller {
 	function remove2(){
             $id  = $this->input->post('id'); 
             
-            $existing_data = $this->Facilities_model->get_single_row($inputs['id']);
-            if($this->Facilities_model->delete2_db($id)){
+            $existing_data = $this->Property_surroundings_model->get_single_row($inputs['id']);
+            if($this->Property_surroundings_model->delete2_db($id)){
                 //update log data
-                add_system_log(FACILITIES, $this->router->fetch_class(), __FUNCTION__, '', $existing_data);
+                add_system_log(PROPERTY_SURROUND, $this->router->fetch_class(), __FUNCTION__, '', $existing_data);
                 
                 $this->session->set_flashdata('warn',RECORD_DELETE);
                 redirect(base_url('company'));
@@ -203,50 +203,25 @@ class Facilities extends CI_Controller {
 	}
         
         function load_data($id){
-            
-            $data['user_data'] = $this->Facilities_model->get_single_row($id); 
-            $data['category_list'] = get_dropdown_data(FACILITIES_CAT,'name','id','Facility Type');
+            $data['user_data'] = $this->Property_surroundings_model->get_single_row($id); 
+            $data['category_list'] = get_dropdown_data(PROPERTY_SURROUND_CAT,'name','id','Property Type');
             return $data;	
 	}	
         
         function search(){
 		$search_data=array( 'name' => $this->input->post('name'), 'category' => $this->input->post('category')); 
-		$data_view['search_list'] = $this->Facilities_model->search_result($search_data);
-                                        
-		$this->load->view('Facilities/search_facilities_result',$data_view);
+		$data_view['search_list'] = $this->Property_surroundings_model->search_result($search_data);
+               
+		$this->load->view('Property_surroundings/search_Property_surroundings_result',$data_view);
 	}
                                         
         function test(){
             
-//            $this->load->model('Facilities_model');
-//            $data = $this->Facilities_model->add_system_log();
+//            $this->load->model('Property_surroundings_model');
+//            $data = $this->Property_surroundings_model->add_system_log();
             echo '<pre>' ; print_r($this);die;
 //            log_message('error', 'Some variable did not contain a value.');
         }
-        
-        function do_upload($file_nm, $pic_name='logo_default')
-	{
-		$config['upload_path'] = COMPANY_LOGO;
-		$config['file_name'] = $pic_name;
-		$config['overwrite'] = true;
-		
-		$config['allowed_types'] = 'gif|jpg|png';
-		$config['max_size']	= '100';
-		$config['max_width']  = '1024';
-		$config['max_height']  = '768';
-
-		$this->load->library('upload', $config);
-
-		if ( ! $this->upload->do_upload($file_nm))
-		{
-			return "";
-		}
-		else
-		{
-			$data = array('upload_data' => $this->upload->data());
-
-			return $data['upload_data']['file_name'];
-		}
-	}
+                    
                     
 }
