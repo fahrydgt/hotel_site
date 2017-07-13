@@ -3,12 +3,12 @@
     
 $(document).ready(function(){  
 //	get_results();
-    $("#company_name").keyup(function(){ 
+    $("#name").keyup(function(){ 
 		event.preventDefault();
 		get_results();
     });
 	 
-    $("#search_btn").click(function(){
+    $("#category").change(function(){
 		event.preventDefault();
 		get_results();
     });
@@ -16,18 +16,19 @@ $(document).ready(function(){
 	
 	function get_results(){
         $.ajax({
-			url: "<?php echo site_url('Company/search_company');?>",
+			url: "<?php echo site_url('facilities/search');?>",
 			type: 'post',
 			data : jQuery('#form_search').serializeArray(),
 			success: function(result){
                              $("#result_search").html(result);
+                             $(".dataTable").DataTable();
         }
 		});
 	}
 });
 </script>
  
-
+<?php // echo '<pre>'; print_r($facility_list); die;?>
 
 <div class="row">
 <div class="col-md-12">
@@ -72,23 +73,31 @@ $(document).ready(function(){
             <?php echo form_open("", 'id="form_search" class="form-horizontal"')?>  
    
                     <div class="box-body">
-                              
                         <div class="row"> 
                             <div class="col-md-6"> 
-                                <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label">Company Name<span style="color: red">*</span></label>
+                                        <label class="col-md-3 control-label">Name<span style="color: red">*</span></label>
                                         <div class="col-md-9">                                            
                                             <div class="input-group">
                                                 <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
-                                                <?php echo form_input('company_name', set_value('company_name'), 'id="company_name" class="form-control" placeholder="Search by Company Name"'); ?>
+                                                <?php echo form_input('name', set_value('name'), 'id="name" class="form-control" placeholder="Search by Facility Name"'); ?>
 
                                             </div>                                            
-                                            <span class="help-block"><?php echo form_error('company_name');?></span>
+                                            <span class="help-block"><?php echo form_error('name');?></span>
                                         </div>
-                                    </div>
-                                </div>
+                                    </div> 
                             </div>
+                            <div class="col-md-6"> 
+                                <div class="form-group">
+                                       <label class="col-md-3 control-label">Category</label>
+                                           <div class="col-md-9">                                            
+                                               <div class="input-group">
+                                                   <span class="input-group-addon"><span class="fa fa-search"></span></span>
+                                                    <?php  echo form_dropdown('category',$category_list,set_value('category'),' class="form-control select2" id="category"');?>
+                                               </div>                                             
+                                           </div>
+                                       </div> 
+                                </div> 
                         </div>
                     </div>
                 <div class="panel-footer">
@@ -113,26 +122,24 @@ $(document).ready(function(){
                <thead>
                         <tr>
                             <th>#</th>
-                            <th>Company Name</th>
-                            <th>City</th>
-                            <th>Phone</th> 
+                            <th>Facility Name</th>
+                            <th>Category</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody id="result_search">
                       <?php
                        $i = 0;
-                        foreach ($company_list as $company){ 
+                        foreach ($facility_list as $facility){ 
                             echo '
                                 <tr>
                                     <td>'.($i+1).'</td>
-                                    <td>'.$company['company_name'].'</td>
-                                    <td>'.$company['city'].'</td>
-                                    <td>'.$company['phone'].'</td> 
+                                    <td>'.$facility['name'].'</td> 
+                                    <td>'.$facility['category_name'].'</td> 
                                     <td>
-                                        <a href="'.  base_url('Company/view/'.$company['id']).'"><span class="fa fa-eye"></span></a> |
-                                        <a href="'.  base_url('Company/edit/'.$company['id']).'"><span class="fa fa-pencil"></span></a> |
-                                        <a href="'.  base_url('Company/delete/'.$company['id']).'"><span class="fa fa-trash"></span></a> 
+                                        <a href="'.  base_url($this->router->fetch_class().'/view/'.$facility['id']).'"><span class="fa fa-eye"></span></a> |
+                                        <a href="'.  base_url($this->router->fetch_class().'/edit/'.$facility['id']).'"><span class="fa fa-pencil"></span></a> |
+                                        <a href="'.  base_url($this->router->fetch_class().'/delete/'.$facility['id']).'"><span class="fa fa-trash"></span></a> 
                                     </td>  ';
                             $i++;
                         }
@@ -142,9 +149,8 @@ $(document).ready(function(){
                 <tfoot>
                 <tr>
                     <th>#</th>
-                    <th>Company Name</th>
-                    <th>City</th>
-                    <th>Phone</th> 
+                    <th>Facility Name</th>
+                    <th>Category</th>
                     <th>Action</th>
                 </tr>
                 </tfoot>

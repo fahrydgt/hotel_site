@@ -249,7 +249,7 @@ class Users extends CI_Controller {
                    
          function do_upload($file_nm, $pic_name='default', $upload_dir='',$overwrite=true){
              
-//            echo '<pre>';                print_r(($_FILES[$file_nm])); die; 
+//            echo '<pre>';                print_r(($_FILES)); die; 
             $config['upload_path'] = USER_PROFILE_PIC.$upload_dir.'/';
             $config['file_name'] = $pic_name;
             $config['overwrite'] = $overwrite;

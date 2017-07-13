@@ -81,7 +81,7 @@ $(document).ready(function(){
                         <div class="row"> 
                             <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="col-md-3 control-label">Name</label>
+                                                <label class="col-md-3 control-label">Banner Name</label>
                                                 <div class="col-md-9">                                            
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><span class="fa fa-search"></span></span>
@@ -126,28 +126,22 @@ $(document).ready(function(){
                <thead>
                         <tr>
                             <th>#</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>User Role</th>
-                            <th>Email</th>
+                            <th>Banner</th> 
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody id="result_test">
                         <?php
                          $i = 0;
-                          foreach ($user_list as $user){ 
+                          foreach ($banner_list as $banner){ 
                               echo '
                                   <tr>
                                       <td>'.($i+1).'</td>
-                                      <td>'.$user['first_name'].'</td>
-                                      <td>'.$user['last_name'].'</td>
-                                      <td>'.$user['user_role'].'</td>
-                                      <td>'.$user['email'].'</td>
+                                      <td>'.$banner['type'].'</td> 
                                       <td>
-                                          <a href="'.  base_url('users/view/'.$user['auth_id']).'"><span class="fa fa-eye"></span></a> |
-                                          <a href="'.  base_url('users/edit/'.$user['auth_id']).'"><span class="fa fa-pencil"></span></a> |
-                                          <a href="'.  base_url('users/delete/'.$user['auth_id']).'"><span class="fa fa-trash"></span></a> 
+                                          <a href="'.  base_url($this->router->fetch_class().'/view/'.$banner['type']).'"><span class="fa fa-eye"></span></a> |
+                                          <a href="'.  base_url($this->router->fetch_class().'/edit/'.$banner['type']).'"><span class="fa fa-pencil"></span></a> |
+                                          <a href="'.  base_url($this->router->fetch_class().'/delete/'.$banner['type']).'"><span class="fa fa-trash"></span></a> 
                                       </td>  ';
                               $i++;
                           }
@@ -155,12 +149,9 @@ $(document).ready(function(){
 
                       </tbody>
                 <tfoot>
-                <tr>
+                <tr> 
                     <th>#</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>User Role</th>
-                    <th>Email</th>
+                    <th>Banner</th> 
                     <th>Action</th>
                 </tr>
                 </tfoot>

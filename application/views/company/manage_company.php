@@ -78,8 +78,8 @@ endswitch;
 					</div>
 				<?php } ?>  
             <div class="">
-                <a href="<?php echo base_url('company/add');?>" class="btn btn-app "><i class="fa fa-plus"></i>Create New</a>
-                <a href="<?php echo base_url('company');?>" class="btn btn-app "><i class="fa fa-search"></i>Search</a>
+                <a href="<?php echo base_url($this->router->fetch_class().'/add');?>" class="btn btn-app "><i class="fa fa-plus"></i>Create New</a>
+                <a href="<?php echo base_url($this->router->fetch_class());?>" class="btn btn-app "><i class="fa fa-search"></i>Search</a>
                 <!--<a class="btn btn-app "><i class="fa fa-trash"></i>Delete</a>-->
             </div>
         </div>
@@ -345,12 +345,12 @@ endswitch;
                                     <?php echo form_hidden('action',$action); ?>
                                     <?php echo form_submit('submit',$action ,'class="btn btn-primary"'); ?>&nbsp;
 
-                                    <?php echo anchor(site_url('company'),'Back','class="btn btn-info"');?>&nbsp;
+                                    <?php echo anchor(site_url($this->router->fetch_class()),'Back','class="btn btn-info"');?>&nbsp;
                                     <?php echo form_reset('reset','Reset','class = "btn btn-default"'); ?>
 
                                  <?php }else{ 
                                         echo form_hidden('action',$action);
-                                        echo anchor(site_url('company'),'OK','class="btn btn-primary"');
+                                        echo anchor(site_url($this->router->fetch_class()),'OK','class="btn btn-primary"');
                                     } ?>
                       <!--<button type="submit" class="btn btn-primary">Submit</button>-->
                     </div>

@@ -59,8 +59,13 @@ define('MODULE_USER_ROLE_ACT',          TB_PREFIX.'module_user_role');
 //define('HOTELS',                        TB_PREFIX.'hotels');
 define('COMPANIES',                     TB_PREFIX.'company');
 define('COUNTRY_LIST',                  TB_PREFIX.'countries');
-define('SYSTEM_LOG',                  TB_PREFIX.'system_log');
-define('SYSTEM_LOG_DETAIL',                  TB_PREFIX.'system_log_detail');
+define('SYSTEM_LOG',                    TB_PREFIX.'system_log');
+define('SYSTEM_LOG_DETAIL',             TB_PREFIX.'system_log_detail');
+define('BANNERS',                       TB_PREFIX.'cms_banner');
+define('DROPDOWN_LIST',                 TB_PREFIX.'dropdown_list');
+define('DROPDOWN_LIST_NAMES',           TB_PREFIX.'dropdown_list_names');
+define('FACILITIES',           TB_PREFIX.'facilities');
+define('FACILITIES_CAT',           TB_PREFIX.'facilities_category');
 
 
 /*
@@ -79,6 +84,7 @@ define('USER_PROFILE_PIC',	'./storage/images/users/profile/');
 define('DB_BACKUPS',	'./storage/backups/database_backup/');
 define('FILE_BACKUPS',	'./storage/backups/file_backups/');
 define('DEFAULT_PIC',	'./storage/images/default/default.jpg');
+define('BANNERS_PIC',	'./storage/images/CMS/banners/');
 /*
 |--------------------------------------------------------------------------
 | File and Directory Modes
