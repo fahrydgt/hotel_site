@@ -15,7 +15,11 @@ $(function () {
     $('.datepicker').datepicker({
       autoclose: true
     });
-    
+    $(".textarea_editor").wysihtml5();    
+    //Timepicker
+    $('.timepicker').datetimepicker({
+        format: 'LT'
+    });
   // Make the dashboard widgets sortable Using jquery UI
   $('.connectedSortable').sortable({
     placeholder         : 'sort-highlight',

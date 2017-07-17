@@ -2,7 +2,7 @@
 <script>
     
 $(document).ready(function(){  
-//	get_results();
+	get_results();
     $("#name").keyup(function(){ 
 		event.preventDefault();
 		get_results();
@@ -117,45 +117,7 @@ $(document).ready(function(){
               <h3 class="box-title">Search Result List (Advanced Options)</h3>
             </div>
             <!-- /.box-header -->
-            <div class="box-body">
-              <table id="example1" class="table dataTable table-bordered table-striped">
-               <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Property Name</th>
-                            <th>Category</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="result_search">
-                      <?php
-                       $i = 0;
-                        foreach ($Property_surroundings_list as $property){ 
-                            echo '
-                                <tr>
-                                    <td>'.($i+1).'</td>
-                                    <td>'.$property['property_name'].'</td> 
-                                    <td>'.$property['category_name'].'</td> 
-                                    <td>
-                                        <a href="'.  base_url($this->router->fetch_class().'/view/'.$property['id']).'"><span class="fa fa-eye"></span></a> |
-                                        <a href="'.  base_url($this->router->fetch_class().'/edit/'.$property['id']).'"><span class="fa fa-pencil"></span></a> |
-                                        <a href="'.  base_url($this->router->fetch_class().'/delete/'.$property['id']).'"><span class="fa fa-trash"></span></a> 
-                                    </td>  ';
-                            $i++;
-                        }
-                       ?>  
-
-                    </tbody>
-                <tfoot>
-                <tr>
-                    <th>#</th>
-                    <th>Facility Name</th>
-                    <th>Category</th>
-                    <th>Action</th>
-                </tr>
-                </tfoot>
-              </table>
-            </div>
+            <div class="box-body" id="result_search"> </div>
             <!-- /.box-body -->
           </div>
        

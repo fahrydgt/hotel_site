@@ -1,3 +1,13 @@
+<table id="example1" class="table dataTable table-bordered table-striped">
+    <thead>
+         <tr>
+             <th>#</th>
+             <th>Property Name</th>
+             <th>Category</th>
+             <th>Action</th>
+         </tr>
+     </thead>
+     <tbody>
      <?php
         $i = 0;
          foreach ($search_list as $search){ 
@@ -14,3 +24,13 @@
              $i++;
          }
     ?>   
+    </tbody>
+    <tfoot>
+    <tr>
+        <th>#</th>
+        <th>Facility Name</th>
+        <th>Category</th>
+        <th>Action</th>
+    </tr>
+    </tfoot>
+</table>

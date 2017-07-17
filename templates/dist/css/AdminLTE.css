@@ -18,6 +18,18 @@ body {
     overflow-y: scroll;
     overflow-x: hidden;
 }
+.fl_file_uploader2 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    line-height: normal;
+    color: #47525d;
+    background-color: #fff;
+
+    margin: 0;
+    padding: 20px;
+
+/*width: 560px;*/
+}
 .layout-boxed html,
 .layout-boxed body {
   height: 100%;
