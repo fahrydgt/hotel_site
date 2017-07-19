@@ -7,33 +7,49 @@ class Hotels_model extends CI_Model
  	}
 	 
          public function search_result($data=''){ 
-            $this->db->select('f.*, fc.name as category_name');
-            $this->db->from(FACILITIES.' f');  
-            $this->db->join(FACILITIES_CAT.' fc','fc.id = f.category_id');  
-            $this->db->where('f.deleted',0);
+            $this->db->select('h.id as hotel_id,h.*,hr.check_in_time as check_in,hr.check_out_time as check_out,hr.*,hi.*,u.first_name,u.last_name,u.email as admin_email,u.pic,u.tel as admin_contact,ua.user_name as admin_username,ua.user_role_id,ua.status as admin_status');
+            $this->db->from(HOTELS.' h'); 
+            $this->db->join(HOTEL_RESOURCE.' hr','hr.hotel_id = h.id'); 
+            $this->db->join(HOTEL_IMAGES_TBL.' hi','hi.hotel_id = h.id','left'); 
+            $this->db->join(USER.' u','u.hotel_id = h.id','left'); 
+            $this->db->join(USER_TBL.' ua','ua.id = u.auth_id','left'); 
             if($data !=''){
-                $this->db->like('f.name', $data['name']); 
-                $this->db->like('f.category_id', $data['category']); 
+                $this->db->like('h.hotel_name', $data['hotel_name']); 
+                $this->db->like('h.city', $data['city']); 
+                $this->db->like('h.phone', $data['phone']); 
+                $this->db->like('h.email', $data['email']); 
                } 
             $result = $this->db->get()->result_array();  
+//            echo '<pre>';            print_r($result); die;
             return $result;
 	}
 	
          public function get_single_row($id){ 
-            $this->db->select('*');
-            $this->db->from(FACILITIES); 
-            $this->db->where('id',$id);
-            $this->db->where('deleted',0);
+            $this->db->select('h.id as hotel_id,h.*,hr.check_in_time as check_in,hr.check_out_time as check_out,hr.*,hi.*,u.first_name,u.last_name,u.email as admin_email,u.pic,u.tel as admin_contact,ua.user_name as admin_username,ua.user_role_id,ua.status as admin_status');
+            $this->db->from(HOTELS.' h'); 
+            $this->db->join(HOTEL_RESOURCE.' hr','hr.hotel_id = h.id'); 
+            $this->db->join(HOTEL_IMAGES_TBL.' hi','hi.hotel_id = h.id','left'); 
+            $this->db->join(USER.' u','u.hotel_id = h.id','left'); 
+            $this->db->join(USER_TBL.' ua','ua.id = u.auth_id','left'); 
+            $this->db->where('h.id',$id);
+            $this->db->where('h.deleted',0);
             $result = $this->db->get()->result_array();  
+//            echo $this->db->last_query(); die;
             return $result;
 	}
                         
-        public function add_db($data){       
+        public function add_db($data){      
+//            echo '<pre>';            print_r($data); die;
                 $this->db->trans_start();
-		$this->db->insert(FACILITIES, $data); 
-                $insert_id =  $this->db->insert_id();
+                
+		$this->db->insert(HOTELS, $data['hotel_tbl']); 
+		$this->db->insert(HOTEL_RESOURCE, $data['resource_tbl']); 
+		$this->db->insert(HOTEL_IMAGES_TBL, $data['hotel_img_tbl']); 
+		$this->db->insert(USER_TBL, $data['user_auth']); 
+		$this->db->insert(USER, $data['user_det']);  
+                
 		$status[0]=$this->db->trans_complete();
-		$status[1]=$insert_id; 
+		$status[1]=$data['resource_tbl']['hotel_id']; 
 		return $status;
 	}
         
@@ -41,8 +57,16 @@ class Hotels_model extends CI_Model
 		$this->db->trans_start();
                 
 		$this->db->where('id', $id);
-                $this->db->where('deleted',0);
-		$this->db->update(FACILITIES, $data);
+		$this->db->update(HOTELS, $data['hotel_tbl']);
+                        
+		$this->db->where('hotel_id', $id);
+		$this->db->update(HOTEL_RESOURCE, $data['resource_tbl']);
+                        
+		$this->db->where('hotel_id', $id);
+		$this->db->update(HOTEL_IMAGES_TBL, $data['hotel_img_tbl']);
+                        
+		$this->db->where('hotel_id', $id);
+		$this->db->update(USER, $data['user_det']); 
                         
 		$status=$this->db->trans_complete();
 		return $status;

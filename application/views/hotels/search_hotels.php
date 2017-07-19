@@ -7,22 +7,27 @@ $(document).ready(function(){
 		event.preventDefault();
 		get_results();
     });
-	 
-    $("#category").change(function(){
+    $("#city").keyup(function(){ 
 		event.preventDefault();
 		get_results();
     });
-	
-	
+    $("#phone").keyup(function(){ 
+		event.preventDefault();
+		get_results();
+    });
+    $("#email").keyup(function(){ 
+		event.preventDefault();
+		get_results();
+    });
 	function get_results(){
         $.ajax({
-			url: "<?php echo site_url('facilities/search');?>",
+			url: "<?php echo site_url('Hotels/search');?>",
 			type: 'post',
 			data : jQuery('#form_search').serializeArray(),
 			success: function(result){
                              $("#result_search").html(result);
                              $(".dataTable").DataTable();
-        }
+                        }
 		});
 	}
 });
@@ -76,11 +81,11 @@ $(document).ready(function(){
                         <div class="row"> 
                             <div class="col-md-6"> 
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label">Name<span style="color: red">*</span></label>
+                                        <label class="col-md-3 control-label">Hotel Name<span style="color: red"></span></label>
                                         <div class="col-md-9">                                            
                                             <div class="input-group">
                                                 <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
-                                                <?php echo form_input('name', set_value('name'), 'id="name" class="form-control" placeholder="Search by Facility Name"'); ?>
+                                                <?php echo form_input('name', set_value('name'), 'id="name" class="form-control" placeholder="Search by Hotel Name"'); ?>
 
                                             </div>                                            
                                             <span class="help-block"><?php echo form_error('name');?></span>
@@ -88,16 +93,44 @@ $(document).ready(function(){
                                     </div> 
                             </div>
                             <div class="col-md-6"> 
-                                <div class="form-group">
-                                       <label class="col-md-3 control-label">Category</label>
-                                           <div class="col-md-9">                                            
-                                               <div class="input-group">
-                                                   <span class="input-group-addon"><span class="fa fa-search"></span></span>
-                                                    <?php  echo form_dropdown('category',$category_list,set_value('category'),' class="form-control select2" id="category"');?>
-                                               </div>                                             
-                                           </div>
-                                       </div> 
-                                </div> 
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">City<span style="color: red"></span></label>
+                                        <div class="col-md-9">                                            
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                                                <?php echo form_input('city', set_value('city'), 'id="city" class="form-control" placeholder="Search by city Name"'); ?>
+
+                                            </div>                                            
+                                            <span class="help-block"><?php echo form_error('city');?></span>
+                                        </div>
+                                    </div> 
+                            </div> 
+                            <div class="col-md-6"> 
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Email<span style="color: red"></span></label>
+                                        <div class="col-md-9">                                            
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                                                <?php echo form_input('email', set_value('email'), 'id="email" class="form-control" placeholder="Search by Email Address"'); ?>
+
+                                            </div>                                            
+                                            <span class="help-block"><?php echo form_error('email');?></span>
+                                        </div>
+                                    </div> 
+                            </div> 
+                            <div class="col-md-6"> 
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Phone<span style="color: red"></span></label>
+                                        <div class="col-md-9">                                            
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                                                <?php echo form_input('phone', set_value('phone'), 'id="phone" class="form-control" placeholder="Search by Contact Number"'); ?>
+
+                                            </div>                                            
+                                            <span class="help-block"><?php echo form_error('email');?></span>
+                                        </div>
+                                    </div> 
+                            </div> 
                         </div>
                     </div>
                 <div class="panel-footer">

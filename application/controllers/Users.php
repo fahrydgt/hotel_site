@@ -106,9 +106,7 @@ class Users extends CI_Controller {
 	}	
         
         
-	function create(){
-              $inputs = $this->input->post();
-//            var_dump($inputs); die; 
+	function create(){ 
             $inputs = $this->input->post();
             $inputs['status'] = 0;
             if(isset($inputs['status'])){

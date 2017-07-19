@@ -24,7 +24,7 @@ class Fileuploads extends Fileuploader {
         {
             echo 'okokok';
         }
-        public function upload_all($name,$upload_dir,$title='name',$limit=null,$max_size=null,$file_max_size=null,$extentions=null,$replace=false,$list_input=true,$files=null)
+        public function upload_all($name,$upload_dir,$files=null,$title='name',$limit=null,$max_size=null,$file_max_size=null,$extentions=null,$replace=false,$list_input=true)
         { 
             $options = array(
                          'limit' => $limit,
@@ -62,7 +62,7 @@ class Fileuploads extends Fileuploader {
                 // !important only for appended files
                 // you will need to give the array with appendend files in 'files' option of the fileUploader
                 foreach($this->getRemovedFiles('file') as $key=>$value) {
-                        unlink('../uploads/' . $value['name']);
+                        unlink($upload_dir . $value['name']);
                 }
 
                 // get the fileList

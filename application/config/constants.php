@@ -68,6 +68,9 @@ define('FACILITIES',                    TB_PREFIX.'facilities');
 define('FACILITIES_CAT',                TB_PREFIX.'facilities_category');
 define('PROPERTY_SURROUND',             TB_PREFIX.'property_surrounding');
 define('PROPERTY_SURROUND_CAT',         TB_PREFIX.'property_surrounding_category');
+define('HOTELS',                        TB_PREFIX.'hotels');
+define('HOTEL_RESOURCE',                TB_PREFIX.'hotel_resources');
+define('HOTEL_IMAGES_TBL',                  TB_PREFIX.'hotel_images');
 
 
 /*
@@ -87,6 +90,8 @@ define('DB_BACKUPS',	'./storage/backups/database_backup/');
 define('FILE_BACKUPS',	'./storage/backups/file_backups/');
 define('DEFAULT_PIC',	'./storage/images/default/default.jpg');
 define('BANNERS_PIC',	'./storage/images/CMS/banners/');
+define('HOTEL_LOGO',	'./storage/images/hotels/hotel_logo/');
+define('HOTEL_IMAGES',	'./storage/images/hotels/hotel_images/');
 /*
 |--------------------------------------------------------------------------
 | File and Directory Modes
