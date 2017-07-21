@@ -388,6 +388,10 @@ class Hotels extends CI_Controller {
         function load_data($id){
             
             $data['user_data'] = $this->Hotels_model->get_single_row($id); 
+            if(empty($data['user_data'])){
+                $this->session->set_flashdata('error','INVALID! Please use the System Navigation');
+                redirect(base_url($this->router->fetch_class()));
+            }
             $data['facilities_list'] = get_dropdown_data(FACILITIES,'name','id','');
             $data['property_sur_list'] = get_dropdown_data(PROPERTY_SURROUND,'property_name','id','');
             $data['user_role_list'] = get_dropdown_data(USER_ROLE,'user_role','id');
@@ -408,9 +412,9 @@ class Hotels extends CI_Controller {
                                         
         function test(){
             
-            $this->load->model('Hotels_model');
-            $data = $this->Hotels_model->get_single_row(1);
-            echo '<pre>' ; print_r($data);die;
+//            $this->load->model('Hotels_model');
+//            $data = $this->Hotels_model->get_single_row(1);
+            echo '<pre>' ; print_r(get_dropdown_data(HOTELS,'hotel_name','id','Hotel'));die;
 //            log_message('error', 'Some variable did not contain a value.');
         }
         

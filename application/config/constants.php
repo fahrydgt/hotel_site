@@ -70,7 +70,11 @@ define('PROPERTY_SURROUND',             TB_PREFIX.'property_surrounding');
 define('PROPERTY_SURROUND_CAT',         TB_PREFIX.'property_surrounding_category');
 define('HOTELS',                        TB_PREFIX.'hotels');
 define('HOTEL_RESOURCE',                TB_PREFIX.'hotel_resources');
-define('HOTEL_IMAGES_TBL',                  TB_PREFIX.'hotel_images');
+define('HOTEL_IMAGES_TBL',              TB_PREFIX.'hotel_images');
+define('TARRIF_TYPE',                   TB_PREFIX.'tarrif_type');
+define('TARRIF_TYPE_CAT',               TB_PREFIX.'tarrif_type_category');
+define('ROOMS',                         TB_PREFIX.'rooms');
+define('TIME_BASE',                     TB_PREFIX.'time_base');
 
 
 /*

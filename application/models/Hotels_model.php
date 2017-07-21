@@ -13,6 +13,7 @@ class Hotels_model extends CI_Model
             $this->db->join(HOTEL_IMAGES_TBL.' hi','hi.hotel_id = h.id','left'); 
             $this->db->join(USER.' u','u.hotel_id = h.id','left'); 
             $this->db->join(USER_TBL.' ua','ua.id = u.auth_id','left'); 
+            $this->db->where('h.deleted',0);
             if($data !=''){
                 $this->db->like('h.hotel_name', $data['hotel_name']); 
                 $this->db->like('h.city', $data['city']); 
@@ -74,10 +75,19 @@ class Hotels_model extends CI_Model
         
         public function delete_db($id,$data){ 
 		$this->db->trans_start();
+                
 		$this->db->where('id', $id);
-		$this->db->where('id!=', 1);
-                $this->db->where('deleted',0);
-		$this->db->update(FACILITIES, $data);
+		$this->db->update(HOTELS, $data);
+                        
+		$this->db->where('hotel_id', $id);
+		$this->db->update(HOTEL_RESOURCE, $data);
+                        
+		$this->db->where('hotel_id', $id);
+		$this->db->update(HOTEL_IMAGES_TBL, array('deleted'=>1));
+                        
+		$this->db->where('hotel_id', $id);
+		$this->db->update(USER, $data);
+                
 		$status=$this->db->trans_complete();
 		return $status;
 	}

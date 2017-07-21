@@ -71,6 +71,8 @@
 	
 	case 'Delete':
 		if(!empty($user_data[0])){$result= $user_data[0];} 
+                $result['payments_policy'] = json_decode($result['payments_policy'],true);
+                $result['pets'] = json_decode($result['pets'],true);
 		$heading	= 'Delete';
 		$dis		= 'readonly';
 		$view		= '';
@@ -80,6 +82,8 @@
       
 	case 'View':
 		if(!empty($user_data[0])){$result= $user_data[0];} 
+                $result['payments_policy'] = json_decode($result['payments_policy'],true);
+                $result['pets'] = json_decode($result['pets'],true);
 		$heading	= 'View';
 		$view		= 'hidden';
 		$dis        = 'readonly';
