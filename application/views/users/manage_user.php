@@ -1,7 +1,19 @@
 <?php 
 //$this->load->view('includes/pg_hdr');
 	  	
-	$result = array('auth_id'=>"",'first_name'=>"", 'last_name' => "", 'email' => "", 'tel' => "", 'user_name' => "", 'password' => "",  'confirm_password' => "", 'user_role_id' => "", 'status' => "", "pic"=> 'default.jpg'); 
+	$result = array(
+                        'auth_id'=>"",
+                        'first_name'=>"", 
+                        'last_name' => "", 
+                        'email' => "",
+                        'tel' => "",
+                        'user_name' => "",
+                        'password' => "",
+                        'confirm_password' => "",
+                        'user_role_id' => "",
+                        'status' => "",
+                        "pic"=> 'default.jpg',
+            ); 
 	 
 	switch($action):
 	case 'Add':

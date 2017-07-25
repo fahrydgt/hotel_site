@@ -26,7 +26,7 @@ class Users extends CI_Controller {
 //		$data  			= $this->load_data();
 		$data['action']		= 'Add';
 		$data['main_content']='users/manage_user'; 
-                $data['user_role_list'] = get_dropdown_data(USER_ROLE,'user_role','id');
+                $data['user_role_list'] = get_dropdown_data(USER_ROLE,'user_role','id','User Role');
 		$this->load->view('includes/template',$data);
 	}
 	
@@ -106,9 +106,7 @@ class Users extends CI_Controller {
 	}	
         
         
-	function create(){
-              $inputs = $this->input->post();
-//            var_dump($inputs); die; 
+	function create(){ 
             $inputs = $this->input->post();
             $inputs['status'] = 0;
             if(isset($inputs['status'])){
@@ -249,7 +247,7 @@ class Users extends CI_Controller {
                    
          function do_upload($file_nm, $pic_name='default', $upload_dir='',$overwrite=true){
              
-//            echo '<pre>';                print_r(($_FILES[$file_nm])); die; 
+//            echo '<pre>';                print_r(($_FILES)); die; 
             $config['upload_path'] = USER_PROFILE_PIC.$upload_dir.'/';
             $config['file_name'] = $pic_name;
             $config['overwrite'] = $overwrite;

@@ -5,7 +5,7 @@
 <html lang="en">
     
 <head>
-  <meta charset="utf-8">
+  <!--<meta charset="utf-8">-->
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title><?php echo SYSTEM_NAME; ?></title>
   <!-- Tell the browser to be responsive to screen width -->
@@ -27,6 +27,7 @@
   <link rel="stylesheet" href="<?php echo base_url('templates/plugins/jvectormap/jquery-jvectormap-1.2.2.css');?>">
   <!-- Date Picker -->
   <link rel="stylesheet" href="<?php echo base_url('templates/plugins/datepicker/datepicker3.css');?>">
+  <link rel="stylesheet" href="<?php echo base_url('templates/plugins/datetimepicker/bootstrap-datetimepicker.min.css');?>">
   <!-- Daterange picker -->
   <link rel="stylesheet" href="<?php echo base_url('templates/plugins/daterangepicker/daterangepicker.css');?>">
   <!-- bootstrap wysihtml5 - text editor -->
@@ -46,10 +47,18 @@
 
   <!-- Google Font -->
   <link rel="stylesheet" href="<?php echo base_url('templates/plugins/online/css/font_1.css');?>">
+  <!-- bootstrap wysihtml5 - text editor -->
+  <link rel="stylesheet" href="<?php echo base_url('templates/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css');?>">
+
   
 <!-- jQuery 3.1.1 -->
-<!--<script src="<?php // echo base_url('templates/plugins/jQuery/jquery-3.1.1.min.js');?>"></script>-->
-<script src="<?php echo base_url('templates/plugins/jQuery/jquery-2.2.3.min.js');?>"></script>
+<script src="<?php echo base_url('templates/plugins/jQuery/jquery-3.1.1.min.js');?>"></script>
+<!--<script src="<?php // echo base_url('templates/plugins/jQuery/jquery-2.2.3.min.js');?>"></script>-->
+
+<!--file uploader-->
+<link href="<?php echo base_url('templates/plugins/file_upload2/jquery.fileuploader.css')?>" media="all" rel="stylesheet">
+<link href="<?php echo base_url('templates/plugins/file_upload2/jquery.fileuploader-theme-thumbnails.css')?>" media="all" rel="stylesheet">
+<!--end file uploader-->
 </head>
  
 

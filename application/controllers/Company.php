@@ -50,7 +50,10 @@ class Company extends CI_Controller {
 	}
 	
         
-	function validate(){  
+	function validate(){   
+//            $this->load->library('fileuploads');
+//            $res = $this->fileuploads->upload_all('files',COMPANY_LOGO);
+//            echo '<pre>' ; print_r($res);die;
             $this->form_val_setrules(); 
             if($this->form_validation->run() == False){
                 switch($this->input->post('action')){
@@ -252,11 +255,36 @@ class Company extends CI_Controller {
 	}
                                         
         function test(){
+             $data['action']		= 'Add';
+            $data['main_content']='company/upload_test'; 
+            $data['user_role_list'] = get_dropdown_data(USER_ROLE,'user_role','id');
+            $data['country_list'] = get_dropdown_data(COUNTRY_LIST,'country_name','country_code','Country');
+            $this->load->view('includes/template',$data);
             
 //            $this->load->model('Company_model');
 //            $data = $this->Company_model->add_system_log();
-            echo '<pre>' ; print_r($this);die;
+//            echo '<pre>' ; print_r($this);die;
 //            log_message('error', 'Some variable did not contain a value.');
+        }
+        function test_upload(){
+//            echo '<pre>';            print_r($_POST);die;
+             $options = array(
+                        'limit' => null,
+                        'maxSize' => null,
+                        'fileMaxSize' => null,
+                        'extensions' => null,
+                        'required' => false,
+                        'uploadDir' => COMPANY_LOGO,
+                        'title' => 'name',
+                        'replace' => false,
+                        'listInput' => true,
+                        'files' => null
+                    );
+            $params = array('name'=>'files','options'=>$options);
+            
+            $this->load->library('fileuploads',$params);
+            $res = $this->fileuploads->upload_all();
+//            echo '<pre>'; print_r('$res'); die;
         }
         
         function do_upload($file_nm, $pic_name='logo_default')

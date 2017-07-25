@@ -32,6 +32,7 @@
 <script src="<?php echo base_url('templates/plugins/daterangepicker/daterangepicker.js');?>"></script>
 <!-- datepicker -->
 <script src="<?php echo base_url('templates/plugins/datepicker/bootstrap-datepicker.js');?>"></script>
+<script src="<?php echo base_url('templates/plugins/datetimepicker/bootstrap-datetimepicker.min.js');?>"></script>
 <!-- datepicker -->
 <script src="<?php echo base_url('templates/plugins/file-upload/fileinput.js');?>"></script>
 <!-- Bootstrap WYSIHTML5 -->
@@ -51,5 +52,12 @@
 <script src="<?php echo base_url('templates/dist/js/pages/dashboard.js');?>"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url('templates/dist/js/demo.js');?>"></script>
+<!--file uploader-->
+<script src="<?php echo base_url('templates/plugins/file_upload2/jquery.fileuploader.min.js')?>" type="text/javascript"></script>
+<script src="<?php echo base_url('templates/plugins/file_upload2/custom.js')?>" type="text/javascript"></script>
+<!--End file uploader-->
+<!-- Bootstrap WYSIHTML5 -->
+<script src="<?php echo base_url('templates/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')?>"></script>
+<!-- END Bootstrap WYSIHTML5 -->
 </body>
 </html>

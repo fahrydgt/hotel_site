@@ -51,7 +51,7 @@ $log_data = $log_data[0];
                   <tbody>
                       <?php
                       $i=1;
-                        $tbl_old = unserialize($log_data['data_old']);
+                        $tbl_old = unserialize($log_data['data_new']);
                         
                         if(!empty($tbl_old)){
                           foreach ($tbl_old[0] as $tab1_data=>$key){
@@ -80,7 +80,7 @@ $log_data = $log_data[0];
                   <tbody>
                       <?php
                       $j=1;
-                        $tbl_new = unserialize($log_data['data_new']);
+                        $tbl_new = unserialize($log_data['data_old']);
                         
                         if(!empty($tbl_new)){
                           foreach ($tbl_new[0] as $tab1_data=>$key){

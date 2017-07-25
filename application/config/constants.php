@@ -59,8 +59,25 @@ define('MODULE_USER_ROLE_ACT',          TB_PREFIX.'module_user_role');
 //define('HOTELS',                        TB_PREFIX.'hotels');
 define('COMPANIES',                     TB_PREFIX.'company');
 define('COUNTRY_LIST',                  TB_PREFIX.'countries');
-define('SYSTEM_LOG',                  TB_PREFIX.'system_log');
-define('SYSTEM_LOG_DETAIL',                  TB_PREFIX.'system_log_detail');
+define('SYSTEM_LOG',                    TB_PREFIX.'system_log');
+define('SYSTEM_LOG_DETAIL',             TB_PREFIX.'system_log_detail');
+define('BANNERS',                       TB_PREFIX.'cms_banner');
+define('DROPDOWN_LIST',                 TB_PREFIX.'dropdown_list');
+define('DROPDOWN_LIST_NAMES',           TB_PREFIX.'dropdown_list_names');
+define('FACILITIES',                    TB_PREFIX.'facilities');
+define('FACILITIES_CAT',                TB_PREFIX.'facilities_category');
+define('PROPERTY_SURROUND',             TB_PREFIX.'property_surrounding');
+define('PROPERTY_SURROUND_CAT',         TB_PREFIX.'property_surrounding_category');
+define('HOTELS',                        TB_PREFIX.'hotels');
+define('HOTEL_RESOURCE',                TB_PREFIX.'hotel_resources');
+define('HOTEL_IMAGES_TBL',              TB_PREFIX.'hotel_images');
+define('TARRIF_TYPE',                   TB_PREFIX.'tarrif_type');
+define('TARRIF_TYPE_CAT',               TB_PREFIX.'tarrif_type_category');
+define('ROOMS',                         TB_PREFIX.'rooms');
+define('TIME_BASE',                     TB_PREFIX.'time_base');
+define('MEALPLAN',                      TB_PREFIX.'mealplan');
+define('CURRENCY',                      TB_PREFIX.'currency');
+define('PRICEPLAN',                      TB_PREFIX.'price_plan');
 
 
 /*
@@ -79,6 +96,9 @@ define('USER_PROFILE_PIC',	'./storage/images/users/profile/');
 define('DB_BACKUPS',	'./storage/backups/database_backup/');
 define('FILE_BACKUPS',	'./storage/backups/file_backups/');
 define('DEFAULT_PIC',	'./storage/images/default/default.jpg');
+define('BANNERS_PIC',	'./storage/images/CMS/banners/');
+define('HOTEL_LOGO',	'./storage/images/hotels/hotel_logo/');
+define('HOTEL_IMAGES',	'./storage/images/hotels/hotel_images/');
 /*
 |--------------------------------------------------------------------------
 | File and Directory Modes

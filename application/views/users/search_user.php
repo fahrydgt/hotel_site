@@ -57,8 +57,8 @@ $(document).ready(function(){
         <?php } ?>  
     
         <div class="">
-            <a href="<?php echo base_url('users/add');?>" class="btn btn-app "><i class="fa fa-plus"></i>Create New</a>
-            <a href="<?php echo base_url('users');?>" class="btn btn-app "><i class="fa fa-search"></i>Search</a>
+            <a href="<?php echo base_url($this->router->fetch_class().'/add');?>" class="btn btn-app "><i class="fa fa-plus"></i>Create New</a>
+            <a href="<?php echo base_url($this->router->fetch_class());?>" class="btn btn-app "><i class="fa fa-search"></i>Search</a>
 
         </div>
     </div>
