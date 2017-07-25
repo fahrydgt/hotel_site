@@ -75,6 +75,9 @@ define('TARRIF_TYPE',                   TB_PREFIX.'tarrif_type');
 define('TARRIF_TYPE_CAT',               TB_PREFIX.'tarrif_type_category');
 define('ROOMS',                         TB_PREFIX.'rooms');
 define('TIME_BASE',                     TB_PREFIX.'time_base');
+define('MEALPLAN',                      TB_PREFIX.'mealplan');
+define('CURRENCY',                      TB_PREFIX.'currency');
+define('PRICEPLAN',                      TB_PREFIX.'price_plan');
 
 
 /*

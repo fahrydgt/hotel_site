@@ -411,7 +411,7 @@ class Hotels extends CI_Controller {
 	}
                                         
         function test(){
-            
+            echo '<pre>';            print_r($this->router->class); die;
 //            $this->load->model('Hotels_model');
 //            $data = $this->Hotels_model->get_single_row(1);
             echo '<pre>' ; print_r(get_dropdown_data(HOTELS,'hotel_name','id','Hotel'));die;

@@ -26,7 +26,7 @@ class Users extends CI_Controller {
 //		$data  			= $this->load_data();
 		$data['action']		= 'Add';
 		$data['main_content']='users/manage_user'; 
-                $data['user_role_list'] = get_dropdown_data(USER_ROLE,'user_role','id');
+                $data['user_role_list'] = get_dropdown_data(USER_ROLE,'user_role','id','User Role');
 		$this->load->view('includes/template',$data);
 	}
 	

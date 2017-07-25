@@ -14,6 +14,9 @@ class Hotels_model extends CI_Model
             $this->db->join(USER.' u','u.hotel_id = h.id','left'); 
             $this->db->join(USER_TBL.' ua','ua.id = u.auth_id','left'); 
             $this->db->where('h.deleted',0);
+//            if($this->session->userdata('user_role_id')==6){
+//                $this->db->where('u.id', $this->session->userdata('ID'));
+//            }
             if($data !=''){
                 $this->db->like('h.hotel_name', $data['hotel_name']); 
                 $this->db->like('h.city', $data['city']); 
@@ -21,7 +24,7 @@ class Hotels_model extends CI_Model
                 $this->db->like('h.email', $data['email']); 
                } 
             $result = $this->db->get()->result_array();  
-//            echo '<pre>';            print_r($result); die;
+//            echo '<pre>';            print_r($this->session->userdata('user_role_ID')); die;
             return $result;
 	}
 	

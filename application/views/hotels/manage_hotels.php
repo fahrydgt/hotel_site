@@ -212,7 +212,7 @@ endswitch;
                                                                           <label class="col-md-1 control-label">Description<span style="color: red">*</span></label>
                                                                           <div class="col-md-9">                                            
                                                                               <div class="input-group" style="padding-left: 50px;"> 
-                                                                                        <?php echo form_textarea(array('name'=>'description','rows'=>'4','cols'=>'120','id'=>'description', 'class'=>'textarea_editor form-control', 'placeholder'=>'Enter description' ),set_value('description',$result['description']),$dis.' '.$o_dis.' '); ?>
+                                                                                        <?php echo form_textarea(array('name'=>'description','rows'=>'4','cols'=>'120','id'=>'description', 'class'=>'textarea_editor form-control', 'placeholder'=>'Enter description' ),set_value('description',$result['description'],false),$dis.' '.$o_dis.' '); ?>
                                                                             </div>                                            
                                                                               <span class="help-block"><?php echo form_error('description');?></span>
                                                                           </div>

@@ -8,6 +8,7 @@
                         'time_base_id'=>"",
                         'hotel_id'=>"",
                         'description'=>"",
+                        'facilities'=>"",
                         'status'=>"",
                         );   	
 	
@@ -45,7 +46,7 @@
 		$o_dis		= 'disabled'; 
 	break;
 endswitch;	 
-
+//echo html_entity_decode($result['description']); die;
 //var_dump($result);
 ?> 
 <!-- Main content -->
@@ -156,12 +157,24 @@ endswitch;
                                                     <label class="col-md-3 control-label">Description<span style="color: red"></span></label>
                                                     <div class="col-md-9">                                            
                                                         <div class="input-group">
-                                                             <?php echo form_textarea(array('name'=>'description','rows'=>'4','cols'=>'60','id'=>'description', 'class'=>'form-control', 'placeholder'=>'Enter description' ),set_value('description',$result['description']),$dis.' '.$o_dis.' '); ?>
+                                                             <?php echo form_textarea(array('name'=>'description','rows'=>'4','cols'=>'60','id'=>'description', 'class'=>'form-control', 'placeholder'=>'Enter description' ),set_value('description',$result['description'],false),$dis.' '.$o_dis.' '); ?>
                                                         </div>                                            
                                                         <span class="help-block"><?php echo form_error('description');?></span>
                                                     </div>
                                                 </div>
                                             </div> 
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="col-md-3 control-label">Facilities<span style="color: red"></span></label>
+                                                    <div class="col-md-9">                                            
+                                                        <div class="input-group"> <span class="input-group-addon"><span class="fa fa-cutlery"></span></span>
+                                                           <?php  echo form_dropdown('facilities[]',$facilities_list,set_value('facilities[]', json_decode($result['facilities'])),' class="form-control  select2"  multiple="multiple"  data-live-search="true" id="facilities"'.$o_dis.'');?>
+                                                             
+                                                        </div>                                            
+                                                        <span class="help-block"><?php echo form_error('facilities');?></span>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="col-md-3 control-label">Status</label>

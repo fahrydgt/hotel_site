@@ -4,7 +4,7 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 if ( ! function_exists('get_dropdown_data'))
 {
       // generate serial
-	function get_dropdown_data($table='', $name='', $id='',$first_null_option='User', $where='',$where_del = 0){
+	function get_dropdown_data($table='', $name='', $id='',$first_null_option="", $where='',$where_del = 0){
 		$CI =& get_instance();
 		$CI->db->select("".$name.",".$id."");	
 		$CI->db->from($table);	 
