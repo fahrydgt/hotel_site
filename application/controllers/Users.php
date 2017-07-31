@@ -19,6 +19,8 @@ class Users extends CI_Controller {
             
             $data['user_list'] = $this->User_model->search_result();
             $data['main_content']='users/search_user'; 
+            $data['hotel_list'] = get_dropdown_data(HOTELS,'hotel_name','id','Hotel');
+            $data['hotel_list']['all']= 'All Hotels'; 
             $this->load->view('includes/template',$data);
 	}
         
@@ -27,6 +29,8 @@ class Users extends CI_Controller {
 		$data['action']		= 'Add';
 		$data['main_content']='users/manage_user'; 
                 $data['user_role_list'] = get_dropdown_data(USER_ROLE,'user_role','id','User Role');
+                $data['hotel_list'] = get_dropdown_data(HOTELS,'hotel_name','id','Hotel');
+                $data['hotel_list']['all']= 'All Hotels'; 
 		$this->load->view('includes/template',$data);
 	}
 	
@@ -129,6 +133,7 @@ class Users extends CI_Controller {
                                     'last_name' => $inputs['last_name'],
                                     'email' => $inputs['email'],
                                     'tel' => $inputs['contact'],
+                                    'hotel_id' => (isset($inputs['hotel_id'])?json_encode($inputs['hotel_id']):0),
                                     'pic' => $pic_upload_1[0],
                                     'added_on' => date('Y-m-d'),
                                     'added_by' => $this->session->userdata('ID'),
@@ -182,6 +187,7 @@ class Users extends CI_Controller {
                                     'last_name' => $inputs['last_name'],
                                     'email' => $inputs['email'],
                                     'tel' => $inputs['contact'],
+                                    'hotel_id' => (isset($inputs['hotel_id'])?json_encode($inputs['hotel_id']):0),
                                     'updated_on' => date('Y-m-d'),
                                     'updated_by' => $this->session->userdata('ID'),
                                 );
@@ -204,10 +210,10 @@ class Users extends CI_Controller {
                                 add_system_log(USER_TBL.'-'.USER, $this->router->fetch_class(), __FUNCTION__, $existing_data, $new_data);
 				
 				$this->session->set_flashdata('warn',RECORD_UPDATE);
-				redirect(base_url('users'));;
+				redirect(base_url($this->router->fetch_class().'/edit/'.$inputs['user_id']));
 			}else{
 				$this->session->set_flashdata('warn',ERROR);
-				redirect(base_url('users'));;
+				redirect(base_url($this->router->fetch_class()));
 			} 
 	}
 	
@@ -234,14 +240,16 @@ class Users extends CI_Controller {
             
             $data['user_data'] = $this->User_model->get_single_user($id); 
             $data['user_role_list'] = get_dropdown_data(USER_ROLE,'user_role','id');
+            $data['hotel_list'] = get_dropdown_data(HOTELS,'hotel_name','id');
+            $data['hotel_list']['all']= 'All Hotels'; 
+
             return $data;	
 	}	
         
         function search_user(){
-		$search_data=array( 'user_name' => $this->input->post('user_name'), 'email' => $this->input->post('email')); 
+		$search_data=array( 'user_name' => $this->input->post('user_name'), 'hotel_id' => $this->input->post('hotel_id'), 'email' => $this->input->post('email')); 
 		$data_view['search_list'] = $this->User_model->search_result($search_data);
-		
-//                var_dump($this->input->post()); die;
+                                        
 		$this->load->view('Users/search_user_result',$data_view);
 	}
                    

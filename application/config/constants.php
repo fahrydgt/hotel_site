@@ -82,6 +82,21 @@ define('PRICEPLAN',                      TB_PREFIX.'price_plan');
 
 /*
 |--------------------------------------------------------------------------
+| MESSAGES
+|--------------------------------------------------------------------------
+|
+| Success Error....messages
+|
+*/
+
+//define('HOTEL_LOGO',	'./storage/images/company/');
+define('RECORD_ADD',	'Record added Successfully');
+define('RECORD_UPDATE',	'Record updated Successfully');
+define('RECORD_DELETE',	'Record Deleted Successfully');
+define('ERROR',	'Error! Something went wrong.');
+
+/*
+|--------------------------------------------------------------------------
 | STORAGE PLACES 
 |--------------------------------------------------------------------------
 |

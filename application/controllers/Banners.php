@@ -30,9 +30,9 @@ class Banners extends CI_Controller {
 		$this->load->view('includes/template',$data);
 	}
 	
-	function edit($type){
+	function edit($id){
 //		$this->redirection_handler($ac_reg_id,'Edit');
-		$data['banner_data'] = $this->Banner_model->get_banner_list($type);
+		$data['user_data'] = $this->Banner_model->get_single_row($id);
 		$data['action']		= 'Edit';
 		$data['main_content']='banners/manage_banner'; 
 		$this->load->view('includes/template',$data);
@@ -57,33 +57,59 @@ class Banners extends CI_Controller {
 	
         
 	function validate(){  
-			$this->form_val_setrules();
-//                        echo '<pre>'; print_r($this->input->post()); die; 
-                            
-				switch($this->input->post('action')){
-					case 'Add':
-						$this->create();
-					break;
-					case 'Edit':
-					    $this->update();
-					break;
-					case 'Delete':
-					    $this->remove();
-					break;
-                                        case 'View':
-                                            $this->view();
+//                        echo '<pre>'; print_r($this->input->post()); die;
+			$this->form_val_setrules(); 
+                          if($this->form_validation->run() == False){
+                            switch($this->input->post('action')){
+                                case 'Add':
+                                        $this->add();
                                         break;
-                                }	 
+                                case 'Edit':
+                                        $this->edit($this->input->post('id'));
+                                        break;
+                                case 'Delete':
+                                        $this->delete($this->input->post('id'));
+                                        break;
+                            } 
+                    }
+                    else{
+                        switch($this->input->post('action')){
+                            case 'Add':
+                                    $this->create();
+                            break;
+                            case 'Edit':
+                                $this->update();
+                            break;
+                            case 'Delete':
+                                $this->remove();
+                            break;
+                            case 'View':
+                                $this->view();
+                            break;
+                        }	
+                }	 
 	}
         
         
-	function form_val_setrules(){
-//		$this->form_validation->set_error_delimiters('<p style="color:rgb(255, 115, 115);" class="help-block"><i class="glyphicon glyphicon-exclamation-sign"></i> ','</p>');
+	function form_val_setrules(){ 
+		$this->form_validation->set_error_delimiters('<p style="color:rgb(255, 115, 115);" class="help-block"><i class="glyphicon glyphicon-exclamation-sign"></i> ','</p>');
 		
-		 $this->form_validation->set_rules('image','User Name','required');
+                $this->form_validation->set_rules('banner_name','banner Name','required');
+                $this->form_validation->set_rules('banner_entry_count','banner_entry_count Name','callback_get_count_banner_entries');
                                         
-	}	
+	}	 
         
+        function get_count_banner_entries(){
+                $inputs_banners = $this->input->post('arr'); 
+                if(count($this->input->post('arr'))>0){
+                    return true;
+                }else{
+                    $this->form_validation->set_message('get_count_banner_entries','Please add atleast one entry');
+                    return false;
+                } 
+
+        }
+                
         
 	function create(){
             $inputs = $this->input->post();
@@ -101,39 +127,41 @@ class Banners extends CI_Controller {
                 $files_array[$index]['tmp_name'] = $_FILES['arr']['tmp_name'][$index]['img'];
                 $files_array[$index]['error'] = $_FILES['arr']['error'][$index]['img'];
                 $files_array[$index]['size'] = $_FILES['arr']['size'][$index]['img'];  
+                
+                $inputs['arr'][$index]['image_name'] =  $_FILES['arr']['name'][$index]['img'];
             }
             $_FILES = $files_array;
             
-//              echo '<pre>'; print_r($files_array);
+//              echo '<pre>'; print_r($inputs);
 //              echo '<pre>'; print_r(is_dir(BANNERS_PIC.'slider/')); die; 
-            
-        foreach ($inputs['arr'] as $input_index=>$inputs_arr){
-            $ban_id = get_autoincrement_no(BANNERS);
+                                        
               //create Dir if not exists for store necessary images 
-            if(!is_dir(BANNERS_PIC.'slider/')) mkdir(BANNERS_PIC.'slider/', 0777, TRUE); 
-            $pic_upload_1 = $this->do_upload($input_index,'default_'.$input_index,'slider');
+           
             
-            $data[] = array(
-                            'type' => 'slider',
-                            'image' => $pic_upload_1[0],
-                            'text1' => $inputs_arr['title'],
-                            'text2' => $inputs_arr['desc'],
-                            'status' => isset($inputs_arr['status'])?1:0,
-                            'sort_order' => $inputs_arr['order'],
-//                            'added_on' => date('Y-m-d'),
-//                            'added_by' => $this->session->userdata('ID'),
-                        );
-        }
+            $data = array(
+                            'banner_name' => $inputs['banner_name'],
+                            'status' => isset($inputs['status'])?1:0,
+                            'data_json' => json_encode($inputs['arr']), 
+                            'added_on' => date('Y-m-d'),
+                            'added_by' => $this->session->userdata('ID'),
+                        ); 
             
-                          echo '<pre>'; print_r($data); die; 
+//                          echo '<pre>'; print_r($data); die; 
 
                                         
                  
 		$add_stat = $this->Banner_model->add_db($data);
                 
-		if($add_stat[0]){//update log data
+		if($add_stat[0]){
+                                //upload images
+                                $this->load->library('fileuploads'); //file upoad library created by FL
+                                if(!is_dir(BANNERS_PIC.$add_stat[1].'/')) mkdir(BANNERS_PIC.$add_stat[1].'/', 0777, TRUE); 
+                                foreach ($inputs['arr'] as $img_index=>$img_field){
+                                    $res_image[] = $this->fileuploads->upload_all($img_index,BANNERS_PIC.$add_stat[1].'/');
+                                }
+//                                echo '<pre>';                                print_r($res_image); die;
                                 $new_data = $this->User_model->get_single_user($add_stat[1]);
-                                add_system_log(BANNERS, $this->router->fetch_class(), __FUNCTION__, '', $new_data);
+                                add_system_log(BANNERS, $this->router->fetch_class(), __FUNCTION__, '', $new_data);//update log data
 				$this->session->set_flashdata('warn',RECORD_ADD);
 				redirect('banners/edit/'.$add_stat[1]);
 			}else{
@@ -143,7 +171,72 @@ class Banners extends CI_Controller {
 	}
 	
 	function update(){
-            $this->create(); 
+            $inputs = $this->input->post();
+            $inputs['status'] = 0;
+            if(isset($inputs['status'])){
+                $inputs['status'] = 1;
+            }
+            
+            
+             //old data for log update
+            $existing_data = $this->Banner_model->get_single_row($inputs['id']);
+            $prev_entries = json_decode($existing_data[0]['data_json'], true);
+            
+            $files_array= array();
+            foreach ($_FILES['arr']['name'] as $index=>$files_arr){ 
+                if($files_arr['img'] != ''){
+                    $files_array[$index]['name'] = $_FILES['arr']['name'][$index]['img'];
+                    $files_array[$index]['type'] = $_FILES['arr']['type'][$index]['img'];
+                    $files_array[$index]['tmp_name'] = $_FILES['arr']['tmp_name'][$index]['img'];
+                    $files_array[$index]['error'] = $_FILES['arr']['error'][$index]['img'];
+                    $files_array[$index]['size'] = $_FILES['arr']['size'][$index]['img'];  
+                
+                    $inputs['arr'][$index]['image_name'] =  $_FILES['arr']['name'][$index]['img'];
+                }else{
+                    $inputs['arr'][$index]['image_name'] =  $prev_entries[$index]['image_name']; 
+                }
+            }
+            $_FILES = $files_array;
+            
+            
+//            echo '<pre>'; print_r($_FILES); die;
+            
+//              echo '<pre>'; print_r(is_dir(BANNERS_PIC.'slider/')); die; 
+                                        
+              //create Dir if not exists for store necessary images 
+           //upload images
+            $this->load->library('fileuploads'); //file upoad library created by FL
+            if(!is_dir(BANNERS_PIC.$inputs['id'].'/')) mkdir(BANNERS_PIC.$inputs['id'].'/', 0777, TRUE); 
+            $j=0;
+            foreach ($_FILES as $img_index=>$img_field){
+                $res_image[] = $this->fileuploads->upload_all($img_index,BANNERS_PIC.$inputs['id'].'/');
+                $inputs['arr'][$img_index]['image_name'] =  $res_image[$j][0]['name'];
+                $j++;
+            }
+//            echo '<pre>';                                print_r($res_image); die;
+            
+            $data = array(
+                            'banner_name' => $inputs['banner_name'],
+                            'status' => isset($inputs['status'])?1:0,
+                            'data_json' => json_encode($inputs['arr']), 
+                            'updated_on' => date('Y-m-d'),
+                            'updated_by' => $this->session->userdata('ID'),
+                        ); 
+            
+//                          echo '<pre>'; print_r($data); die; 
+            $edit_stat = $this->Banner_model->edit_db($inputs['id'],$data);
+            
+            if($edit_stat){
+                //update log data
+                $new_data = $this->Banner_model->get_single_row($inputs['id']);
+                add_system_log(BANNERS, $this->router->fetch_class(), __FUNCTION__, $new_data, $existing_data);
+                $this->session->set_flashdata('warn',RECORD_UPDATE);
+                    
+                redirect(base_url($this->router->fetch_class().'/edit/'.$inputs['id']));
+            }else{
+                $this->session->set_flashdata('warn',ERROR);
+                redirect(base_url($this->router->fetch_class()));
+            } 
 	}
 	
 	function remove(){
@@ -170,12 +263,12 @@ class Banners extends CI_Controller {
             return $data;	
 	}	
         
-        function search_user(){
-		$search_data=array( 'user_name' => $this->input->post('user_name'), 'email' => $this->input->post('email')); 
-		$data_view['search_list'] = $this->User_model->search_result($search_data);
+        function search(){
+		$search_data=array( 'banner_name' => $this->input->post('user_name')); 
+		$data_view['search_list'] = $this->Banner_model->search_result($search_data);
 		
 //                var_dump($this->input->post()); die;
-		$this->load->view('Users/search_user_result',$data_view);
+		$this->load->view('banners/search_banner_result',$data_view);
 	}
                    
          function do_upload($file_nm, $pic_name='default', $upload_dir='',$overwrite=true){

@@ -168,7 +168,8 @@ endswitch;
                                  <!-- Custom Tabs -->
                                 <div class="nav-tabs-custom">
                                   <ul class="nav nav-tabs">
-                                    <li class="active"><a href="#tab_1" data-toggle="tab">Information</a></li> 
+                                    <li class="active"><a href="#tab_1" data-toggle="tab">Information</a></li>
+                                    <li><a href="#tab_2" data-toggle="tab">Contact User</a></li>
                                     <li><a href="#tab_3" data-toggle="tab">Rules/Payments</a></li>
                                     <li><a href="#tab_4" data-toggle="tab">Images</a></li> 
 
@@ -455,7 +456,158 @@ endswitch;
                                               </div>
 
                                       </div>
-                                  
+                                      <!-- /.tab-pane -->
+                                      <div class="tab-pane" id="tab_2"> 
+                                              <div class="row"> 
+                                                <div class="col-md-6">
+                                                  <div class="form-group">
+                                                      <label class="col-md-3 control-label">First Name<span style="color: red">*</span></label>
+                                                      <div class="col-md-9">                                            
+                                                          <div class="input-group">
+                                                              <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                                                               <?php echo form_input('first_name', set_value('first_name',$result['first_name']), 'id="first_name" class="form-control" placeholder="Enter First Name"'.$dis.' '.$o_dis.' '); ?>
+
+                                                          </div>                                            
+                                                          <span class="help-block"><?php echo form_error('first_name');?></span>
+                                                      </div>
+                                                  </div>
+                                              </div>
+
+                                              <div class="col-md-6">
+                                                  <div class="form-group">
+                                                      <label class="col-md-3 control-label">Last Name</label>
+                                                      <div class="col-md-9">                                            
+                                                          <div class="input-group">
+                                                              <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                                                               <?php echo form_input('last_name', set_value('last_name',$result['last_name']), 'id="last_name" class="form-control" placeholder="Enter Last Name"'.$dis.' '.$o_dis.' '); ?>
+
+                                                          </div>                                            
+                                                          <span class="help-block"><?php echo form_error('last_name');?>&nbsp;</span>
+                                                      </div>
+                                                  </div>
+                                              </div>
+
+                                              <div class="col-md-6">
+                                                  <div class="form-group">
+                                                      <label class="col-md-3 control-label">Email<span style="color: red">*</span></label>
+                                                      <div class="col-md-9">                                            
+                                                          <div class="input-group">
+                                                              <span class="input-group-addon"><span>@</span></span>
+                                                               <?php echo form_input('admin_email', set_value('admin_email',$result['admin_email']), 'id="admin_email" class="form-control" placeholder="Enter Contact person Email addreess"'.$dis.' '.$o_dis.' '); ?>
+                                                           </div>                                            
+                                                          <span class="help-block"><?php echo form_error('admin_email');?>&nbsp;</span>
+                                                      </div>
+                                                  </div>
+                                              </div>
+
+                                              <div class="col-md-6">
+                                                  <div class="form-group">
+                                                      <label class="col-md-3 control-label">Contact Number</label>
+                                                      <div class="col-md-9">                                            
+                                                          <div class="input-group">
+                                                              <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                                                               <?php echo form_input('admin_contact', set_value('admin_contact',$result['admin_contact']), 'id="admin_contact" class="form-control" placeholder="Enter Contact number"'.$dis.' '.$o_dis.' '); ?>
+                                                           </div>                                            
+                                                          <span class="help-block"><?php echo form_error('admin_contact');?>&nbsp;</span>
+                                                      </div>
+                                                  </div>
+                                              </div>
+
+                                          </div>
+                                          <hr>
+                                          <div class="row">
+                                        
+                                              <div class="col-md-6" <?php echo $hide_spec;?>>
+                                                    <div class="form-group">
+                                                        <label class="col-md-3 control-label">User Name<span style="color: red">*</span></label>
+                                                        <div class="col-md-9">                                            
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                                                                 <?php echo form_input('admin_username', set_value('admin_username',$result['admin_username']), 'id="admin_username" class="form-control" placeholder="User Name"'.$dis.' '.$o_dis.' '); ?>
+                                                             </div>                                            
+                                                            <span class="help-block"><?php echo form_error('admin_username');?>&nbsp;</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="col-md-6" <?php echo $hide_spec;?>>
+                                                    <div class="form-group">
+                                                        <label class="col-md-3 control-label">User Role<span style="color: red">*</span></label>
+                                                        <div class="col-md-9">                                            
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                                                                 <?php  echo form_dropdown('user_role_id',$user_role_list,set_value('user_role_id',$result['user_role_id']),' class="form-control select" data-live-search="true" id="user_role_id"'.$o_dis.'');?>
+                                                             </div>                                            
+                                                            <span class="help-block"><?php echo form_error('user_role_id');?>&nbsp;</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="col-md-6" <?php echo $hide_spec;?>>
+                                                    <div class="form-group">
+                                                        <label class="col-md-3 control-label">Password</label>
+                                                        <div class="col-md-9">                                            
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon"><span class="fa fa-lock"></span></span>
+                                                                 <?php echo form_password('password', set_value('password'), 'id="password" class="form-control" placeholder=""'.$dis.' '.$o_dis.' '); ?>
+                                                             </div>                                            
+                                                            <span class="help-block"><?php echo form_error('password');?>&nbsp;</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6" <?php echo $hide_spec;?>>
+                                                    <div class="form-group">
+                                                        <label class="col-md-3 control-label">Confirm Password</label>
+                                                        <div class="col-md-9">                                            
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon"><span class="fa fa-lock"></span></span>
+                                                                 <?php echo form_password('confirm_password', set_value('confirm_password'), 'id="confirm_password" class="form-control"  style="z-index: 1;"  placeholder=""'.$dis.' '.$o_dis.' '); ?>
+                                                             </div>                                            
+                                                            <span class="help-block"><?php echo form_error('confirm_password');?>&nbsp;</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="col-md-3 control-label">User Active</label>
+                                                        <div class="col-md-9">                                            
+                                                            <div class="input-group">
+                                                                 <label class="switch  switch-small">
+                                                                    <!--<input type="checkbox"  value="0">-->
+                                                                    <?php echo form_checkbox('admin_status', set_value('admin_status','1'), 'id="admin_status" placeholder=""'.$dis.' '.$o_dis.' '); ?>
+                                                                    <span></span>
+                                                                </label>
+                                                             </div>                                            
+                                                            <span class="help-block"><?php echo form_error('admin_status');?>&nbsp;</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="col-md-3 control-label">Profile Picture</label>
+                                                        <div class="col-md-6">                                            
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                                                                 <?php // echo form_input(array('name'=>'admin_pic[]', 'multiple'=>'multiple','id'=>'admin_pic', 'class'=>'form-control fl_file', 'type'=>'file'));?>
+                                                                <?php echo form_input(array('name'=>'admin_pic','id'=>'admin_pic', 'class'=>'form-control fl_file', 'type'=>'file'));?>
+                                                            </div>    
+                                                            <span class="help-block"><?php echo form_error('admin_pic');?></span>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <img class="profile-user-img img-responsive img-circle" src="<?php echo base_url(USER_PROFILE_PIC.$result['admin_username'].'/'.$result['pic']); ?>" alt="User profile picture">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                        </div>
+                                      </div>
+                                      <!-- /.tab-pane -->
                                       <div class="tab-pane" id="tab_3"> 
                                          <div class="row"> 
                                             <div class="col-md-6">
@@ -639,7 +791,7 @@ endswitch;
                           <!--<butto style="z-index:1" n class="btn btn-default">Clear Form</button>-->                                    
                                     <!--<button class="btn btn-primary pull-right">Add</button>-->  
                                     <?php if($action != 'View'){?>
-                                    <?php echo form_hidden('id', $result['hotel_id']); ?>
+                                    <?php echo form_hidden('id', $result['id']); ?>
                                     <?php echo form_hidden('action',$action); ?>
                                     <?php echo form_submit('submit',$action ,'class="btn btn-primary"'); ?>&nbsp;
 

@@ -3,7 +3,7 @@
 <?php 
 //$this->load->view('includes/pg_hdr');
 	  	
-	$result = array('id'=>"",'banner_name'=>"", 'user_name' => "", 'status' => "", "pic"=> 'default.jpg'); 
+	$result = array('type'=>"",'first_name'=>"", 'last_name' => "", 'email' => "", 'tel' => "", 'user_name' => "", 'password' => "",  'confirm_password' => "", 'user_role_id' => "", 'status' => "", "pic"=> 'default.jpg'); 
 	
 	 
 	switch($action):
@@ -40,18 +40,17 @@
 	break;
 endswitch;	 
 
-$banner_data = (isset($result['data_json']))?json_decode($result['data_json'],true):'';
-//echo'<pre>'; print_r($banner_data);
+//echo'<pre>'; print_r($banner_data);die;
 ?>
 <script>
 $(document).ready(function(){
     
     $('#add_element').click(function(){
         var rowCount = $('#cms_table tr').length;
-        alert(rowCount);
+//        alert(rowCount);
         var counter = rowCount+1;
         event.preventDefault(); 
-        var newRow = jQuery('<tr id="tr_'+rowCount+'">'+'<td><div class="input-group"><input type="text" name="arr['+rowCount+'][title]" id="title" class="form-control title_cms" placeholder="Slide Title"></div></td>'+'<td><div class="input-group"><input type="text" name="arr['+rowCount+'][desc]" id="desc" class="form-control" placeholder="Slide Desc"></div></td> '+'<td><div class="input-group"><input type="file" name="arr['+rowCount+'][img]" id="image" class="form-control fl_file" placeholder="Slide Desc"> '+'<img class="profile-user-img center-block img-responsive img-thumbnail" src="<?php echo base_url(USER_PROFILE_PIC."/default.jpg"); ?>" alt="User profile picture"></div></td> '+'<td><div class="input-group"><input type="text" name="arr['+rowCount+'][order]" id="order" class="form-control" placeholder="Sort Order"></div></td> '+'<td><div class="input-group"><label class="switch  switch-small"><input type="checkbox" name="arr['+rowCount+'][status]" id="status" value="0" checked><span></span></label></div></td> '+'<td> '+'<button id="del_btn" type="button" class="del_btn btn btn-danger"><i class="fa fa-trash"></i></button> '+'</td></tr>');
+        var newRow = jQuery('<tr id="tr_'+rowCount+'">'+'<td><div class="input-group"><input type="text" name="arr['+rowCount+'][title]" id="title" class="form-control title_cms" placeholder="Slide Title"></div></td>'+'<td><div class="input-group"><input type="text" name="arr['+rowCount+'][desc]" id="desc" class="form-control" placeholder="Slide Desc"></div></td> '+'<td><div class="input-group"><input type="file" name="arr['+rowCount+'][img]" id="image" class="form-control fl_file" placeholder="Slide Desc"> '+'<img class="profile-user-img center-block img-responsive img-thumbnail" src="<?php echo base_url(USER_PROFILE_PIC.$result["user_name"]."/".$result["pic"]); ?>" alt="User profile picture"></div></td> '+'<td><div class="input-group"><input type="text" name="arr['+rowCount+'][order]" id="order" class="form-control" placeholder="Sort Order"></div></td> '+'<td><div class="input-group"><label class="switch  switch-small"><input type="checkbox" name="arr['+rowCount+'][status]" id="status" value="0" checked><span></span></label></div></td> '+'<td> '+'<button id="del_btn" type="button" class="del_btn btn btn-danger"><i class="fa fa-trash"></i></button> '+'</td></tr>');
  
         jQuery('table.cms_table').append(newRow);
         
@@ -101,39 +100,7 @@ $(document).ready(function(){
                            <div class="box-body fl_scroll">
                               
                                 <div class="row"> 
-                                    
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label">Banner Name<span style="color: red">*</span></label>
-                                            <div class="col-md-9">                                            
-                                                <div class="input-group">
-                                                    <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
-                                                     <?php echo form_input('banner_name', set_value('banner_name',$result['banner_name']), 'id="banner_name" class="form-control" placeholder="Enter Banner Name"'.$dis.' '.$o_dis.' '); ?>
-
-                                                </div>                                            
-                                                <span class="help-block"><?php echo form_error('banner_name');?></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label">Active</label>
-                                            <div class="col-md-9">                                            
-                                                <div class="input-group">
-                                                     <label class="switch  switch-small">
-                                                        <!--<input type="checkbox"  value="0">-->
-                                                        <?php echo form_checkbox('status', set_value('status','1'),$result['status'], 'id="status" placeholder=""'.$dis.' '.$o_dis.' '); ?>
-                                                        <span></span>
-                                                    </label>
-                                                 </div>                                            
-                                                <span class="help-block"><?php echo form_error('status');?>&nbsp;</span>
-                                            </div>
-                                        </div>
-                                    </div>
                                     <div class="col-md-12">
-                                        <?php echo form_hidden('banner_entry_count',1); ?>
-
-                                         <span class="help-block"><?php echo form_error('banner_entry_count');?></span>
                                         <table id="cms_table" class="cms_table table table-bordered">
                                             <tbody>
                                                 <tr> 
@@ -148,12 +115,12 @@ $(document).ready(function(){
                                                     if(isset($banner_data) && !empty($banner_data)){
                                                         $j=1;
                                                         foreach ($banner_data as $banner){
-                                                            $status = (isset($banner['status']))?'checked':'';
+                                                            $status = ($banner['status'])?'checked':'';
                                                             echo '<tr>
-                                                                    <td><div class="input-group"><input type="text" name="arr['.$j.'][title]" id="title" class="form-control title_cms" value="'.$banner['title'].'" placeholder="Slide Title"></div></td></td>
-                                                                    <td><div class="input-group"><input type="text" name="arr['.$j.'][desc]" id="desc" class="form-control title_cms" value="'.$banner['desc'].'" placeholder="Slide Desc"></div></td></td>
-                                                                    <td><div class="input-group"><input type="file" name="arr['.$j.'][img]" id="image" class="form-control fl_file" placeholder="Slide Desc"><img class="profile-user-img center-block img-responsive img-thumbnail" src="'.base_url(BANNERS_PIC.$result['id'].'/'.$banner["image_name"]).'" alt="User profile picture"></div></td>
-                                                                    <td><div class="input-group"><input type="text" name="arr['.$j.'][order]" id="order" value="'.$banner['order'].'" class="form-control" placeholder="Sort Order"></div></td>
+                                                                    <td><div class="input-group"><input type="text" name="arr['.$j.'][title]" id="title" class="form-control title_cms" value="'.$banner['text1'].'" placeholder="Slide Title"></div></td></td>
+                                                                    <td><div class="input-group"><input type="text" name="arr['.$j.'][desc]" id="desc" class="form-control title_cms" value="'.$banner['text2'].'" placeholder="Slide Desc"></div></td></td>
+                                                                    <td><div class="input-group"><input type="file" name="arr['.$j.'][img]" id="image" class="form-control fl_file" placeholder="Slide Desc"><img class="profile-user-img center-block img-responsive img-thumbnail" src="'.base_url(BANNERS_PIC.$banner["image"]).'" alt="User profile picture"></div></td>
+                                                                    <td><div class="input-group"><input type="text" name="arr['.$j.'][order]" id="order" value="'.$banner['sort_order'].'" class="form-control" placeholder="Sort Order"></div></td>
                                                                     <td><div class="input-group"><label class="switch  switch-small"><input type="checkbox" name="arr['.$j.'][status]" id="status" value="1" '.$status.'><span></span></label></div></td>
                                                                     <td><button id="del_btn" type="button" class="del_btn btn btn-danger"><i class="fa fa-trash"></i></button></td>      
                                                                     
@@ -174,8 +141,7 @@ $(document).ready(function(){
                                     <!--<butto style="z-index:1" n class="btn btn-default">Clear Form</button>-->                                    
                                     <!--<button class="btn btn-primary pull-right">Add</button>-->  
                                     <?php if($action != 'View'){?>
-                                    <?php // echo form_hidden('type', $result['type']); ?>
-                                    <?php echo form_hidden('id', $result['id']); ?>
+                                    <?php echo form_hidden('type', $result['type']); ?>
                                     <?php echo form_hidden('action',$action); ?>
                                     <?php echo form_submit('submit',$action ,'class="btn btn-primary"'); ?>&nbsp;
 

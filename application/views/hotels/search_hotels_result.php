@@ -3,8 +3,7 @@
             <tr>
                 <th>#</th>
                 <th>Hotel Name</th>
-                <th>City</th>
-                <th>Contact Person</th>
+                <th>City</th> 
                 <th>Email</th>
                 <th>Phone</th>
                 <th>Action</th>
@@ -18,8 +17,7 @@
                            <tr>
                                <td>'.($i+1).'</td>
                                <td>'.$search['hotel_name'].'</td>
-                               <td>'.$search['city'].'</td> 
-                               <td>'.$search['first_name'].' '.$search['last_name'].'</td> 
+                               <td>'.$search['city'].'</td>  
                                <td>'.$search['email'].'</td> 
                                <td>'.$search['phone'].'</td> 
                                <td>';
