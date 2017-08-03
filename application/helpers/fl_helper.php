@@ -10,6 +10,7 @@ if ( ! function_exists('get_dropdown_data'))
 		$CI->db->from($table);	 
                 if($where_del == 0){
                     $CI->db->where('deleted',0);
+                    $CI->db->where('status',1);
                 }
                 
                 

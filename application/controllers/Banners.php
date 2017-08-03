@@ -118,7 +118,6 @@ class Banners extends CI_Controller {
                 $inputs['status'] = 1;
             }
             
-//              echo '<pre>'; print_r($inputs); die;
             
             $files_array= array();
             foreach ($_FILES['arr']['name'] as $index=>$files_arr){

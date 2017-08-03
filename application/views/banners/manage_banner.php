@@ -51,7 +51,7 @@ $(document).ready(function(){
         alert(rowCount);
         var counter = rowCount+1;
         event.preventDefault(); 
-        var newRow = jQuery('<tr id="tr_'+rowCount+'">'+'<td><div class="input-group"><input type="text" name="arr['+rowCount+'][title]" id="title" class="form-control title_cms" placeholder="Slide Title"></div></td>'+'<td><div class="input-group"><input type="text" name="arr['+rowCount+'][desc]" id="desc" class="form-control" placeholder="Slide Desc"></div></td> '+'<td><div class="input-group"><input type="file" name="arr['+rowCount+'][img]" id="image" class="form-control fl_file" placeholder="Slide Desc"> '+'<img class="profile-user-img center-block img-responsive img-thumbnail" src="<?php echo base_url(USER_PROFILE_PIC."/default.jpg"); ?>" alt="User profile picture"></div></td> '+'<td><div class="input-group"><input type="text" name="arr['+rowCount+'][order]" id="order" class="form-control" placeholder="Sort Order"></div></td> '+'<td><div class="input-group"><label class="switch  switch-small"><input type="checkbox" name="arr['+rowCount+'][status]" id="status" value="0" checked><span></span></label></div></td> '+'<td> '+'<button id="del_btn" type="button" class="del_btn btn btn-danger"><i class="fa fa-trash"></i></button> '+'</td></tr>');
+        var newRow = jQuery('<tr id="tr_'+rowCount+'">'+'<td><div class="input-group"><input type="text" name="arr['+rowCount+'][title]" id="title" class="form-control title_cms" placeholder="Slide Title"></div></td>'+'<td><div class="input-group"><input type="text" name="arr['+rowCount+'][desc]" id="desc" class="form-control" placeholder="Slide Desc"></div></td> '+'<td><div class="input-group"><input type="file" name="arr['+rowCount+'][img]" id="image" class="form-control fl_file" placeholder="Slide Desc"> '+'<img class="profile-user-img center-block img-responsive img-thumbnail" src="<?php echo base_url(USER_PROFILE_PIC."/default.jpg"); ?>" alt="User profile picture"></div></td> '+'<td><div class="input-group"><input type="text" name="arr['+rowCount+'][order]" id="order" class="form-control" placeholder="Sort Order"></div></td>  '+'<td><div class="input-group"><input type="text" name="arr['+rowCount+'][texts]" id="texts" class="form-control" placeholder="Text"></div></td> '+'<td><div class="input-group"><input type="text" name="arr['+rowCount+'][link]" id="link" class="form-control" placeholder="Enter Url"></div></td>'+'<td><div class="input-group"><label class="switch  switch-small"><input type="checkbox" name="arr['+rowCount+'][status]" id="status" value="0" checked><span></span></label></div></td> '+'<td> '+'<button id="del_btn" type="button" class="del_btn btn btn-danger"><i class="fa fa-trash"></i></button> '+'</td></tr>');
  
         jQuery('table.cms_table').append(newRow);
         
@@ -137,28 +137,33 @@ $(document).ready(function(){
                                         <table id="cms_table" class="cms_table table table-bordered">
                                             <tbody>
                                                 <tr> 
-                                                    <th width="20%">Title</th>
-                                                    <th width="25%">Descreption</th>
-                                                    <th width="30%">Image</th>
-                                                    <th width="10%">Order</th>
-                                                    <th width="7%">Staus</th>
-                                                    <th width="8%">action</th>
+                                                    <th width="15%">Title</th>
+                                                    <th width="20%">Descreption</th>
+                                                    <th width="20%">Image</th>
+                                                    <th width="5%">Order</th>
+                                                    <th width="15%">Texts</th>
+                                                    <th width="15%">Link</th>
+                                                    <th width="5%">Status</th>
+                                                    <th width="5%">action</th>
                                                 </tr>
                                                 <?php
                                                     if(isset($banner_data) && !empty($banner_data)){
                                                         $j=1;
                                                         foreach ($banner_data as $banner){
                                                             $status = (isset($banner['status']))?'checked':'';
+                                                            $banner['order'] = (isset($banner['order']))?$banner['order']:'';
+                                                            $banner['texts'] = (isset($banner['texts']))?$banner['texts']:'';
+                                                            $banner['link'] = (isset($banner['link']))?$banner['link']:'';
                                                             echo '<tr>
                                                                     <td><div class="input-group"><input type="text" name="arr['.$j.'][title]" id="title" class="form-control title_cms" value="'.$banner['title'].'" placeholder="Slide Title"></div></td></td>
                                                                     <td><div class="input-group"><input type="text" name="arr['.$j.'][desc]" id="desc" class="form-control title_cms" value="'.$banner['desc'].'" placeholder="Slide Desc"></div></td></td>
                                                                     <td><div class="input-group"><input type="file" name="arr['.$j.'][img]" id="image" class="form-control fl_file" placeholder="Slide Desc"><img class="profile-user-img center-block img-responsive img-thumbnail" src="'.base_url(BANNERS_PIC.$result['id'].'/'.$banner["image_name"]).'" alt="User profile picture"></div></td>
                                                                     <td><div class="input-group"><input type="text" name="arr['.$j.'][order]" id="order" value="'.$banner['order'].'" class="form-control" placeholder="Sort Order"></div></td>
+                                                                    <td><div class="input-group"><input type="text" name="arr['.$j.'][texts]" id="texts" value="'.$banner['texts'].'" class="form-control" placeholder="texts"></div></td>
+                                                                    <td><div class="input-group"><input type="text" name="arr['.$j.'][link]" id="link" value="'.$banner['link'].'" class="form-control" placeholder="Enter Url"></div></td>
                                                                     <td><div class="input-group"><label class="switch  switch-small"><input type="checkbox" name="arr['.$j.'][status]" id="status" value="1" '.$status.'><span></span></label></div></td>
                                                                     <td><button id="del_btn" type="button" class="del_btn btn btn-danger"><i class="fa fa-trash"></i></button></td>      
                                                                     
-                                                                    <td></td>
-                                                                    <td></td>
                                                                 </tr>    
                                                                 ';
                                                             $j++;

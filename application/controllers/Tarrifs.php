@@ -217,7 +217,7 @@ class Tarrifs extends CI_Controller {
         function load_data($id){
             
             $data['user_data'] = $this->Tarrif_model->get_single_row($id); 
-            $data['tarrif_list'] = get_dropdown_data(TARRIF_TYPE,'tarrif_type_name','id','Tarrif Type');
+            $data['tarrif_list'] = get_dropdown_data(TARRIF_TYPE_CAT,'category_name','id','Tarrif Type');
             return $data;	
 	}	
         

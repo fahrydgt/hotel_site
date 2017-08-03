@@ -2,11 +2,11 @@
 	
 	$result = array(
                         'id'=>"",
-                        'room_name'=>"",
+                        'activity_event_name'=>"",
                         'short_name'=>"",
                         'tarrif_type_id'=>"",
                         'time_base_id'=>"",
-                        'hotel_id'=>"",
+                        'activity_id'=>"",
                         'description'=>"",
                         'facilities'=>"",
                         'status'=>"",
@@ -86,7 +86,7 @@ endswitch;
                 <!-- /.box-header -->
                 <!-- form start -->
               
-             <?php echo form_open_multipart("Rooms/validate"); ?> 
+             <?php echo form_open_multipart("Activity_events/validate"); ?> 
    
                     <div class="box-body fl_scroll">
                               
@@ -97,9 +97,9 @@ endswitch;
                                                     <div class="col-md-9">                                            
                                                         <div class="input-group">
                                                             <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
-                                                             <?php echo form_input('room_name', set_value('room_name',$result['room_name']), 'id="room_name" class="form-control" placeholder="Enter Room Name"'.$dis.' '.$o_dis.' '); ?>
+                                                             <?php echo form_input('activity_event_name', set_value('activity_event_name',$result['activity_event_name']), 'id="activity_event_name" class="form-control" placeholder="Enter Activity Name"'.$dis.' '.$o_dis.' '); ?>
                                                         </div>                                            
-                                                        <span class="help-block"><?php echo form_error('room_name');?></span>
+                                                        <span class="help-block"><?php echo form_error('activity_event_name');?></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -109,7 +109,7 @@ endswitch;
                                                     <div class="col-md-9">                                            
                                                         <div class="input-group">
                                                             <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
-                                                             <?php echo form_input('short_name', set_value('short_name',$result['short_name']), 'id="short_name" class="form-control" placeholder="Enter Room Short Name"'.$dis.' '.$o_dis.' '); ?>
+                                                             <?php echo form_input('short_name', set_value('short_name',$result['short_name']), 'id="short_name" class="form-control" placeholder="Enter Activity Short Name"'.$dis.' '.$o_dis.' '); ?>
                                                         </div>                                            
                                                         <span class="help-block"><?php echo form_error('short_name');?></span>
                                                     </div>
@@ -117,13 +117,13 @@ endswitch;
                                             </div>
                                              <div class="col-md-6">
                                               <div class="form-group">
-                                                  <label class="col-md-3 control-label">Hotel<span style="color: red">*</span></label>
+                                                  <label class="col-md-3 control-label">Activity Place<span style="color: red">*</span></label>
                                                   <div class="col-md-9">                                            
                                                       <div class="input-group">
                                                           <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
-                                                           <?php  echo form_dropdown('hotel_id',$hotel_list,set_value('hotel_id',$result['hotel_id']),' class="form-control select2" data-live-search="true" id="hotel_id"'.$o_dis.'');?>
+                                                           <?php  echo form_dropdown('activity_id',$activity_list,set_value('activity_id',$result['activity_id']),' class="form-control select2" data-live-search="true" id="activity_id"'.$o_dis.'');?>
                                                        </div>                                            
-                                                      <span class="help-block"><?php echo form_error('hotel_id');?>&nbsp;</span>
+                                                      <span class="help-block"><?php echo form_error('activity_id');?>&nbsp;</span>
                                                   </div>
                                               </div>
                                             </div>
@@ -138,7 +138,7 @@ endswitch;
                                                       <span class="help-block"><?php echo form_error('tarrif_type_id');?>&nbsp;</span>
                                                   </div>
                                               </div>
-                                            </div>  
+                                            </div> 
                                            
                                             <div class="col-md-6">
                                                 <div class="form-group">

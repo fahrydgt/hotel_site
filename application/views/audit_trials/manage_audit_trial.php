@@ -81,17 +81,21 @@ $log_data = $log_data[0];
                       <?php
                       $j=1;
                         $tbl_new = unserialize($log_data['data_old']);
-                        
+//                        echo '<pre>';                        print_r($log_data); 
                         if(!empty($tbl_new)){
                           foreach ($tbl_new[0] as $tab1_data=>$key){
                               echo ' <tr>
                                        <td>'.$i.'</td>
                                        <td>'.$tab1_data.'</td>';
+                              if(empty($tbl_old)){
+                                    echo '<td><span">'.$key.'</span></td> ';
+                              }else{
                                 if($key==$tbl_old[0][$tab1_data]){
                                     echo '<td><span">'.$key.'</span></td> ';
                                 }else{
                                     echo'<td><span style="background-color:hsla(0, 71%, 55%, 0.52);">'.$key.'</span></td> ';
                                 }
+                              }
                               echo '</tr>';
                               $i++;
                          }
