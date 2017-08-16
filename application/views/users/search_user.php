@@ -12,6 +12,10 @@ $(document).ready(function(){
 		event.preventDefault();
 		 get_results();
     });
+    $("#hotel_id").change(function(){ 
+		event.preventDefault();
+		 get_results();
+    });
     
 	
     $("#search_btn").click(function(){
@@ -100,6 +104,19 @@ $(document).ready(function(){
                                                         <span class="input-group-addon"><span class="fa fa-search"></span></span>
                                                         
                                                       <?php echo form_input(array('name'=>'email', 'id' => 'email', 'class'=>'form-control','placeholder'=>'Email Address')); ?>
+                                                    </div>                                            
+                                                    <!--<span class="help-block">This is sample of text field</span>-->
+                                                </div>
+                                            </div> 
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">Email</label>
+                                                <div class="col-md-9">                                            
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><span class="fa fa-search"></span></span>
+                                                        
+                                                      <?php  echo form_dropdown('hotel_id',$hotel_list,set_value('hotel_id'),' class="form-control select2" id="hotel_id"');?>
                                                     </div>                                            
                                                     <!--<span class="help-block">This is sample of text field</span>-->
                                                 </div>

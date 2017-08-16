@@ -11,6 +11,7 @@
                         'password' => "",
                         'confirm_password' => "",
                         'user_role_id' => "",
+                        'hotel_id' => "",
                         'status' => "",
                         "pic"=> 'default.jpg',
             ); 
@@ -49,7 +50,7 @@
 	break;
 endswitch;	 
 
-//var_dump($result);
+//echo '<pre>';print_r(json_decode($result['hotel_id']));
 ?>
  <br>
         <div class="col-md-12">
@@ -141,7 +142,18 @@ endswitch;
                                                 </div>
                                             </div>
                                         </div>
-                                         
+                                         <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">Hotel(s)</label>
+                                                <div class="col-md-9">                                            
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                                                         <?php  echo form_dropdown('hotel_id[]',$hotel_list,set_value('hotel_id[]',json_decode($result['hotel_id'])),' class="form-control select2" multiple="multiple" data-live-search="true" id="hotel_id[]"'.$o_dis.'');?>
+                                                     </div>                                            
+                                                    <span class="help-block"><?php echo form_error('hotel_id[]');?>&nbsp;</span>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <hr>
                                     <div class="row">

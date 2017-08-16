@@ -2,7 +2,7 @@
 <script>
     
 $(document).ready(function(){  
-//	get_results();
+	get_results();
     $("#user_name").keyup(function(){ 
 		event.preventDefault();
 		get_results();
@@ -22,7 +22,7 @@ $(document).ready(function(){
 	
 	function get_results(){
         $.ajax({
-			url: "<?php echo site_url('Users/search_user');?>",
+			url: "<?php echo site_url('Banners/search');?>",
 			type: 'post',
 			data : jQuery('#form_search').serializeArray(),
 			success: function(result){
@@ -57,9 +57,9 @@ $(document).ready(function(){
         <?php } ?>  
     
         <div class="">
-            <a href="<?php echo base_url($this->router->fetch_class().'/add');?>" class="btn btn-app "><i class="fa fa-plus"></i>Create New</a>
-            <a href="<?php echo base_url($this->router->fetch_class());?>" class="btn btn-app "><i class="fa fa-search"></i>Search</a>
-
+            <?php echo ($this->user_default_model->check_authority($this->session->userdata('user_role_ID'), $this->router->class, 'add'))?'<a href="'.base_url($this->router->fetch_class().'/add').'" class="btn btn-app "><i class="fa fa-plus"></i>Create New</a>':''; ?>
+            <?php echo ($this->user_default_model->check_authority($this->session->userdata('user_role_ID'), $this->router->class, 'index'))?'<a href="'.base_url($this->router->fetch_class()).'" class="btn btn-app "><i class="fa fa-search"></i>Search</a>':''; ?>
+           
         </div>
     </div>
     
@@ -137,11 +137,11 @@ $(document).ready(function(){
                               echo '
                                   <tr>
                                       <td>'.($i+1).'</td>
-                                      <td>'.$banner['type'].'</td> 
+                                      <td>'.$banner['banner_name'].'</td> 
                                       <td>
-                                          <a href="'.  base_url($this->router->fetch_class().'/view/'.$banner['type']).'"><span class="fa fa-eye"></span></a> |
-                                          <a href="'.  base_url($this->router->fetch_class().'/edit/'.$banner['type']).'"><span class="fa fa-pencil"></span></a> |
-                                          <a href="'.  base_url($this->router->fetch_class().'/delete/'.$banner['type']).'"><span class="fa fa-trash"></span></a> 
+                                          <a href="'.  base_url($this->router->fetch_class().'/view/'.$banner['id']).'"><span class="fa fa-eye"></span></a> |
+                                          <a href="'.  base_url($this->router->fetch_class().'/edit/'.$banner['id']).'"><span class="fa fa-pencil"></span></a> |
+                                          <a href="'.  base_url($this->router->fetch_class().'/delete/'.$banner['id']).'"><span class="fa fa-trash"></span></a> 
                                       </td>  ';
                               $i++;
                           }

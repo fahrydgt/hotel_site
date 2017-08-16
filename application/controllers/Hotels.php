@@ -22,8 +22,8 @@ class Hotels extends CI_Controller {
         
 	function add(){ 
             $data['action']		= 'Add';
-            $data['main_content']='hotels/manage_hotels'; 
-            $data['facilities_list'] = get_dropdown_data(FACILITIES,'name','id','');
+            $data['main_content']='hotels/manage_hotels';   
+            $data['facilities_list'] = get_dropdown_data(FACILITIES,'name','id','',array('col'=>'category_id!=','val'=>6));
             $data['property_sur_list'] = get_dropdown_data(PROPERTY_SURROUND,'property_name','id','');
             $data['user_role_list'] = get_dropdown_data(USER_ROLE,'user_role','id');
             $data['country_list'] = get_dropdown_data(COUNTRY_LIST,'country_name','country_code','Country');
@@ -100,15 +100,7 @@ class Hotels extends CI_Controller {
             $this->form_validation->set_rules('country','Country','required');
             $this->form_validation->set_rules('phone','Phone Number','required');
             $this->form_validation->set_rules('email','Email','valid_email');
-            $this->form_validation->set_rules('website','Website','valid_url');
-            
-            $this->form_validation->set_rules('first_name','First Name','required|min_length[5]');
-            $this->form_validation->set_rules('last_name','Last Name','required|min_length[5]');
-            $this->form_validation->set_rules('admin_email','Admin Email','valid_email|required');
-            $this->form_validation->set_rules('admin_username','User Name','required');
-            $this->form_validation->set_rules('user_role_id','User Role','required');
-            $this->form_validation->set_rules('password','Password','matches[confirm_password]');
-            $this->form_validation->set_rules('confirm_password','Confirm Password','matches[password]');
+            $this->form_validation->set_rules('website','Website','valid_url'); 
             
             $this->form_validation->set_rules('check_in','Check in Time','required');
             $this->form_validation->set_rules('check_out','Check Out','required');
@@ -128,14 +120,12 @@ class Hotels extends CI_Controller {
             } 
             //create Dir if not exists for store necessary images   
             if(!is_dir(HOTEL_LOGO.$hotel_id.'/')) mkdir(HOTEL_LOGO.$hotel_id.'/', 0777, TRUE);
-            if(!is_dir(USER_PROFILE_PIC.$inputs['admin_username'].'/')) mkdir(USER_PROFILE_PIC.$inputs['admin_username'].'/', 0777, TRUE);
             if(!is_dir(HOTEL_IMAGES.$hotel_id.'/')) mkdir(HOTEL_IMAGES.$hotel_id.'/', 0777, TRUE);
             
             
             $this->load->library('fileuploads'); //file upoad library created by FL
             
             $res_logo = $this->fileuploads->upload_all('logo',HOTEL_LOGO.$hotel_id.'/');
-            $res_user_px = $this->fileuploads->upload_all('admin_pic',USER_PROFILE_PIC.$inputs['admin_username'].'/');
             $res_hotel_deflt_px = $this->fileuploads->upload_all('hotel_default_pic',HOTEL_IMAGES.$hotel_id.'/');
             $res_hotel_all_px = $this->fileuploads->upload_all('hotel_images',HOTEL_IMAGES.$hotel_id.'/');
             
@@ -168,23 +158,7 @@ class Hotels extends CI_Controller {
                                     'added_on' => date('Y-m-d'),
                                     'added_by' => $this->session->userdata('ID'),
                                 );
-            $data['user_auth'] = array(
-                                    'user_role_id' => $inputs['user_role_id'],
-                                    'user_name' => $inputs['admin_username'],
-                                    'user_password' => $this->encrypt->encode(get_autoincrement_no(USER_TBL).'_'.$inputs['password']),
-                                    'status' => $inputs['admin_status']
-                                );
-            $data['user_det'] = array(
-                                    'auth_id' => get_autoincrement_no(USER_TBL),
-                                    'first_name' => $inputs['first_name'],
-                                    'last_name' => $inputs['last_name'],
-                                    'email' => $inputs['admin_email'],
-                                    'hotel_id' => $hotel_id,
-                                    'tel' => $inputs['admin_contact'],
-                                    'pic' => (!empty($res_user_px))?$res_user_px[0]['name']:'',
-                                    'added_on' => date('Y-m-d'),
-                                    'added_by' => $this->session->userdata('ID'),
-                                );
+                    
             $data['resource_tbl'] = array(
                                     'hotel_id' => $hotel_id,
                                     'check_in_time' => strtotime($inputs['check_in']),
@@ -232,7 +206,6 @@ class Hotels extends CI_Controller {
             } 
             //create Dir if not exists for store necessary images   
             if(!is_dir(HOTEL_LOGO.$hotel_id.'/')) mkdir(HOTEL_LOGO.$hotel_id.'/', 0777, TRUE);
-            if(!is_dir(USER_PROFILE_PIC.$inputs['admin_username'].'/')) mkdir(USER_PROFILE_PIC.$inputs['admin_username'].'/', 0777, TRUE);
             if(!is_dir(HOTEL_IMAGES.$hotel_id.'/')) mkdir(HOTEL_IMAGES.$hotel_id.'/', 0777, TRUE);
             
             
@@ -258,7 +231,6 @@ class Hotels extends CI_Controller {
             }            
                     
             $res_logo = $this->fileuploads->upload_all('logo',HOTEL_LOGO.$hotel_id.'/');
-            $res_user_px = $this->fileuploads->upload_all('admin_pic',USER_PROFILE_PIC.$inputs['admin_username'].'/');
             $res_hotel_all_px = $this->fileuploads->upload_all('hotel_images',HOTEL_IMAGES.$hotel_id.'/',$appendedFiles);
             $res_hotel_deflt_px = $this->fileuploads->upload_all('hotel_default_pic',HOTEL_IMAGES.$hotel_id.'/');
 
@@ -291,50 +263,35 @@ class Hotels extends CI_Controller {
                                     'updated_on' => date('Y-m-d'),
                                     'updated_by' => $this->session->userdata('ID'),
                                 );
-            if(!empty($res_logo)) $data['hotel_tbl']['logo'] = $res_logo[0]['name'];
-                    
-            $data['user_det'] = array( 
-                                    'first_name' => $inputs['first_name'],
-                                    'last_name' => $inputs['last_name'],
-                                    'email' => $inputs['admin_email'], 
-                                    'tel' => $inputs['admin_contact'],
-//                                    'pic' => (!empty($res_user_px))?$res_user_px[0]['name']:'',
-                                    'updated_on' => date('Y-m-d'),
-                                    'updated_by' => $this->session->userdata('ID'),
-                                );
-            if(!empty($res_user_px)) $data['user_det']['pic'] = $res_user_px[0]['name'];
+            if(!empty($res_logo)) $data['hotel_tbl']['logo'] = $res_logo[0]['name']; 
             
-            $data['resource_tbl'] = array(
-                                    'hotel_id' => $hotel_id,
+            $data['resource_tbl'] = array( 
                                     'check_in_time' => strtotime($inputs['check_in']),
                                     'check_out_time' => strtotime($inputs['check_out']),
                                     'payments_policy' => json_encode($inputs['policy']),
                                     'pets' => json_encode($inputs['pets']),
-                                    'facilities' => json_encode($inputs['facilities']),
-                                    'property_surroundings' => json_encode($inputs['property_surroundings']),
+                                    'facilities' => (isset($inputs['facilities']))?json_encode($inputs['facilities']):'',
+                                    'property_surroundings' => (isset($inputs['property_surroundings']))?json_encode($inputs['property_surroundings']):'',
                                     'status' => 1,
                                     'updated_on' => date('Y-m-d'),
                                     'updated_by' => $this->session->userdata('ID'),
                                 );
-            $data['hotel_img_tbl'] = array(
-                                    'hotel_id' => $hotel_id,
+            $data['hotel_img_tbl'] = array( 
 //                                    'default_image' => (!empty($res_hotel_deflt_px))?$res_hotel_deflt_px[0]['name']:'',
-                                    'images' => json_encode($all_images),
+                                    'images' => (isset($all_images))?json_encode($all_images):'',
                                     'status' => 1,
                                 );
             if(!empty($res_hotel_deflt_px)) $data['hotel_img_tbl']['default_image'] = $res_hotel_deflt_px[0]['name'];
-            
-//                        echo '<pre>'; print_r($data); die; 
                     
             //old data for log update
             $existing_data = $this->Hotels_model->get_single_row($inputs['id']);
-            
+
             $edit_stat = $this->Hotels_model->edit_db($inputs['id'],$data);
             
             if($edit_stat){
                 //update log data
                 $new_data = $this->Hotels_model->get_single_row($inputs['id']);
-                add_system_log(FACILITIES, $this->router->fetch_class(), __FUNCTION__, $new_data, $existing_data);
+                add_system_log(HOTELS, $this->router->fetch_class(), __FUNCTION__, $new_data, $existing_data);
                 $this->session->set_flashdata('warn',RECORD_UPDATE);
                     
                 redirect(base_url($this->router->fetch_class().'/edit/'.$inputs['id']));
@@ -358,7 +315,7 @@ class Hotels extends CI_Controller {
                     
             if($delete_stat){
                 //update log data
-                add_system_log(FACILITIES, $this->router->fetch_class(), __FUNCTION__,$existing_data, '');
+                add_system_log(HOTELS, $this->router->fetch_class(), __FUNCTION__,$existing_data, '');
                 $this->session->set_flashdata('warn',RECORD_DELETE);
                 redirect(base_url($this->router->fetch_class()));
             }else{
@@ -374,7 +331,7 @@ class Hotels extends CI_Controller {
             $existing_data = $this->Hotels_model->get_single_row($inputs['id']);
             if($this->Hotels_model->delete2_db($id)){
                 //update log data
-                add_system_log(FACILITIES, $this->router->fetch_class(), __FUNCTION__, '', $existing_data);
+                add_system_log(HOTELS, $this->router->fetch_class(), __FUNCTION__, '', $existing_data);
                 
                 $this->session->set_flashdata('warn',RECORD_DELETE);
                 redirect(base_url('company'));
@@ -392,7 +349,7 @@ class Hotels extends CI_Controller {
                 $this->session->set_flashdata('error','INVALID! Please use the System Navigation');
                 redirect(base_url($this->router->fetch_class()));
             }
-            $data['facilities_list'] = get_dropdown_data(FACILITIES,'name','id','');
+            $data['facilities_list'] = get_dropdown_data(FACILITIES,'name','id','',array('col'=>'category_id!=','val'=>6));
             $data['property_sur_list'] = get_dropdown_data(PROPERTY_SURROUND,'property_name','id','');
             $data['user_role_list'] = get_dropdown_data(USER_ROLE,'user_role','id');
             $data['country_list'] = get_dropdown_data(COUNTRY_LIST,'country_name','country_code','Country');

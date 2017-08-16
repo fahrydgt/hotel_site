@@ -38,6 +38,14 @@ class PricePlan_model extends CI_Model
             $result = $this->db->get()->result_array();  
             return $result;
 	}
+         public function get_amounts($price_plan_id){ 
+            $this->db->select('*');
+            $this->db->from(PRICEPLAN_AMOUNT); 
+            $this->db->where('price_plan_id',$price_plan_id);
+            $this->db->where('deleted',0);
+            $result = $this->db->get()->result_array();  
+            return $result;
+	}
                         
         public function add_db($data){       
                 $this->db->trans_start();
@@ -45,6 +53,14 @@ class PricePlan_model extends CI_Model
                 $insert_id =  $this->db->insert_id();
 		$status[0]=$this->db->trans_complete();
 		$status[1]=$insert_id; 
+		return $status;
+	}
+        public function add_db_amount($data){       
+                $this->db->trans_start();
+                foreach ($data as $amount){
+                    $this->db->insert(PRICEPLAN_AMOUNT, $amount); 
+                }
+		$status=$this->db->trans_complete();
 		return $status;
 	}
         
@@ -56,6 +72,21 @@ class PricePlan_model extends CI_Model
 		$this->db->update(PRICEPLAN, $data);
                         
 		$status=$this->db->trans_complete();
+		return $status;
+	}
+        
+        public function edit_db_amount($data){
+//		$this->db->trans_start();
+                foreach ($data as $amount){
+                    
+                    $this->db->where('price_plan_id', $amount['price_plan_id']);
+                    $this->db->where('mealplan_code', $amount['mealplan_code']);;
+                    $this->db->update(PRICEPLAN_AMOUNT, $amount);
+                    if($this->db->affected_rows()==0){
+                        $this->db->insert(PRICEPLAN_AMOUNT, $amount);   
+                    } 
+                }
+//		$status=$this->db->trans_complete();
 		return $status;
 	}
         

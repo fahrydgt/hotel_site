@@ -7,11 +7,10 @@ class Rooms_model extends CI_Model
  	}
 	 
          public function search_result($data=''){ 
-            $this->db->select('r.*, h.hotel_name,tt.tarrif_type_name,tb.time_base_name');
+            $this->db->select('r.*, h.hotel_name,tt.tarrif_type_name');
             $this->db->from(ROOMS.' r');  
             $this->db->join(HOTELS.' h','h.id = r.hotel_id');  
             $this->db->join(TARRIF_TYPE.' tt','tt.id = r.tarrif_type_id');  
-            $this->db->join(TIME_BASE.' tb','tb.id = r.time_base_id');  
             $this->db->where('r.deleted',0);
             if($data !=''){
                 $this->db->like('r.room_name', $data['name']); 

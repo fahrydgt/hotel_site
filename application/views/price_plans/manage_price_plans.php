@@ -230,7 +230,7 @@ $result['price'] = json_decode($result['price_all'],TRUE)
                                                     foreach ($mealplan_list as $meal_plan){
                                                         echo '<tr>
                                                                 <td width="30%">'.$meal_plan.':</td>
-                                                                <td width="70%"> '.form_input('price['.$meal_plan.'][amount]', set_value('price['.$meal_plan.'][amount]',$result['price'][$meal_plan]['amount']), 'id="price['.$meal_plan.'][amount]" class="form-control currency_field" placeholder="Enter Price for '.$meal_plan.'"'.$dis.' '.$o_dis.' ').form_error('price['.$meal_plan.'][amount]').' </td>
+                                                                <td width="70%"> '.form_input('price['.$meal_plan.'][amount]', set_value('price['.$meal_plan.'][amount]',(isset($price_amount_data[$meal_plan]))?$price_amount_data[$meal_plan]:''), 'id="price['.$meal_plan.'][amount]" class="form-control currency_field" placeholder="Enter Price for '.$meal_plan.'"'.$dis.' '.$o_dis.' ').form_error('price['.$meal_plan.'][amount]').' </td>
                                                               </tr>     ';
                                                     }
                                             ?> 

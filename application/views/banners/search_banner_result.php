@@ -1,19 +1,17 @@
     
 <?php
         $i = 0;
-        foreach ($search_list as $user){ 
+        foreach ($search_list as $search){ 
             echo '
                 <tr>
-                    <td>'.($i+1).'</td>
-                    <td>'.$user['first_name'].'</td>
-                    <td>'.$user['last_name'].'</td>
-                    <td>'.$user['user_role'].'</td>
-                    <td>'.$user['email'].'</td>
-                    <td>
-                        <a href="'.  base_url('users/view/'.$user['auth_id']).'"><span class="fa fa-eye"></span></a> |
-                        <a href="'.  base_url('users/edit/'.$user['auth_id']).'"><span class="fa fa-pencil"></span></a> |
-                        <a href="'.  base_url('users/delete/'.$user['auth_id']).'"><span class="fa fa-trash"></span></a> 
-                    </td> 
+                    <td>'.($i+1).'</td>  
+                    <td>'.$search['banner_name'].'</td>  
+                    <td>';
+                        echo ($this->user_default_model->check_authority($this->session->userdata('user_role_ID'), $this->router->class, 'view'))?'<a href="'.  base_url($this->router->fetch_class().'/view/'.$search['id']).'"><span class="fa fa-eye"></span></a> | ':' ';
+                        echo ($this->user_default_model->check_authority($this->session->userdata('user_role_ID'), $this->router->class, 'edit'))?'<a href="'.  base_url($this->router->fetch_class().'/edit/'.$search['id']).'"><span class="fa fa-pencil"></span></a> | ':' ';
+                        echo ($this->user_default_model->check_authority($this->session->userdata('user_role_ID'), $this->router->class, 'delete'))?'<a href="'.  base_url($this->router->fetch_class().'/delete/'.$search['id']).'"><span class="fa fa-trash"></span></a> ':' ';
+
+                    echo '</td>   
 
                        
                 </tr>

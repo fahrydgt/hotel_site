@@ -77,8 +77,30 @@ define('ROOMS',                         TB_PREFIX.'rooms');
 define('TIME_BASE',                     TB_PREFIX.'time_base');
 define('MEALPLAN',                      TB_PREFIX.'mealplan');
 define('CURRENCY',                      TB_PREFIX.'currency');
-define('PRICEPLAN',                      TB_PREFIX.'price_plan');
+define('PRICEPLAN',                     TB_PREFIX.'price_plan');
+define('PRICEPLAN_AMOUNT',              TB_PREFIX.'price_plan_amount');
+define('ACTIVITIES',                    TB_PREFIX.'activities');
+define('ACTIVITY_RESOURCE',             TB_PREFIX.'activity_resources');
+define('ACTIVITY_IMAGES_TBL',           TB_PREFIX.'activity_images');
+define('ACTIVITY_EVENTS',               TB_PREFIX.'activity_events');
+define('ACTIVITY_PRICE_CAT',            TB_PREFIX.'activity_price_cat');
+define('ACTIVITY_PRICEPLAN',            TB_PREFIX.'activity_priceplan');
 
+
+/*
+|--------------------------------------------------------------------------
+| MESSAGES
+|--------------------------------------------------------------------------
+|
+| Success Error....messages
+|
+*/
+
+//define('HOTEL_LOGO',	'./storage/images/company/');
+define('RECORD_ADD',	'Record added Successfully');
+define('RECORD_UPDATE',	'Record updated Successfully');
+define('RECORD_DELETE',	'Record Deleted Successfully');
+define('ERROR',	'Error! Something went wrong.');
 
 /*
 |--------------------------------------------------------------------------
@@ -99,6 +121,9 @@ define('DEFAULT_PIC',	'./storage/images/default/default.jpg');
 define('BANNERS_PIC',	'./storage/images/CMS/banners/');
 define('HOTEL_LOGO',	'./storage/images/hotels/hotel_logo/');
 define('HOTEL_IMAGES',	'./storage/images/hotels/hotel_images/');
+define('ROOM_IMAGES',	'./storage/images/rooms/room_images/');
+define('ACTIVITY_LOGO',	'./storage/images/activities/activity_logo/');
+define('ACTIVITY_IMAGES',	'./storage/images/activities/activity_images/');
 /*
 |--------------------------------------------------------------------------
 | File and Directory Modes
