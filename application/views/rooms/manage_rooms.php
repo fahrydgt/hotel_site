@@ -9,6 +9,7 @@
                         'hotel_id'=>"",
                         'description'=>"",
                         'facilities'=>"",
+                        'room_image'=>"default.jpg",
                         'status'=>"",
                         );   	
 	
@@ -160,6 +161,20 @@ endswitch;
                                                              
                                                         </div>                                            
                                                         <span class="help-block"><?php echo form_error('facilities');?></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="col-md-3 control-label">Room Image</label>
+                                                    <div class="col-md-9">                                            
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                                                             <?php echo form_input(array('name'=>'room_image', 'id'=>'room_image', 'class'=>'form-control', 'type'=>'file'));?>
+
+                                                        </div>    
+                                                        <div><img style="size: 100%; width:100px;"  src="<?php echo base_url().ROOM_IMAGES.$result['id'].'/'.$result['room_image'];?>"></div>
+                                                        <span class="help-block"><?php echo form_error('room_image');?></span>
                                                     </div>
                                                 </div>
                                             </div>

@@ -101,11 +101,19 @@ class Rooms extends CI_Controller {
 	function create(){ 
 //            echo '<pre>'; print_r($this->input->post()); die;
             $inputs = $this->input->post();
+            $room_id = get_autoincrement_no(ROOMS);
             $inputs['status'] = 0;
             if(isset($inputs['status'])){
                 $inputs['status'] = 1;
             } 
+             //create Dir if not exists for store necessary images   
+            if(!is_dir(ROOM_IMAGES.$room_id.'/')) mkdir(ROOM_IMAGES.$room_id.'/', 0777, TRUE); 
+
+            $this->load->library('fileuploads'); //file upoad library created by FL
+            $res_image = $this->fileuploads->upload_all('room_image',ROOM_IMAGES.$room_id.'/');
+            
             $data = array(
+                            'id' => $room_id,
                             'room_name' => $inputs['room_name'],
                             'short_name' => $inputs['short_name'],
                             'tarrif_type_id' => $inputs['tarrif_type_id'],
@@ -114,10 +122,11 @@ class Rooms extends CI_Controller {
                             'description' => $inputs['description'], 
                             'facilities' => (isset($inputs['facilities']))? json_encode($inputs['facilities']):'', 
                             'status' => $inputs['status'],
+                            'room_image' => (!empty($res_image))?$res_image[0]['name']:'',
                             'added_on' => date('Y-m-d'),
                             'added_by' => $this->session->userdata('ID'),
                         ); 
-
+                    
 		$add_stat = $this->Rooms_model->add_db($data);
                 
 		if($add_stat[0]){
@@ -140,6 +149,13 @@ class Rooms extends CI_Controller {
             } else{
                 $inputs['status'] = 0;
             }
+            
+             //create Dir if not exists for store necessary images   
+            if(!is_dir(ROOM_IMAGES.$inputs['id'].'/')) mkdir(ROOM_IMAGES.$inputs['id'].'/', 0777, TRUE); 
+
+            $this->load->library('fileuploads'); //file upoad library created by FL
+            $res_image = $this->fileuploads->upload_all('room_image',ROOM_IMAGES.$inputs['id'].'/');
+            
             $data = array(
                           'room_name' => $inputs['room_name'],
                           'short_name' => $inputs['short_name'],
@@ -149,6 +165,7 @@ class Rooms extends CI_Controller {
                           'description' => $inputs['description'], 
                           'facilities' => (isset($inputs['facilities']))? json_encode($inputs['facilities']):'', 
                           'status' => $inputs['status'],
+                          'room_image' => (!empty($res_image))?$res_image[0]['name']:'',
                           'updated_on' => date('Y-m-d'),
                           'updated_by' => $this->session->userdata('ID'),
                       );
@@ -215,6 +232,10 @@ class Rooms extends CI_Controller {
         function load_data($id){
             
             $data['user_data'] = $this->Rooms_model->get_single_row($id); 
+            if(empty($data['user_data'])){
+                $this->session->set_flashdata('error','INVALID! Please use the System Navigation');
+                redirect(base_url($this->router->fetch_class()));
+            }
             $data['facilities_list'] = get_dropdown_data(FACILITIES,'name','id','',array('col'=>'category_id !=','val'=>6));
             $data['hotel_list'] = get_dropdown_data(HOTELS,'hotel_name','id','Hotel');
             $data['time_base_list'] = get_dropdown_data(TIME_BASE,'time_base_name','id','Time Base');

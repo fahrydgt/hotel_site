@@ -110,6 +110,7 @@ class PricePlan extends CI_Controller {
             if(isset($inputs['status'])){
                 $inputs['status'] = 1;
             } 
+            
             $data = array(
                             'season_name' => $inputs['season_name'], 
                             'tarrif_type_id' => $inputs['tarrif_type_id'],
@@ -126,9 +127,13 @@ class PricePlan extends CI_Controller {
                             'added_by' => $this->session->userdata('ID'),
                         ); 
 
-//            echo '<pre>'; print_r($data); die;
 		$add_stat = $this->PricePlan_model->add_db($data);
                 
+                $price_all = array();
+                foreach ($inputs['price'] as $key=>$price){
+                    $price_all[] = array('mealplan_code'=>$key,'amount'=>$price['amount'],'price_plan_id'=>$add_stat[1]);
+                }
+                $add_amount_stat = $this->PricePlan_model->add_db_amount($price_all);
 		if($add_stat[0]){
                     //update log data
                     $new_data = $this->PricePlan_model->get_single_row($add_stat[1]);
@@ -147,6 +152,7 @@ class PricePlan extends CI_Controller {
             if(isset($inputs['status'])){
                 $inputs['status'] = 1;
             } 
+            
             $data = array(
                             'season_name' => $inputs['season_name'], 
                             'tarrif_type_id' => $inputs['tarrif_type_id'],
@@ -165,6 +171,13 @@ class PricePlan extends CI_Controller {
             $existing_data = $this->PricePlan_model->get_single_row($inputs['id']);
             
             $edit_stat = $this->PricePlan_model->edit_db($inputs['id'],$data);
+            
+            $price_all = array();
+            foreach ($inputs['price'] as $key=>$price){ 
+                $price_all[] = array('mealplan_code'=>$key,'amount'=>$price['amount'],'price_plan_id'=>$inputs['id']);
+            }
+          
+            $edit_amount_stat = $this->PricePlan_model->edit_db_amount($price_all);
             
             if($edit_stat){
                 //update log data
@@ -220,14 +233,18 @@ class PricePlan extends CI_Controller {
             }  
 	}
         
-        function load_data($id){
-            
+        function load_data($id){ 
             $data['user_data'] = $this->PricePlan_model->get_single_row($id); 
+            $price_amount_data = $this->PricePlan_model->get_amounts($id); 
+            foreach ($price_amount_data as $price_1){
+                $data['price_amount_data'][$price_1['mealplan_code']] = $price_1['amount'];
+            }
             $data['hotel_list'] = get_dropdown_data(HOTELS,'hotel_name','id','Hotel');
             $data['mealplan_list'] = get_dropdown_data(MEALPLAN,'mealplan_code','mealplan_code');
             $data['currency_list'] = get_dropdown_data(CURRENCY,'concat(title, " - ", code)','code','Currency');
             $data['time_base_list'] = get_dropdown_data(TIME_BASE,'time_base_name','id','Time Base');
             $data['tarrif_type_list'] = get_dropdown_data(TARRIF_TYPE,'tarrif_type_name','id','Tarrif Type');
+//            echo '<pre>';            print_r($data); die;
             return $data;	
 	}	
         

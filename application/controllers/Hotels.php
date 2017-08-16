@@ -22,8 +22,8 @@ class Hotels extends CI_Controller {
         
 	function add(){ 
             $data['action']		= 'Add';
-            $data['main_content']='hotels/manage_hotels'; 
-            $data['facilities_list'] = get_dropdown_data(FACILITIES,'name','id','');
+            $data['main_content']='hotels/manage_hotels';   
+            $data['facilities_list'] = get_dropdown_data(FACILITIES,'name','id','',array('col'=>'category_id!=','val'=>6));
             $data['property_sur_list'] = get_dropdown_data(PROPERTY_SURROUND,'property_name','id','');
             $data['user_role_list'] = get_dropdown_data(USER_ROLE,'user_role','id');
             $data['country_list'] = get_dropdown_data(COUNTRY_LIST,'country_name','country_code','Country');
@@ -349,7 +349,7 @@ class Hotels extends CI_Controller {
                 $this->session->set_flashdata('error','INVALID! Please use the System Navigation');
                 redirect(base_url($this->router->fetch_class()));
             }
-            $data['facilities_list'] = get_dropdown_data(FACILITIES,'name','id','');
+            $data['facilities_list'] = get_dropdown_data(FACILITIES,'name','id','',array('col'=>'category_id!=','val'=>6));
             $data['property_sur_list'] = get_dropdown_data(PROPERTY_SURROUND,'property_name','id','');
             $data['user_role_list'] = get_dropdown_data(USER_ROLE,'user_role','id');
             $data['country_list'] = get_dropdown_data(COUNTRY_LIST,'country_name','country_code','Country');
