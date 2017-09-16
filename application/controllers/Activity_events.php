@@ -114,7 +114,7 @@ class Activity_events extends CI_Controller {
                             'facilities' => (isset($inputs['facilities']))? json_encode($inputs['facilities']):'', 
                             'status' => $inputs['status'],
                             'added_on' => date('Y-m-d'),
-                            'added_by' => $this->session->userdata('ID'),
+                            'added_by' => $this->session->userdata(SYSTEM_CODE)['ID'],
                         ); 
 
 		$add_stat = $this->Activity_events_model->add_db($data);
@@ -149,7 +149,7 @@ class Activity_events extends CI_Controller {
                           'facilities' => (isset($inputs['facilities']))? json_encode($inputs['facilities']):'', 
                           'status' => $inputs['status'],
                           'updated_on' => date('Y-m-d'),
-                          'updated_by' => $this->session->userdata('ID'),
+                          'updated_by' => $this->session->userdata(SYSTEM_CODE)['ID'],
                       );
                     
 //            echo '<pre>'; print_r($data); die;
@@ -177,7 +177,7 @@ class Activity_events extends CI_Controller {
             $data = array(
                             'deleted' => 1,
                             'deleted_on' => date('Y-m-d'),
-                            'deleted_by' => $this->session->userdata('ID')
+                            'deleted_by' => $this->session->userdata(SYSTEM_CODE)['ID']
                          ); 
                 
             $existing_data = $this->Activity_events_model->get_single_row($inputs['id']);

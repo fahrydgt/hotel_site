@@ -116,7 +116,7 @@ class Backup extends CI_Controller{
 		$to         = ADMIN_EMAIL;
 		$to         = 'fahrylafir@gmail.com';
 		$from 		= 'noreply@pas.com';
-		$from_name 	= 'Admin User : '.$this->session->userdata('user_name');
+		$from_name 	= 'Admin User : '.$this->session->userdata(SYSTEM_CODE)['user_name'];
 		$subject 	= 'PAS MySQL Database Backup and folder Backup('.date('Y-m-d_H-i-s').')'; 
 				
 		$message    = '<table width="100%" border="0">

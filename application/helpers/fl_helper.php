@@ -21,6 +21,7 @@ if ( ! function_exists('get_dropdown_data'))
                 }
                 
 		$res = $CI->db->get()->result_array();
+//                echo $CI->db->last_query(); die;
                 $dropdown_data=array();
                 
                 if($first_null_option != ""){
@@ -46,6 +47,18 @@ function get_dropdown_value($dp_id){
     
 }
 
+function get_value_for_id($table, $id,$name='*'){
+    $CI =& get_instance();
+    $CI->db->select($name);	
+    $CI->db->from($table);	
+    $CI->db->where('id',$id);
+    $res = $CI->db->get()->result_array();
+    if(isset($res[0][$name])){
+        return $res[0][$name];
+    }
+    return 0;
+    
+}
 
 if ( ! function_exists('get_autoincrement_no'))
 {
@@ -117,7 +130,7 @@ function mc_decrypt($decrypt, $key){
             $log_id = generate_serial(SYSTEM_LOG, 'id');
             $log_arr = array(
                                 'id' => $log_id,
-                                'user_id' => $_SESSION['ID'],
+                                'user_id' => $_SESSION[SYSTEM_CODE]['ID'],
                                 'module_id' => $module,
                                 'action_id' => $action,
                                 'ip' => $_SERVER['REMOTE_ADDR'],
@@ -141,3 +154,16 @@ function mc_decrypt($decrypt, $key){
             return $status; 
         }
 
+        function get_default_currency_amount($amount,$currency_code, $to_curcode=''){
+            if($to_curcode==''){
+                $to_curcode = $_SESSION[SYSTEM_CODE]['default_currency'];
+            }
+            
+            $CI =& get_instance(); 
+            $res_from = $CI->db->get_where(CURRENCY,array('code'=>$currency_code))->result()[0];
+            $res_to = $CI->db->get_where(CURRENCY,array('code'=>$to_curcode))->result()[0];
+            
+            $res_to->amount = ($res_to->value/$res_from->value)*$amount; 
+            
+            return $res_to;
+        }

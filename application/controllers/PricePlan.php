@@ -19,6 +19,7 @@ class PricePlan extends CI_Controller {
             $data['hotel_list'] = get_dropdown_data(HOTELS,'hotel_name','id','Hotel');
             $data['time_base_list'] = get_dropdown_data(TIME_BASE,'time_base_name','id','Time Base');
             $data['tarrif_type_list'] = get_dropdown_data(TARRIF_TYPE,'tarrif_type_name','id','Tarrif Type');
+            $data['market_list'] = get_dropdown_data(MARKETS,'market_name','id','Select Market');
             $this->load->view('includes/template',$data);
 	}
         
@@ -30,6 +31,7 @@ class PricePlan extends CI_Controller {
             $data['currency_list'] = get_dropdown_data(CURRENCY,'concat(title, " - ", code)','code','Currency');
             $data['time_base_list'] = get_dropdown_data(TIME_BASE,'time_base_name','id','Time Base');
             $data['tarrif_type_list'] = get_dropdown_data(TARRIF_TYPE,'tarrif_type_name','id','Tarrif Type');
+            $data['market_list'] = get_dropdown_data(MARKETS,'market_name','id','Select Market');
             $this->load->view('includes/template',$data);
 	}
 	
@@ -94,8 +96,8 @@ class PricePlan extends CI_Controller {
             $this->form_validation->set_error_delimiters('<p style="color:rgb(255, 115, 115);" class="help-block"><i class="glyphicon glyphicon-exclamation-sign"></i> ','</p>');
 
             $this->form_validation->set_rules('season_name','Season Name','required|min_length[2]');
-            $this->form_validation->set_rules('date_from','Start Date','required');
-            $this->form_validation->set_rules('date_to','End Date','required');
+            $this->form_validation->set_rules('date_from','Start Date','required|callback_check_date_interference_cb');
+            $this->form_validation->set_rules('date_to','End Date','required|callback_check_date_interference_cb');
             $this->form_validation->set_rules('tarrif_type_id','Tarrif Type','required');
             $this->form_validation->set_rules('hotel_id','Hotel','required');
             $this->form_validation->set_rules('time_base_id','Time Base','required'); 
@@ -103,7 +105,21 @@ class PricePlan extends CI_Controller {
 //            $this->form_validation->set_rules('price','Price','required'); 
             $this->form_validation->set_rules('description','Description','min_length[10]');
       }	
-        
+      //callback function
+        function check_date_interference_cb(){
+                $inputs = $this->input->post();  
+
+//                echo '<pre>'; print_r($inputs); die;
+                $res1 = $this->PricePlan_model->check_date_interference($inputs['date_from'],$inputs['date_to'],$inputs['hotel_id'],$inputs['market_id'],$inputs['tarrif_type_id'],$inputs['time_base_id'],($inputs['action']=='Add')?0:$inputs['id']);
+                if(empty($res1)){
+                    return true;
+                }else{
+                    
+//                echo '<pre>'; print_r($res1); die;
+                    $this->form_validation->set_message('check_date_interference_cb','Date range interference with already existsing rate ['.$res1[0]['season_name'].'].');
+                    return false;
+                }  
+        }
 	function create(){ 
             $inputs = $this->input->post();
             $inputs['status'] = 0;
@@ -115,6 +131,7 @@ class PricePlan extends CI_Controller {
                             'season_name' => $inputs['season_name'], 
                             'tarrif_type_id' => $inputs['tarrif_type_id'],
                             'hotel_id' => $inputs['hotel_id'],
+                            'market_id' => $inputs['market_id'],
                             'time_base_id' => $inputs['time_base_id'],
                             'currency_id' => $inputs['currency_id'], 
                             'description' => $inputs['description'],  
@@ -124,7 +141,7 @@ class PricePlan extends CI_Controller {
                             'date_to' => strtotime($inputs['date_to']),
                             'status' => $inputs['status'],
                             'added_on' => date('Y-m-d'),
-                            'added_by' => $this->session->userdata('ID'),
+                            'added_by' => $this->session->userdata(SYSTEM_CODE)['ID'],
                         ); 
 
 		$add_stat = $this->PricePlan_model->add_db($data);
@@ -155,6 +172,8 @@ class PricePlan extends CI_Controller {
             
             $data = array(
                             'season_name' => $inputs['season_name'], 
+//                            'hotel_id' => $inputs['hotel_id'], //diasbld for edir the price plan
+//                            'market_id' => $inputs['market_id'],
                             'tarrif_type_id' => $inputs['tarrif_type_id'],
                             'time_base_id' => $inputs['time_base_id'],
                             'currency_id' => $inputs['currency_id'], 
@@ -165,7 +184,7 @@ class PricePlan extends CI_Controller {
                             'date_to' => strtotime($inputs['date_to']),
                             'status' => $inputs['status'],
                             'updated_on' => date('Y-m-d'),
-                            'updated_by' => $this->session->userdata('ID'),
+                            'updated_by' => $this->session->userdata(SYSTEM_CODE)['ID'],
                         ); 
             //old data for log update
             $existing_data = $this->PricePlan_model->get_single_row($inputs['id']);
@@ -198,7 +217,7 @@ class PricePlan extends CI_Controller {
             $data = array(
                             'deleted' => 1,
                             'deleted_on' => date('Y-m-d'),
-                            'deleted_by' => $this->session->userdata('ID')
+                            'deleted_by' => $this->session->userdata(SYSTEM_CODE)['ID']
                          ); 
                 
             $existing_data = $this->PricePlan_model->get_single_row($inputs['id']);
@@ -244,6 +263,7 @@ class PricePlan extends CI_Controller {
             $data['currency_list'] = get_dropdown_data(CURRENCY,'concat(title, " - ", code)','code','Currency');
             $data['time_base_list'] = get_dropdown_data(TIME_BASE,'time_base_name','id','Time Base');
             $data['tarrif_type_list'] = get_dropdown_data(TARRIF_TYPE,'tarrif_type_name','id','Tarrif Type');
+            $data['market_list'] = get_dropdown_data(MARKETS,'market_name','id','Select Market');
 //            echo '<pre>';            print_r($data); die;
             return $data;	
 	}	

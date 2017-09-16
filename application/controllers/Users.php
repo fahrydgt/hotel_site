@@ -136,7 +136,7 @@ class Users extends CI_Controller {
                                     'hotel_id' => (isset($inputs['hotel_id'])?json_encode($inputs['hotel_id']):0),
                                     'pic' => $pic_upload_1[0],
                                     'added_on' => date('Y-m-d'),
-                                    'added_by' => $this->session->userdata('ID'),
+                                    'added_by' => $this->session->userdata(SYSTEM_CODE)['ID'],
                                 );
             
 //            var_dump($user_det_tbl); die;
@@ -160,7 +160,7 @@ class Users extends CI_Controller {
             
             $inputs = $this->input->post();
             $user_id  = $this->input->post('user_id'); 
-            if($this->session->userdata('ID') != 1 && $user_id == 1){
+            if($this->session->userdata(SYSTEM_CODE)['ID'] != 1 && $user_id == 1){
                 $this->session->set_flashdata('error','You Dont have modify delete this user!');
                 redirect(base_url('users'));;
             }
@@ -189,7 +189,7 @@ class Users extends CI_Controller {
                                     'tel' => $inputs['contact'],
                                     'hotel_id' => (isset($inputs['hotel_id'])?json_encode($inputs['hotel_id']):0),
                                     'updated_on' => date('Y-m-d'),
-                                    'updated_by' => $this->session->userdata('ID'),
+                                    'updated_by' => $this->session->userdata(SYSTEM_CODE)['ID'],
                                 );
             
             //Upload picture
@@ -221,7 +221,7 @@ class Users extends CI_Controller {
 //                        echo '<pre>';            print_r($this->session->userdata());die;
 
 		$user_id  = $this->input->post('user_id'); 
-                if($user_id == $this->session->userdata('ID') || $user_id == 1){
+                if($user_id == $this->session->userdata(SYSTEM_CODE)['ID'] || $user_id == 1){
                     $this->session->set_flashdata('error','You Dont have permission delete this user!');
                     redirect(base_url('users'));;
                 }

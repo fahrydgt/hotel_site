@@ -12,8 +12,8 @@ class Hotels_model extends CI_Model
             $this->db->join(HOTEL_RESOURCE.' hr','hr.hotel_id = h.id'); 
             $this->db->join(HOTEL_IMAGES_TBL.' hi','hi.hotel_id = h.id','left');  
             $this->db->where('h.deleted',0);
-//            if($this->session->userdata('user_role_id')==6){
-//                $this->db->where('u.id', $this->session->userdata('ID'));
+//            if($this->session->userdata(SYSTEM_CODE)['user_role_ID']==6){
+//                $this->db->where('u.id', $this->session->userdata(SYSTEM_CODE)['ID']);
 //            }
             if($data !=''){
                 $this->db->like('h.hotel_name', $data['hotel_name']); 
@@ -22,7 +22,7 @@ class Hotels_model extends CI_Model
                 $this->db->like('h.email', $data['email']); 
                } 
             $result = $this->db->get()->result_array();  
-//            echo '<pre>';            print_r($this->session->userdata('user_role_ID')); die;
+//            echo '<pre>';            print_r($this->session->userdata(SYSTEM_CODE)['user_role_ID']); die;
             return $result;
 	}
 	

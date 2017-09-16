@@ -32,15 +32,16 @@ class User_default_model extends CI_Model
 		$this->load->library('encrypt'); 
 		/*$user_obj = $this->db->get_where(USER_TBL,array('user_name'=>$data['username']))->result();*/
 //		var_dump($data); die;
-		$this->db->select('usr.*,mst.first_name,mst.last_name,mst.pic, ur.user_role');
+		$this->db->select('usr.*,mst.first_name,mst.last_name,mst.pic,mst.company_id, ur.user_role,c.company_name,c.currency_code');
 		$this->db->from(USER_TBL.' usr');
                 $this->db->join(USER.' mst','mst.auth_id = usr.id',"LEFT");
                 $this->db->join(USER_ROLE.' ur','ur.id = usr.user_role_id',"LEFT");
+                $this->db->join(COMPANIES.' c','c.id = mst.company_id',"LEFT");
 		$this->db->where('usr.user_name', $data['uname']);
 		$this->db->where('usr.status', 1);
 		$this->db->where('mst.deleted', 0);
 		$user_obj = $this->db->get()->result();
-	 
+                
 //        echo '<br>DEBUG sql in '.__FUNCTION__.'<br><pre>'.$this->db->last_query().'</pre>';   die();
 		$valid = false;
 		if(!empty($user_obj)){
@@ -65,22 +66,25 @@ class User_default_model extends CI_Model
         
     function set_session_web($user_obj) //Add session data for web users
 	{
-//	  	echo '<pre>';print_r($user_obj);echo'<pre>';die;
-		
-        $session_data = array(
+	  	
+        $session_data[SYSTEM_CODE] = array(
+                              'system_code'     => SYSTEM_CODE,
                               'ID'              => $user_obj['0']->id,
                               'user_role_ID'    => $user_obj['0']->user_role_id,
                               'user_role'       => $user_obj['0']->user_role,
                               'user_first_name'	=> $user_obj['0']->first_name,
                               'user_last_name'	=> $user_obj['0']->last_name, 
                               'user_name'       => $user_obj['0']->user_name,
+                              'default_currency'=> $user_obj['0']->currency_code,
+                              'company_id'      => $user_obj['0']->company_id,
                               'is_logged_in' 	=> TRUE,
                               'access_type'	=> 'web',
                               'profile_pix'     => $user_obj['0']->pic
                );
 			   
 		$this->session->set_userdata($session_data);
-        		
+		
+//        		echo '<pre>';print_r($this->session->userdata());echo'<pre>';die;
 	}
         
         function check_authority($user_group,$page,$method)

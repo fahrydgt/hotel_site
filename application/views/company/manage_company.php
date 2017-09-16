@@ -7,6 +7,7 @@
                         'city'=>"",
                         'state'=>"",
                         'country'=>"",
+                        'currency_code'=>"",
                         'zipcode'=>"",
                         'phone'=>"",
                         'fax'=>"",
@@ -316,6 +317,19 @@ endswitch;
                                                 </div>
                                             </div>
                                             
+                                            <div class="col-md-12"> 
+                                                <div class="col-md-12">
+                                                  <div class="form-group">
+                                                      <label class="col-md-3 control-label">Default Currency<span style="color: red">*</span></label>
+                                                      <div class="col-md-9">                                            
+                                                          <div class="input-group">
+                                                              <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                                                               <?php  echo form_dropdown('currency_code',$currency_list,set_value('currency_code',$result['currency_code']),' class="form-control select2" data-live-search="true" id="currency_code"'.$o_dis.'');?>
+                                                           </div>                                            
+                                                          <span class="help-block"><?php echo form_error('currency_code');?>&nbsp;</span>
+                                                      </div>
+                                                  </div>
+                                              </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="col-md-3 control-label">Company Active</label>

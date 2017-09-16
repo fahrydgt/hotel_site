@@ -1,6 +1,6 @@
 <?php 
      	$CI =& get_instance(); 				
-	$user_group =  $this->session->userdata('user_role_ID'); //'ADMIN';
+	$user_group =  $this->session->userdata(SYSTEM_CODE)['user_role_ID']; //'ADMIN';
         $navigation = $this->user_default_model->get_user_menu_navigation($user_group);  
         $brodcrums = $this->user_default_model->get_broadcrum($CI->router->class); 
 //        echo '<pre>'; print_r($brodcrums); die;
@@ -14,10 +14,10 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="<?php echo base_url(USER_PROFILE_PIC.$_SESSION['user_name'].'/'.$_SESSION['profile_pix'])?>" class="img-circle" alt="User Image">
+          <img src="<?php echo base_url(USER_PROFILE_PIC.$_SESSION[SYSTEM_CODE]['user_name'].'/'.$_SESSION[SYSTEM_CODE]['profile_pix'])?>" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p><?php echo $_SESSION['user_first_name'].' '.$_SESSION['user_last_name'];?></p>
+          <p><?php echo $_SESSION[SYSTEM_CODE]['user_first_name'].' '.$_SESSION[SYSTEM_CODE]['user_last_name'];?></p>
           <a href="#"><i class="fa fa-circle text-success"></i> SE</a>
         </div>
       </div>

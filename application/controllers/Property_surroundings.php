@@ -106,7 +106,7 @@ class Property_surroundings extends CI_Controller {
                             'icon' => $inputs['icon'],
                             'status' => $inputs['status'],
                             'added_on' => date('Y-m-d'),
-                            'added_by' => $this->session->userdata('ID'),
+                            'added_by' => $this->session->userdata(SYSTEM_CODE)['ID'],
                         );
                     
 //            echo '<pre>'; print_r($data); die;
@@ -140,7 +140,7 @@ class Property_surroundings extends CI_Controller {
                             'icon' => $inputs['icon'],
                             'status' => $inputs['status'],
                             'updated_on' => date('Y-m-d'),
-                            'updated_by' => $this->session->userdata('ID'),
+                            'updated_by' => $this->session->userdata(SYSTEM_CODE)['ID'],
                         );  
                     
             //old data for log update
@@ -167,7 +167,7 @@ class Property_surroundings extends CI_Controller {
             $data = array(
                             'deleted' => 1,
                             'deleted_on' => date('Y-m-d'),
-                            'deleted_by' => $this->session->userdata('ID')
+                            'deleted_by' => $this->session->userdata(SYSTEM_CODE)['ID']
                          ); 
                 
             $existing_data = $this->Property_surroundings_model->get_single_row($inputs['id']);

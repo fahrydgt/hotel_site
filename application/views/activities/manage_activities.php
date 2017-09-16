@@ -141,8 +141,8 @@ endswitch;
 					</div>
 				<?php } ?>  
             <div class="">
-                <?php echo ($this->user_default_model->check_authority($this->session->userdata('user_role_ID'), $this->router->class, 'add'))?'<a href="'.base_url($this->router->fetch_class().'/add').'" class="btn btn-app "><i class="fa fa-plus"></i>Create New</a>':''; ?>
-                <?php echo ($this->user_default_model->check_authority($this->session->userdata('user_role_ID'), $this->router->class, 'index'))?'<a href="'.base_url($this->router->fetch_class()).'" class="btn btn-app "><i class="fa fa-search"></i>Search</a>':''; ?>
+                <?php echo ($this->user_default_model->check_authority($this->session->userdata(SYSTEM_CODE)['user_role_ID'], $this->router->class, 'add'))?'<a href="'.base_url($this->router->fetch_class().'/add').'" class="btn btn-app "><i class="fa fa-plus"></i>Create New</a>':''; ?>
+                <?php echo ($this->user_default_model->check_authority($this->session->userdata(SYSTEM_CODE)['user_role_ID'], $this->router->class, 'index'))?'<a href="'.base_url($this->router->fetch_class()).'" class="btn btn-app "><i class="fa fa-search"></i>Search</a>':''; ?>
                 <!--<a class="btn btn-app "><i class="fa fa-trash"></i>Delete</a>-->
             </div>
         </div>
@@ -658,7 +658,7 @@ $(document).ready(function(){
 $(".add_element_policy").on("click", function() {
     var rowCount = $('.policy_tbl tr').length;
     
-    alert(rowCount);
+//    alert(rowCount);
     var counter = rowCount+1;
     event.preventDefault(); 
     var newRow = jQuery('<tr style="padding:10px" id="tr_'+rowCount+'">'+'<td><div class="input-group"><input type="text" name="policy['+rowCount+'][title]" id="policy['+rowCount+'][title]" class="form-control" placeholder="Enter Title"></div></td>'+'<td><div class="input-group"><textarea name="policy['+rowCount+'][description]" cols="120" rows="4" id="policy['+rowCount+'][description]" class=" form-control" placeholder="Enter description"></textarea></div></td> <td> '+'<button id="del_btn" type="button" class="del_btn_policy btn btn-danger"><i class="fa fa-trash"></i></button> '+'</td></tr>');
@@ -673,7 +673,7 @@ $(".add_element_policy").on("click", function() {
 $(".add_element_pets").on("click", function() {
     var rowCount = $('.pets_tbl tr').length;
     
-    alert(rowCount);
+//    alert(rowCount);
     var counter = rowCount+1;
     event.preventDefault(); 
     var newRow = jQuery('<tr style="padding:10px" id="tr_'+rowCount+'">'+'<td><div class="input-group"><input type="text" name="pets['+rowCount+'][title]" id="pets['+rowCount+'][title]" class="form-control" placeholder="Enter Title"></div></td>'+'<td><div class="input-group"><textarea name="pets['+rowCount+'][description]" cols="120" rows="4" id="pets['+rowCount+'][description]" class=" form-control" placeholder="Enter description"></textarea></div></td> <td> '+'<button id="del_btn" type="button" class="del_btn_pets btn btn-danger"><i class="fa fa-trash"></i></button> '+'</td></tr>');

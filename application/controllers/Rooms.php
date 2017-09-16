@@ -124,7 +124,7 @@ class Rooms extends CI_Controller {
                             'status' => $inputs['status'],
                             'room_image' => (!empty($res_image))?$res_image[0]['name']:'',
                             'added_on' => date('Y-m-d'),
-                            'added_by' => $this->session->userdata('ID'),
+                            'added_by' => $this->session->userdata(SYSTEM_CODE)['ID'],
                         ); 
                     
 		$add_stat = $this->Rooms_model->add_db($data);
@@ -167,7 +167,7 @@ class Rooms extends CI_Controller {
                           'status' => $inputs['status'],
                           'room_image' => (!empty($res_image))?$res_image[0]['name']:'',
                           'updated_on' => date('Y-m-d'),
-                          'updated_by' => $this->session->userdata('ID'),
+                          'updated_by' => $this->session->userdata(SYSTEM_CODE)['ID'],
                       );
                     
             //old data for log update
@@ -194,7 +194,7 @@ class Rooms extends CI_Controller {
             $data = array(
                             'deleted' => 1,
                             'deleted_on' => date('Y-m-d'),
-                            'deleted_by' => $this->session->userdata('ID')
+                            'deleted_by' => $this->session->userdata(SYSTEM_CODE)['ID']
                          ); 
                 
             $existing_data = $this->Rooms_model->get_single_row($inputs['id']);

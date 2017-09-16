@@ -7,6 +7,7 @@
                         'date_to'=>strtotime('+1 months',strtotime(date('m/d/Y'))),
                         'short_name'=>"",
                         'tarrif_type_id'=>"",
+                        'market_id'=>1,
                         'time_base_id'=>1,
                         'currency_id'=>"LKR",
                         'hotel_id'=>"",
@@ -176,6 +177,18 @@ $result['price'] = json_decode($result['price_all'],TRUE)
                                                            <?php  echo form_dropdown('hotel_id',$hotel_list,set_value('hotel_id',$result['hotel_id']),' class="form-control select2" data-live-search="true" id="hotel_id"'.$o_dis.'');?>
                                                        </div>                                            
                                                       <span class="help-block"><?php echo form_error('hotel_id');?>&nbsp;</span>
+                                                  </div>
+                                              </div>
+                                            </div>
+                                             <div class="col-md-6">
+                                              <div class="form-group">
+                                                  <label class="col-md-3 control-label">Market<span style="color: red">*</span></label>
+                                                  <div class="col-md-9">                                            
+                                                      <div class="input-group">
+                                                          <span class="input-group-addon"><span class="fa fa-list"></span></span>
+                                                           <?php  echo form_dropdown('market_id',$market_list,set_value('market_id',$result['market_id']),' class="form-control select2" data-live-search="true" id="market_id"'.$o_dis.'');?>
+                                                       </div>                                            
+                                                      <span class="help-block"><?php echo form_error('market_id');?>&nbsp;</span>
                                                   </div>
                                               </div>
                                             </div>

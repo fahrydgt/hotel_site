@@ -13,8 +13,8 @@ class activities_model extends CI_Model
             $this->db->join(ACTIVITY_RESOURCE.' ar','ar.activity_id = a.id'); 
             $this->db->join(ACTIVITY_IMAGES_TBL.' ai','ai.activity_id = a.id','left');  
             $this->db->where('a.deleted',0);
-//            if($this->session->userdata('user_role_id')==6){
-//                $this->db->where('u.id', $this->session->userdata('ID'));
+//            if($this->session->userdata(SYSTEM_CODE)['user_role_ID']==6){
+//                $this->db->where('u.id', $this->session->userdata(SYSTEM_CODE)['ID']);
 //            }
             if($data !=''){
                 $this->db->like('a.activity_name', $data['activity_name']); 
@@ -23,7 +23,7 @@ class activities_model extends CI_Model
                 $this->db->like('a.email', $data['email']); 
                } 
             $result = $this->db->get()->result_array();  
-//            echo '<pre>';            print_r($this->session->userdata('user_role_ID')); die;
+//            echo '<pre>';            print_r($this->session->userdata(SYSTEM_CODE)['user_role_ID']); die;
             return $result;
 	}
 	

@@ -24,6 +24,7 @@ defined('SHOW_DEBUG_BACKTRACE') OR define('SHOW_DEBUG_BACKTRACE', TRUE);
 |
 */
 define('SYSTEM_NAME', 'Hotel Web');
+define('SYSTEM_CODE', 'ZV_HOTEL_LOC_1');
 define('SYSTEM_SHOTR_NAME', 'H Web');
 define('SYSTEM_POWERED_BY', 'Zone Venture');
 
@@ -59,6 +60,9 @@ define('MODULE_USER_ROLE_ACT',          TB_PREFIX.'module_user_role');
 //define('HOTELS',                        TB_PREFIX.'hotels');
 define('COMPANIES',                     TB_PREFIX.'company');
 define('COUNTRY_LIST',                  TB_PREFIX.'countries');
+define('COUNTRY_STATES',                  TB_PREFIX.'country_states');
+define('COUNTRY_DISTRICTS',                  TB_PREFIX.'country_districts');
+define('COUNTRY_CITIES',                  TB_PREFIX.'country_cities ');
 define('SYSTEM_LOG',                    TB_PREFIX.'system_log');
 define('SYSTEM_LOG_DETAIL',             TB_PREFIX.'system_log_detail');
 define('BANNERS',                       TB_PREFIX.'cms_banner');
@@ -85,6 +89,11 @@ define('ACTIVITY_IMAGES_TBL',           TB_PREFIX.'activity_images');
 define('ACTIVITY_EVENTS',               TB_PREFIX.'activity_events');
 define('ACTIVITY_PRICE_CAT',            TB_PREFIX.'activity_price_cat');
 define('ACTIVITY_PRICEPLAN',            TB_PREFIX.'activity_priceplan');
+define('AGENTS',                        TB_PREFIX.'agents');
+define('AGENT_TYPE',                    TB_PREFIX.'agent_type');
+define('MARKETS',                       TB_PREFIX.'markets');
+define('ADDONS',                        TB_PREFIX.'addons');
+define('ADDON_CALC_INCLUDED',                        TB_PREFIX.'addon_calculation_included');
 
 
 /*

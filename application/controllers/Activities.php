@@ -154,7 +154,7 @@ class Activities extends CI_Controller {
                                     'logo' => (!empty($res_logo))?$res_logo[0]['name']:'',
                                     'status' => $inputs['status'],
                                     'added_on' => date('Y-m-d'),
-                                    'added_by' => $this->session->userdata('ID'),
+                                    'added_by' => $this->session->userdata(SYSTEM_CODE)['ID'],
                                 );
                     
             $data['resource_tbl'] = array(
@@ -167,7 +167,7 @@ class Activities extends CI_Controller {
                                     'property_surroundings' => json_encode($inputs['property_surroundings']),
                                     'status' => 1,
                                     'added_on' => date('Y-m-d'),
-                                    'added_by' => $this->session->userdata('ID'),
+                                    'added_by' => $this->session->userdata(SYSTEM_CODE)['ID'],
                                 );
             $data['activity_img_tbl'] = array(
                                     'activity_id' => $activity_id,
@@ -254,7 +254,7 @@ class Activities extends CI_Controller {
 //                                    'logo' => (!empty($res_logo))?$res_logo[0]['name']:'',
                                     'status' => $inputs['status'],
                                     'updated_on' => date('Y-m-d'),
-                                    'updated_by' => $this->session->userdata('ID'),
+                                    'updated_by' => $this->session->userdata(SYSTEM_CODE)['ID'],
                                 );
             if(!empty($res_logo)) $data['activity_tbl']['logo'] = $res_logo[0]['name']; 
             
@@ -267,7 +267,7 @@ class Activities extends CI_Controller {
                                     'property_surroundings' => (isset($inputs['property_surroundings']))?json_encode($inputs['property_surroundings']):'',
                                     'status' => 1,
                                     'updated_on' => date('Y-m-d'),
-                                    'updated_by' => $this->session->userdata('ID'),
+                                    'updated_by' => $this->session->userdata(SYSTEM_CODE)['ID'],
                                 );
             $data['activity_img_tbl'] = array( 
 //                                    'default_image' => (!empty($res_hotel_deflt_px))?$res_hotel_deflt_px[0]['name']:'',
@@ -302,7 +302,7 @@ class Activities extends CI_Controller {
             $data = array(
                             'deleted' => 1,
                             'deleted_on' => date('Y-m-d'),
-                            'deleted_by' => $this->session->userdata('ID')
+                            'deleted_by' => $this->session->userdata(SYSTEM_CODE)['ID']
                          ); 
                 
             $existing_data = $this->Activities_model->get_single_row($inputs['id']);

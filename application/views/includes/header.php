@@ -97,7 +97,7 @@
                   <li><!-- start message -->
                     <a href="#">
                       <div class="pull-left">
-                        <img src="<?php echo base_url(USER_PROFILE_PIC.$_SESSION['user_name'].'/'.$_SESSION['profile_pix'])?>" class="img-circle" alt="User Image">
+                        <img src="<?php echo base_url(USER_PROFILE_PIC.$_SESSION[SYSTEM_CODE]['user_name'].'/'.$_SESSION[SYSTEM_CODE]['profile_pix'])?>" class="img-circle" alt="User Image">
                       </div>
                       <h4>
                         Support Team
@@ -110,7 +110,7 @@
                   <li>
                     <a href="#">
                       <div class="pull-left">
-                        <img src="<?php echo base_url(USER_PROFILE_PIC.$_SESSION['user_name'].'/'.$_SESSION['profile_pix'])?>" class="img-circle" alt="User Image">
+                        <img src="<?php echo base_url(USER_PROFILE_PIC.$_SESSION[SYSTEM_CODE]['user_name'].'/'.$_SESSION[SYSTEM_CODE]['profile_pix'])?>" class="img-circle" alt="User Image">
                       </div>
                       <h4>
                         AdminLTE Design Team
@@ -122,7 +122,7 @@
                   <li>
                     <a href="#">
                       <div class="pull-left">
-                        <img src="<?php echo base_url(USER_PROFILE_PIC.$_SESSION['user_name'].'/'.$_SESSION['profile_pix'])?>" class="img-circle" alt="User Image">
+                        <img src="<?php echo base_url(USER_PROFILE_PIC.$_SESSION[SYSTEM_CODE]['user_name'].'/'.$_SESSION[SYSTEM_CODE]['profile_pix'])?>" class="img-circle" alt="User Image">
                       </div>
                       <h4>
                         Developers
@@ -134,7 +134,7 @@
                   <li>
                     <a href="#">
                       <div class="pull-left">
-                        <img src="<?php echo base_url(USER_PROFILE_PIC.$_SESSION['user_name'].'/'.$_SESSION['profile_pix'])?>" class="img-circle" alt="User Image">
+                        <img src="<?php echo base_url(USER_PROFILE_PIC.$_SESSION[SYSTEM_CODE]['user_name'].'/'.$_SESSION[SYSTEM_CODE]['profile_pix'])?>" class="img-circle" alt="User Image">
                       </div>
                       <h4>
                         Sales Department
@@ -146,7 +146,7 @@
                   <li>
                     <a href="#">
                       <div class="pull-left">
-                        <img src="<?php echo base_url(USER_PROFILE_PIC.$_SESSION['user_name'].'/'.$_SESSION['profile_pix'])?>" class="img-circle" alt="User Image">
+                        <img src="<?php echo base_url(USER_PROFILE_PIC.$_SESSION[SYSTEM_CODE]['user_name'].'/'.$_SESSION[SYSTEM_CODE]['profile_pix'])?>" class="img-circle" alt="User Image">
                       </div>
                       <h4>
                         Reviewers
@@ -205,16 +205,16 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="<?php echo base_url(USER_PROFILE_PIC.$_SESSION['user_name'].'/'.$_SESSION['profile_pix'])?>" class="user-image" alt="User Image">
-              <span class="hidden-xs"><?php echo $_SESSION['user_first_name'].' '.$_SESSION['user_last_name'];?></span>
+              <img src="<?php echo base_url(USER_PROFILE_PIC.$_SESSION[SYSTEM_CODE]['user_name'].'/'.$_SESSION[SYSTEM_CODE]['profile_pix'])?>" class="user-image" alt="User Image">
+              <span class="hidden-xs"><?php echo $_SESSION[SYSTEM_CODE]['user_first_name'].' '.$_SESSION[SYSTEM_CODE]['user_last_name'];?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                  <img src="<?php echo base_url(USER_PROFILE_PIC.$_SESSION['user_name'].'/'.$_SESSION['profile_pix'])?>" class="img-circle" alt="User Image">
+                  <img src="<?php echo base_url(USER_PROFILE_PIC.$_SESSION[SYSTEM_CODE]['user_name'].'/'.$_SESSION[SYSTEM_CODE]['profile_pix'])?>" class="img-circle" alt="User Image">
 
                 <p>
-                  <?php echo $_SESSION['user_first_name'].' '.$_SESSION['user_last_name'].' - '.$_SESSION['user_role'];?>
+                  <?php echo $_SESSION[SYSTEM_CODE]['user_first_name'].' '.$_SESSION[SYSTEM_CODE]['user_last_name'].' - '.$_SESSION[SYSTEM_CODE]['user_role'];?>
                   <small>Zone Venture Soft</small>
                 </p>
               </li>

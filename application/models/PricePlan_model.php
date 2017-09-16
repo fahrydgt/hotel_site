@@ -47,6 +47,32 @@ class PricePlan_model extends CI_Model
             return $result;
 	}
                         
+         public function check_date_interference($date_from,$date_to,$hotel_id,$market,$tarrif_type_id,$time_base_id,$price_plan_id=0){ 
+             $date_from = strtotime($date_from);
+             $date_to = strtotime($date_to);
+             
+            $check_inside_query = "("."(date_from <= '$date_from' AND date_from <= '$date_to' AND date_to >= '$date_from' AND date_to >= '$date_to')  "; 
+            $check_full_out_query = "(date_from >= '$date_from' AND date_from <= '$date_to' AND date_to >= '$date_from' AND date_to <= '$date_to')  "; 
+            $check_left_query = "(date_from >= '$date_from' AND date_from <= '$date_to' AND date_to >= '$date_from' AND date_to >= '$date_to')  "; 
+            $check_right_query = "(date_from <= '$date_from' AND date_from <= '$date_to' AND date_to >= '$date_from' AND date_to <= '$date_to')  ".")"; 
+             
+            $this->db->select('*');
+            $this->db->from(PRICEPLAN); 
+            $this->db->where('deleted',0);
+            $this->db->where('hotel_id',$hotel_id);
+            $this->db->where('market_id',$market); 
+            $this->db->where('tarrif_type_id',$tarrif_type_id); 
+            $this->db->where('time_base_id',$time_base_id); 
+            $this->db->where('id!=',$price_plan_id); 
+            $this->db->where($check_inside_query);
+            $this->db->or_where($check_full_out_query);
+            $this->db->or_where($check_left_query);
+            $this->db->or_where($check_right_query); 
+            $result = $this->db->get()->result_array();  
+//            echo $this->db->last_query();  die; ;
+            return $result;
+	}
+                        
         public function add_db($data){       
                 $this->db->trans_start();
 		$this->db->insert(PRICEPLAN, $data); 
@@ -75,6 +101,7 @@ class PricePlan_model extends CI_Model
 		return $status;
 	}
         
+        
         public function edit_db_amount($data){
 //		$this->db->trans_start();
                 foreach ($data as $amount){
@@ -83,7 +110,7 @@ class PricePlan_model extends CI_Model
                     $this->db->where('mealplan_code', $amount['mealplan_code']);;
                     $this->db->update(PRICEPLAN_AMOUNT, $amount);
                     if($this->db->affected_rows()==0){
-                        $this->db->insert(PRICEPLAN_AMOUNT, $amount);   
+//                        $this->db->insert(PRICEPLAN_AMOUNT, $amount);   
                     } 
                 }
 //		$status=$this->db->trans_complete();
@@ -102,7 +129,7 @@ class PricePlan_model extends CI_Model
         
         function delete_db2($id){
                 $this->db->trans_start();
-                $this->db->delete(FACILITIES, array('id' => $id));     
+                $this->db->delete(PRICEPLAN, array('id' => $id));     
                 $status = $this->db->trans_complete();
                 return $status;	
 	} 

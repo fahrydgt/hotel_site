@@ -24,6 +24,7 @@ class Company extends CI_Controller {
             $data['main_content']='company/manage_company'; 
             $data['user_role_list'] = get_dropdown_data(USER_ROLE,'user_role','id');
             $data['country_list'] = get_dropdown_data(COUNTRY_LIST,'country_name','country_code','Country');
+            $data['currency_list'] = get_dropdown_data(CURRENCY,'title','code','Currency'); 
             $this->load->view('includes/template',$data);
 	}
 	
@@ -112,6 +113,7 @@ class Company extends CI_Controller {
                             'city' => $inputs['city'],
                             'state' => $inputs['state'],
                             'country' => $inputs['country'],
+                            'currency_code' => $inputs['currency_code'],
                             'zipcode' => $inputs['zipcode'],
                             'phone' => $inputs['phone'],
                             'fax' => $inputs['fax'],
@@ -124,7 +126,7 @@ class Company extends CI_Controller {
                             'logo' => 'logo.jpg',
                             'status' => $inputs['status'],
                             'added_on' => date('Y-m-d'),
-                            'added_by' => $this->session->userdata('ID'),
+                            'added_by' => $this->session->userdata(SYSTEM_CODE)['ID'],
                         );
                     
 		$add_stat = $this->Company_model->add_db($data);
@@ -134,10 +136,10 @@ class Company extends CI_Controller {
                     $new_data = $this->Company_model->get_single_row($add_stat[1]);
                     add_system_log(COMPANIES, $this->router->fetch_class(), __FUNCTION__, '', $new_data);
                     $this->session->set_flashdata('warn',RECORD_ADD);
-                    redirect(base_url('company')); 
+                    redirect(base_url($this->router->fetch_class()));
                 }else{
                     $this->session->set_flashdata('warn',ERROR);
-                    redirect(base_url('company'));
+                    redirect(base_url($this->router->fetch_class()));
                 } 
 	}
 	
@@ -155,6 +157,7 @@ class Company extends CI_Controller {
                             'city' => $inputs['city'],
                             'state' => $inputs['state'],
                             'country' => $inputs['country'],
+                            'currency_code' => $inputs['currency_code'],
                             'zipcode' => $inputs['zipcode'],
                             'phone' => $inputs['phone'],
                             'fax' => $inputs['fax'],
@@ -167,7 +170,7 @@ class Company extends CI_Controller {
 //                            'logo' => 'logo.jpg',
                             'status' => $inputs['status'],
                             'updated_on' => date('Y-m-d'),
-                            'updated_by' => $this->session->userdata('ID'),
+                            'updated_by' => $this->session->userdata(SYSTEM_CODE)['ID'],
                         ); 
                     
                     $fupload = $this->do_upload('logo','logo_'.$inputs['id']); 
@@ -186,10 +189,10 @@ class Company extends CI_Controller {
                 add_system_log(COMPANIES, $this->router->fetch_class(), __FUNCTION__, $new_data, $existing_data);
                 $this->session->set_flashdata('warn',RECORD_UPDATE);
                     
-                redirect(base_url('company/edit/'.$inputs['id']));
+                redirect(base_url($this->router->fetch_class().'/edit/'.$inputs['id']));
             }else{
                 $this->session->set_flashdata('warn',ERROR);
-                redirect(base_url('company'));
+                    redirect(base_url($this->router->fetch_class()));
             } 
 	}	
         
@@ -199,7 +202,7 @@ class Company extends CI_Controller {
             $data = array(
                             'deleted' => 1,
                             'deleted_on' => date('Y-m-d'),
-                            'deleted_by' => $this->session->userdata('ID')
+                            'deleted_by' => $this->session->userdata(SYSTEM_CODE)['ID']
                          ); 
                                         
             $id  = $inputs['id']; 
@@ -215,10 +218,10 @@ class Company extends CI_Controller {
                 //update log data
                 add_system_log(COMPANIES, $this->router->fetch_class(), __FUNCTION__,$existing_data, '');
                 $this->session->set_flashdata('warn',RECORD_DELETE);
-                redirect(base_url('company'));
+                redirect(base_url($this->router->fetch_class()));
             }else{
                 $this->session->set_flashdata('warn',ERROR);
-                redirect(base_url('company'));
+                redirect(base_url($this->router->fetch_class()));
             }  
 	}
 	
@@ -232,11 +235,11 @@ class Company extends CI_Controller {
                 add_system_log(COMPANIES, $this->router->fetch_class(), __FUNCTION__, '', $existing_data);
                 
                 $this->session->set_flashdata('warn',RECORD_DELETE);
-                redirect(base_url('company'));
+                redirect(base_url($this->router->fetch_class()));
 
             }else{
                 $this->session->set_flashdata('warn',ERROR);
-                redirect(base_url('company'));
+                redirect(base_url($this->router->fetch_class()));
             }  
 	}
         
@@ -244,6 +247,7 @@ class Company extends CI_Controller {
             
             $data['user_data'] = $this->Company_model->get_single_row($id); 
             $data['country_list'] = get_dropdown_data(COUNTRY_LIST,'country_name','country_code','Country'); 
+            $data['currency_list'] = get_dropdown_data(CURRENCY,'title','code','Currency'); 
             return $data;	
 	}	
         

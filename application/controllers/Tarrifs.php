@@ -115,7 +115,7 @@ class Tarrifs extends CI_Controller {
                             'over_booking_percentage' => $inputs['over_booking_percentage'],
                             'status' => $inputs['status'],
                             'added_on' => date('Y-m-d'),
-                            'added_by' => $this->session->userdata('ID'),
+                            'added_by' => $this->session->userdata(SYSTEM_CODE)['ID'],
                         );
                     
 		$add_stat = $this->Tarrif_model->add_db($data);
@@ -152,7 +152,7 @@ class Tarrifs extends CI_Controller {
                             'over_booking_percentage' => $inputs['over_booking_percentage'],
                             'status' => $inputs['status'],
                             'updated_on' => date('Y-m-d'),
-                            'updated_by' => $this->session->userdata('ID'),
+                            'updated_by' => $this->session->userdata(SYSTEM_CODE)['ID'],
                         ); 
                     
             //old data for log update
@@ -179,7 +179,7 @@ class Tarrifs extends CI_Controller {
             $data = array(
                             'deleted' => 1,
                             'deleted_on' => date('Y-m-d'),
-                            'deleted_by' => $this->session->userdata('ID')
+                            'deleted_by' => $this->session->userdata(SYSTEM_CODE)['ID']
                          ); 
                 
             $existing_data = $this->Tarrif_model->get_single_row($inputs['id']);

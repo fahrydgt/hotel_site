@@ -142,7 +142,7 @@ class Banners extends CI_Controller {
                             'status' => isset($inputs['status'])?1:0,
                             'data_json' => json_encode($inputs['arr']), 
                             'added_on' => date('Y-m-d'),
-                            'added_by' => $this->session->userdata('ID'),
+                            'added_by' => $this->session->userdata(SYSTEM_CODE)['ID'],
                         ); 
             
 //                          echo '<pre>'; print_r($data); die; 
@@ -219,7 +219,7 @@ class Banners extends CI_Controller {
                             'status' => isset($inputs['status'])?1:0,
                             'data_json' => json_encode($inputs['arr']), 
                             'updated_on' => date('Y-m-d'),
-                            'updated_by' => $this->session->userdata('ID'),
+                            'updated_by' => $this->session->userdata(SYSTEM_CODE)['ID'],
                         ); 
             
 //                          echo '<pre>'; print_r($data); die; 
@@ -242,7 +242,7 @@ class Banners extends CI_Controller {
 //                        echo '<pre>';            print_r($this->session->userdata());die;
 
 		$user_id  = $this->input->post('user_id'); 
-                if($user_id == $this->session->userdata('ID') || $user_id == 1){
+                if($user_id == $this->session->userdata(SYSTEM_CODE)['ID'] || $user_id == 1){
                     $this->session->set_flashdata('error','You Dont have permission delete this user!');
                     redirect(base_url('users'));;
                 }
